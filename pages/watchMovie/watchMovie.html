@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <link rel="apple-touch-icon" sizes="180x180" href="../../assets/logo-icon/logo2.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="../../assets/logo-icon/logo-icon.jpg">
+    <link rel="mask-icon" type="image/png" sizes="16x16" href="../../assets/logo-icon/logo-icon.jpg">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- loader -->
+    <link rel="stylesheet" href="../../css/loader/loader.css">
+    <!-- helper -->
+    <link rel="stylesheet" href="./../../css/helper/helper.css">
+    <!-- fonts -->
+    <link rel="stylesheet" href="./../../assets/fonts/TsukimiRounded/stylesheet.css">
+    <link rel="stylesheet" href="./../../assets/fonts/Inter/inter.css">
+    <!-- swiper -->
+    <link rel="stylesheet" href="./../../css/swiper/swiper-bundle.min.css">
+    <link rel="stylesheet" href="./../../css/swiper/swiperStyles.css">
+    <!-- css -->
+    <link rel="stylesheet" href="./watchMovie.css">
+    <title>KinoGid</title>
+</head>
+
+<body>
+    <header>
+        <div class="reg_popup">
+            <div class="reg_popup_wrap">
+                <div class="reg_popup_wrap_menu">
+                    <div class="sign_up_btn" id="sign_up_btn">login</div>
+                    <div class="registration_btn reg_popup_wrap_menu-active" id="registration_btn">registration</div>
+                    <div class="reg_popup_close">X</div>
+                </div>
+
+                <!-- login -->
+                <form action="" method="post" class="login" id="login__">
+                    <div class="clumn_conts">
+                        <label>имя пользователя</label>
+                        <input type="text" name="username" id="loginUsername">
+                    </div>
+
+                    <div class="clumn_conts">
+                        <label>пароль</label>
+                        <input type="text" name="password" id="loginPassword">
+                    </div>
+
+                    <div class="Keep-me clumn_conts">
+                        <label>
+                            <input id="check" type="checkbox" class="checkbox">
+                        </label>
+                        <p>Не выходить из системы</p>
+                    </div>
+
+                    <input class="submit" name="signup" value="войти" type="submit">
+
+                    <p>Забыли пароль?</p>
+                </form>
+
+                <!-- registr -->
+                <form action="" method="post" class="registr active-block" id="registr__">
+                    <div class="clumn_conts">
+                        <label>имя пользователя</label>
+                        <input type="text" id="registrUsername" name="username">
+                    </div>
+                    <div class="clumn_conts">
+                        <label>возраст</label>
+                        <input type="text" id="registrAge" name="age">
+                    </div>
+                    <div class="clumn_conts">
+                        <label>электронная почта</label>
+                        <input type="text" id="registrMail" name="e-mail">
+                    </div>
+                    <div class="clumn_conts">
+                        <label>пароль</label>
+                        <input type="password" id="registrPassword" name="password">
+                    </div>
+                    <div class="clumn_conts">
+                        <label>Подтвердите пароль</label>
+                        <input type="password" id="registrConfirm">
+                    </div>
+
+                    <input class="submit" value="регистрация" type="submit">
+                </form>
+            </div>
+        </div>
+        <!-- head swiper container-->
+        <div class="head-top-cont">
+            <a href="./../../index.html" class="logo">
+                <h1>Kino<span>Gid</span></h1>
+            </a>
+
+            <nav class="head-top-nav">
+                <div class="search" id="search">
+                    <input class="search-inp" id="search_inp" type="text">
+                    <span class="search-close" id="search-close"></span>
+                    <img src="./../../assets/svg/search-icon.svg" class="search-btn" id="search_btn">
+                    <div class="search__films__cont" id="search__films__cont"></div>
+                </div>
+
+                <a href="javascript:void(0)" class="head-top-nav-items" id="top_movies">топ <span
+                        id="FullYear">2010</span></a>
+                <a href="javascript:void(0)" class="head-top-nav-items" id="action">Премьеры</a>
+                <a href="javascript:void(0)" class="head-top-nav-items" id="animation">мультики</a>
+                <a href="javascript:void(0)" class="head-top-nav-items" id="comedy">комедии</a>
+                <a href="javascript:void(0)" class="head-top-nav-items" id="Family">Семейные</a>
+                <a href="javascript:void(0)" class="head-top-nav-items head-top-nav-items-login login__openPopup"
+                    id="login">
+                    <text>Войти</text>
+                    <img src="./../../assets/svg/login-icon.svg" alt="login-icon">
+                    <div class="user-icon"></div>
+                </a>
+            </nav>
+
+            <div class="mob_open_close" id="mob_open_close">
+                <img src="./../../assets/svg/burger-menu-right-svgrepo-com.svg" alt="">
+            </div>
+        </div>
+
+        <div class="move_info_cont"></div>
+
+        <div class="swiper-container head-swiper-container">
+            <div class="swiper-wrapper head-swiper-wrapper" id="head-swiper-wrapper"></div>
+            <!-- buttons -->
+            <div class="swiper-button-prev-unique"></div>
+            <div class="swiper-button-next-unique"></div>
+            <!-- Add Pagination -->
+            <div class="swiper-pagination head-swiper-pagination"></div>
+            <!--swiper configs -->
+            <script>
+                function headSwiper() {
+
+                    let bacground_poster_push = document.querySelector('header')
+                    let move_info_cont = document.querySelector('.move_info_cont')
+
+                    let move_info_cont_data_change = () => {
+                        setTimeout(() => {
+
+                            bacground_poster_push.style.backgroundImage = `url(${document.querySelector('.swiper-slide-active>.head_swiper_info>.head_swiper_info_imgSrc').textContent}`
+                            // get 
+                            let move_info_cont_original_title = document.querySelector('.swiper-slide-active>.head_swiper_info>.head_swiper_info_original_title').textContent
+                            let move_info_cont_title = document.querySelector('.swiper-slide-active>.head_swiper_info>.head_swiper_info_title').textContent
+                            let head_swiper_info_data = document.querySelector('.swiper-slide-active>.head_swiper_info>.head_swiper_info_data').textContent
+                            let reyting = document.querySelector('.swiper-slide-active>.head_swiper_info>.head_swiper_info_reyting').textContent
+                            // set
+                            function reytingStars() {
+                                document.getElementById('reyting_stars_bg_width').style.width = `${reyting.replace('.', '0.')}%`
+                            }
+
+                            move_info_cont.innerHTML = `<h2 class="move_info_cont_title">${move_info_cont_title}</h2>
+                                <p class="move_info_cont_date">дата выхода - ${head_swiper_info_data.replace(/-/g, " / ")}</p>
+                                <p class="move_info_cont_reyting">рейтинг
+                                    <img class='tmbd-logo' src="../../assets/svg/TMDB-icon.svg" alt="TMDB-icon">
+                                    <span class='reyting_stars_cont' id='reyting_stars_cont'>
+                                        <span class='reyting_stars_bg_width' id='reyting_stars_bg_width'></span>
+                                        <img src='./../../assets/svg/yellowStar.png'>
+                                        <img src='./../../assets/svg/yellowStar.png'>
+                                        <img src='./../../assets/svg/yellowStar.png'>
+                                        <img src='./../../assets/svg/yellowStar.png'>
+                                        <img src='./../../assets/svg/yellowStar.png'>
+                                    </span>
+                                </p>
+
+                                <div class="move_info_cont_row">
+                                    <div class="move_info_cont_play movie" move_data="${move_info_cont_title} ,${move_info_cont_original_title}, ${head_swiper_info_data.slice(0, 4)}">
+                                        <img src="./../../assets/svg/icons-play.png" alt="play">смотреть
+                                    </div>
+                                </div>`
+
+                            setTimeout(() => {
+                                document.querySelector('.move_info_cont_title').classList.add('move_info_cont_date_anim')
+                                document.querySelector('.move_info_cont_date').classList.add('move_info_cont_date_anim')
+                                document.querySelector('.move_info_cont_reyting').classList.add('move_info_cont_date_anim')
+                                document.querySelector('.move_info_cont_row').classList.add('move_info_cont_date_anim')
+                            }, 500);
+
+                            reytingStars()
+                            get_Watch_move_info_cont()
+                        }, 500)
+                    }
+
+                    let swiper = new Swiper('.head-swiper-container', {
+                        effect: 'coverflow',
+                        speed: 400,
+                        centeredSlides: true,
+                        slidesPerView: 'auto',
+                        // loop: true,
+                        coverflowEffect: {
+                            depth: 40,
+                            modifier: 5,
+                            rotate: 0,
+                            // scale:1.1,
+                            slideShadows: true,
+                            stretch: -10,
+                        },
+                        navigation: {
+                            nextEl: '.swiper-button-next-unique',
+                            prevEl: '.swiper-button-prev-unique',
+                        },
+                        pagination: {
+                            el: '.swiper-pagination',
+                            clickable: true,
+                        },
+                        autoplay: {
+                            delay: 6000,
+                        },
+                        keyboard: {
+                            enabled: true,
+                            onlyInViewport: false,
+                        },
+                        on: {
+                            // -------- touch & move--------
+                            sliderMove: function () {
+                                move_info_cont_data_change()
+                            },
+
+                            // -------- if buttones activete run this || autoplay--------
+                            slideChange: function () {
+                                move_info_cont_data_change()
+                                mouseEnter_out()
+                            }
+                        }
+                    })
+
+                    move_info_cont_data_change()
+
+                    function mouseEnter_out() {
+                        const move_info_cont = document.querySelector('.move_info_cont')
+                        move_info_cont.addEventListener('mouseenter', () => { swiper.autoplay.stop() })
+                        move_info_cont.addEventListener('mouseleave', () => { swiper.autoplay.start() })
+
+                        const head_swiper_wrapper = document.getElementById('head-swiper-wrapper')
+                        head_swiper_wrapper.addEventListener('mouseenter', () => { swiper.autoplay.stop() })
+                        head_swiper_wrapper.addEventListener('mouseleave', () => { swiper.autoplay.start() })
+                    }
+                }
+            </script>
+        </div>
+    </header>
+    <main class="main__section" id="main">
+
+        <div class="about_film" id="about_film"></div>
+
+        <div class="reclam_player" id="reclam_player">
+            <div class="reclam_player_baner">
+                <h3>здесь может быть ваша реклама</h3>
+                <p>kinogit@gmail.com</p>
+            </div>
+        </div>
+
+        <!-- player -->
+        <div class="players-cont">
+            <div class="slect-player">
+                <p class="slect-player-btn slect-player-btn-active">плеер 1</p>
+                <p class="slect-player-btn">плеер 2</p>
+                <p class="slect-player-btn">триллер</p>
+            </div>
+
+            <!-- players -->
+            <div class="video-players video-player-active">
+                <span>нет видео</span>
+                <div id="kinoplayertop" height="100%" data-player-active="tabus" data-title="" data-shearch="false"
+                    data-bg="#131313" data-ratio="1by1 ">
+                </div>
+            </div>
+
+            <div class="video-players">
+                <span>нет видео</span>
+                <div id="yohoho" data-title=""></div>
+            </div>
+
+            <div class="video-players">
+                <span>нет видео</span>
+                <div class="triller-video" id="triller">
+                </div>
+            </div>
+        </div>
+
+        <div class="recomendet-films-cont">
+            <!-- button -->
+            <div class="recomendet-films-prev-unique">
+                <div></div>
+            </div>
+
+            <div class="swiper-container" id="recomendet_films_cont">
+                <div class="swiper-wrapper recomendet-films" id="recomendet_films"></div>
+            </div>
+            <!-- button -->
+            <div class="recomendet-films-next-unique">
+                <div></div>
+            </div>
+            <!--swiper configs -->
+            <script>
+                function recomendet_films_Swiper() {
+                    let slidesPerView_count = 7;
+
+                    if (window.innerWidth < 1300) {
+                        slidesPerView_count = 6
+                    }
+                    if (window.innerWidth < 1000) {
+                        slidesPerView_count = 4
+                    }
+                    if (window.innerWidth < 600) {
+                        slidesPerView_count = 3
+                    }
+
+                    let swipers = new Swiper('#recomendet_films_cont', {
+                        // loop: true,
+                        slidesPerView: slidesPerView_count,
+                        spaceBetween: 13,
+                        freeMode: true,
+                        autoplay: {
+                            delay: 4000,
+                            pauseOnMouseEnter: true,
+                        },
+                        navigation: {
+                            nextEl: '.recomendet-films-next-unique',
+                            prevEl: '.recomendet-films-prev-unique',
+                        },
+
+                        keyboard: {
+                            enabled: true,
+                            onlyInViewport: false,
+                        },
+                    })
+                }
+
+                window.onresize = function (e) {
+                    recomendet_films_Swiper()
+                }
+            </script>
+        </div>
+    </main>
+
+    <div class="arrow-to-top" id="arrow_to_top">
+        <div>
+            <div></div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="all-info">
+            <a href="./../../index.html" class="logo">
+                <h1>Kino<span>Gid</span></h1>
+            </a>
+            <nav class="navigation">
+                <a href="./../privacy-polic/privacy-polic.html">Правообладателям</a>
+                <a href="./../app/app.html">Приложение</a>
+                <a href="./../faq/fac.html">фэк</a>
+                <a href="./../contact/contact.html">Контакты</a>
+            </nav>
+        </div>
+
+        <div class="loader">
+            <div class="loader-wrapper">
+                <svg class="pl" viewBox="0 0 176 160" width="176px" height="160px" xmlns="http://www.w3.org/2000/svg">
+                    <defs>
+                        <linearGradient id="pl-grad" x1="0" y1="0" x2="0" y2="1">
+                            <stop offset="0%" stop-color="hsl(33,90%,55%)" />
+                            <stop offset="30%" stop-color="hsl(33,90%,55%)" />
+                            <stop offset="100%" stop-color="hsl(3,90%,55%)" />
+                        </linearGradient>
+                    </defs>
+                    <g fill="none" stroke-width="16" stroke-linecap="round">
+                        <circle class="pl__ring" r="56" cx="88" cy="96" stroke="hsla(0,10%,10%,0.1)" />
+                        <path class="pl__worm1" d="M144,96A56,56,0,0,1,32,96" stroke="url(#pl-grad)"
+                            stroke-dasharray="43.98 307.87" />
+                        <path class="pl__worm2" d="M32,136V96s-.275-25.725,14-40" stroke="hsl(33,90%,55%)"
+                            stroke-dasharray="0 40 0 44" stroke-dashoffset="0.001" visibility="hidden" />
+                        <path class="pl__worm3" d="M144,136V96s.275-25.725-14-40" stroke="hsl(33,90%,55%)"
+                            stroke-dasharray="0 40 0 44" stroke-dashoffset="0.001" visibility="hidden" />
+                    </g>
+                </svg>
+
+                <div class="logo logo-loader">
+                    <h1>Kino<span>Gid</span></h1>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script type="text/javascript" src="./getMovieUrl.js"></script>
+    <script type="text/javascript" src="./registationForm.js"></script>
+    <script type="text/javascript" src="./watchMove.js"></script>
+
+    <!-- scripts -->
+    <script type="text/javascript" src="./../../js/swiper/swiper-bundle.min.js"></script>
+    <script type="text/javascript" src="./../../js/searchAnim/searchAnim.js"></script>
+    <script type="text/javascript" src="./../../js/mob_open_close/mob_open_close.js"></script>
+    <script type="text/javascript" src="//kinoplayer.top/top.js"></script>
+    <script type="text/javascript" src="//yohoho.cc/yo.js"></script>
+</body>
+
+</html>
