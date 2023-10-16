@@ -223,7 +223,7 @@ function showPoster_andData() {
             let about_film = document.getElementById('about_film')
             about_film.style.cssText = `background-image: url(${'https://image.tmdb.org/t/p/original/' + R.backdrop_path})`
             about_film.innerHTML = `
-            <h2 class="about_film_info_title">${R.title}</h2>
+            <h2 class="about_film_info_title">${R.title.replace(':','<br>')}</h2>
             <div class="about_film_cont">
                     <div class="about_film_poster">
                         <img id="about_film_poster_img" src="${IMG_URL + R.poster_path}" alt="${R.title}">

@@ -81,19 +81,27 @@ body {
 
 .reg_popup_wrap {
     width: 50%;
-    min-height: 100px;
+    min-width: 310px;
     background-color: rgba(0, 0, 0, 0.634);
     border-radius: 4px;
     overflow: hidden;
     border: 3px solid #ffffff24;
     text-transform: capitalize;
 
+    .flexBox {
+        width: 100%;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-evenly;
+        gap: 10px;
+    }
+
     .reg_popup_wrap_menu {
         position: relative;
         display: flex;
 
         .sign_up_btn {
-            padding: 5px 10px;
+            padding: 8px 10px;
             border-radius: 4px;
             background-color: #ffffff24;
             margin-left: 5px;
@@ -154,8 +162,49 @@ body {
         align-items: center;
         padding: 20px;
 
-        .Keep-me {
+        .keep-me {
             display: flex;
+            flex-direction: row;
+            align-items: center;
+
+            p {
+                font-size: 11px;
+            }
+
+            .checkBox__block {
+                position: relative;
+                width: 26px;
+                height: 13px;
+                outline: 1.5px solid #ffffff;
+                box-sizing: border-box;
+                border-radius: 50px;
+                margin-right: 8px;
+                margin-bottom: 0;
+                cursor: pointer;
+            }
+
+            .checkBox_el {
+                display: inline-block;
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 50%;
+                height: 100%;
+                background-color: #ff0000;
+                border-radius: 50%;
+                transition: 150ms;
+            }
+
+            #check_box {
+                margin: 0;
+                z-index: 10;
+                display: none;
+            }
+
+            #check_box:checked~.checkBox_el {
+                transform: translateX(100%);
+                background-color: rgb(0, 255, 0);
+            }
         }
     }
 
@@ -209,22 +258,30 @@ body {
     }
 }
 
-img{
+// ------------------------
+
+img {
     user-select: none;
 }
 
 // ------------------------
 header {
+    background-color: black;
+}
+
+.header-wrapper {
     position: relative;
     display: flex;
     width: 100%;
+    max-width: 1600px;
+    margin: 0 auto;
     height: 80vh;
-    background-size: contain;
+    max-height: 700px;
     justify-content: flex-end;
-    background-position: right top;
     margin-bottom: 250px;
+    background-size: contain;
+    background-position: right top;
     background-repeat: no-repeat;
-    user-select: none;
 
     &::before {
         content: '';
@@ -549,13 +606,12 @@ header {
     .reyting_stars_cont {
         position: relative;
         display: inherit;
-        width: 74px;
         margin-left: 8px;
         height: 13px;
 
         img {
-            width: 14px;
-            height: 13px;
+            width: 100%;
+            height: 100%;
         }
 
         .reyting_stars_bg_width {
@@ -841,6 +897,11 @@ header {
 }
 
 // main
+main {
+    max-width: 1600px;
+    margin: 0 auto;
+}
+
 .arrow-to-top {
     cursor: pointer;
     position: fixed;
@@ -942,8 +1003,9 @@ header {
 
 
 .about_film_info_title {
+    text-align: center;
     z-index: 4;
-    padding: 30px 0;
+    padding: 30px 5px;
     font-size: 30px;
     color: $colorWhite;
     text-shadow: 0 0 15px $colorBlack;
@@ -1035,9 +1097,9 @@ header {
     position: relative;
     align-items: center;
     justify-content: center;
-    box-shadow:0 0 20px 0 $colorBlack;
+    box-shadow: 0 0 20px 0 $colorBlack;
 
-    >span{
+    >span {
         position: absolute;
         color: $colorWhite;
         z-index: -1;
@@ -1185,7 +1247,7 @@ header {
         width: 40%;
     }
 
-    header {
+    .header-wrapper {
         background-size: cover;
         background-position: center;
     }
@@ -1208,7 +1270,7 @@ header {
         }
     }
 
-    header {
+    .header-wrapper {
         background-size: contain;
         height: 65vh;
         margin-bottom: 130px;
@@ -1470,5 +1532,12 @@ header {
 @media screen and (max-width: 426px) {
     .recomendet-films-items {
         width: calc(91%/4);
+    }
+}
+
+@media screen and (max-width:350px) {
+    .move_info_cont {
+        min-width: 310px;
+        margin-left: 5px;
     }
 }

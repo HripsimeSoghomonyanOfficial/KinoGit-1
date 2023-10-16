@@ -67,19 +67,26 @@ body {
 
 .reg_popup_wrap {
   width: 50%;
-  min-height: 100px;
+  min-width: 310px;
   background-color: rgba(0, 0, 0, 0.634);
   border-radius: 4px;
   overflow: hidden;
   border: 3px solid rgba(255, 255, 255, 0.1411764706);
   text-transform: capitalize;
 }
+.reg_popup_wrap .flexBox {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+  gap: 10px;
+}
 .reg_popup_wrap .reg_popup_wrap_menu {
   position: relative;
   display: flex;
 }
 .reg_popup_wrap .reg_popup_wrap_menu .sign_up_btn {
-  padding: 5px 10px;
+  padding: 8px 10px;
   border-radius: 4px;
   background-color: rgba(255, 255, 255, 0.1411764706);
   margin-left: 5px;
@@ -134,8 +141,44 @@ body {
   align-items: center;
   padding: 20px;
 }
-.reg_popup_wrap .login .Keep-me {
+.reg_popup_wrap .login .keep-me {
   display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+.reg_popup_wrap .login .keep-me p {
+  font-size: 11px;
+}
+.reg_popup_wrap .login .keep-me .checkBox__block {
+  position: relative;
+  width: 26px;
+  height: 13px;
+  outline: 1.5px solid #ffffff;
+  box-sizing: border-box;
+  border-radius: 50px;
+  margin-right: 8px;
+  margin-bottom: 0;
+  cursor: pointer;
+}
+.reg_popup_wrap .login .keep-me .checkBox_el {
+  display: inline-block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 50%;
+  height: 100%;
+  background-color: #ff0000;
+  border-radius: 50%;
+  transition: 150ms;
+}
+.reg_popup_wrap .login .keep-me #check_box {
+  margin: 0;
+  z-index: 10;
+  display: none;
+}
+.reg_popup_wrap .login .keep-me #check_box:checked ~ .checkBox_el {
+  transform: translateX(100%);
+  background-color: rgb(0, 255, 0);
 }
 .reg_popup_wrap .registr {
   position: relative;
@@ -187,20 +230,24 @@ img {
 }
 
 header {
+  background-color: black;
+}
+
+.header-wrapper {
   position: relative;
   display: flex;
   width: 100%;
+  max-width: 1600px;
+  margin: 0 auto;
   height: 80vh;
-  background-size: contain;
+  max-height: 700px;
   justify-content: flex-end;
-  background-position: right top;
   margin-bottom: 250px;
+  background-size: contain;
+  background-position: right top;
   background-repeat: no-repeat;
-  -webkit-user-select: none;
-     -moz-user-select: none;
-          user-select: none;
 }
-header::before {
+.header-wrapper::before {
   content: "";
   position: absolute;
   width: 100%;
@@ -497,13 +544,12 @@ header::before {
 .move_info_cont .reyting_stars_cont {
   position: relative;
   display: inherit;
-  width: 74px;
   margin-left: 8px;
   height: 13px;
 }
 .move_info_cont .reyting_stars_cont img {
-  width: 14px;
-  height: 13px;
+  width: 100%;
+  height: 100%;
 }
 .move_info_cont .reyting_stars_cont .reyting_stars_bg_width {
   position: absolute;
@@ -751,6 +797,11 @@ header::before {
   color: #b7b7b7;
 }
 
+main {
+  max-width: 1600px;
+  margin: 0 auto;
+}
+
 .arrow-to-top {
   cursor: pointer;
   position: fixed;
@@ -846,8 +897,9 @@ header::before {
 }
 
 .about_film_info_title {
+  text-align: center;
   z-index: 4;
-  padding: 30px 0;
+  padding: 30px 5px;
   font-size: 30px;
   color: #ffffff;
   text-shadow: 0 0 15px #000000;
@@ -1072,7 +1124,7 @@ header::before {
   .main__section__films .movie {
     width: 40%;
   }
-  header {
+  .header-wrapper {
     background-size: cover;
     background-position: center;
   }
@@ -1090,13 +1142,13 @@ header::before {
   .recomendet-films-items .movie-info-paragraph {
     font-size: 14px;
   }
-  header {
+  .header-wrapper {
     background-size: contain;
     height: 65vh;
     margin-bottom: 130px;
     background-position: 0 200px;
   }
-  header::before {
+  .header-wrapper::before {
     background: linear-gradient(90deg, rgba(0, 0, 0, 0.7882352941) 0%, rgba(0, 0, 0, 0.631372549) 33%, rgba(0, 0, 0, 0.24) 45%, rgba(255, 255, 255, 0) 100%);
   }
   .move_info_cont {
@@ -1291,5 +1343,11 @@ header::before {
 @media screen and (max-width: 426px) {
   .recomendet-films-items {
     width: 22.75%;
+  }
+}
+@media screen and (max-width: 350px) {
+  .move_info_cont {
+    min-width: 310px;
+    margin-left: 5px;
   }
 }/*# sourceMappingURL=watchMovie.css.map */

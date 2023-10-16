@@ -31,6 +31,13 @@ body {
   padding: 0;
   background-color: #131313;
   font-family: "Inter";
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.app {
+  width: 100%;
 }
 
 .reg_popup {
@@ -48,19 +55,26 @@ body {
 
 .reg_popup_wrap {
   width: 50%;
-  min-height: 100px;
+  min-width: 310px;
   background-color: rgba(0, 0, 0, 0.634);
   border-radius: 4px;
   overflow: hidden;
   border: 3px solid rgba(255, 255, 255, 0.1411764706);
   text-transform: capitalize;
 }
+.reg_popup_wrap .flexBox {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+  gap: 10px;
+}
 .reg_popup_wrap .reg_popup_wrap_menu {
   position: relative;
   display: flex;
 }
 .reg_popup_wrap .reg_popup_wrap_menu .sign_up_btn {
-  padding: 5px 10px;
+  padding: 8px 10px;
   border-radius: 4px;
   background-color: rgba(255, 255, 255, 0.1411764706);
   margin-left: 5px;
@@ -115,8 +129,44 @@ body {
   align-items: center;
   padding: 20px;
 }
-.reg_popup_wrap .login .Keep-me {
+.reg_popup_wrap .login .keep-me {
   display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+.reg_popup_wrap .login .keep-me p {
+  font-size: 11px;
+}
+.reg_popup_wrap .login .keep-me .checkBox__block {
+  position: relative;
+  width: 26px;
+  height: 13px;
+  outline: 1.5px solid #ffffff;
+  box-sizing: border-box;
+  border-radius: 50px;
+  margin-right: 8px;
+  margin-bottom: 0;
+  cursor: pointer;
+}
+.reg_popup_wrap .login .keep-me .checkBox_el {
+  display: inline-block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 50%;
+  height: 100%;
+  background-color: #ff0000;
+  border-radius: 50%;
+  transition: 150ms;
+}
+.reg_popup_wrap .login .keep-me #check_box {
+  margin: 0;
+  z-index: 10;
+  display: none;
+}
+.reg_popup_wrap .login .keep-me #check_box:checked ~ .checkBox_el {
+  transform: translateX(100%);
+  background-color: rgb(0, 255, 0);
 }
 .reg_popup_wrap .registr {
   position: relative;
@@ -162,17 +212,24 @@ body {
 }
 
 header {
+  background-color: black;
+}
+
+.header-wrapper {
   position: relative;
   display: flex;
   width: 100%;
+  max-width: 1600px;
+  margin: 0 auto;
   height: 80vh;
-  background-size: contain;
+  max-height: 700px;
   justify-content: flex-end;
-  background-position: right top;
   margin-bottom: 250px;
+  background-size: contain;
+  background-position: right top;
   background-repeat: no-repeat;
 }
-header::before {
+.header-wrapper::before {
   content: "";
   position: absolute;
   width: 40%;
@@ -380,6 +437,11 @@ header::before {
   color: #ffffff;
 }
 
+main {
+  max-width: 1600px;
+  margin: 0 auto;
+}
+
 .head-info-And-triller-cont {
   position: absolute;
   width: 100%;
@@ -430,13 +492,12 @@ header::before {
 .move_info_cont .reyting_stars_cont {
   position: relative;
   display: inherit;
-  width: 74px;
   margin-left: 8px;
   height: 13px;
 }
 .move_info_cont .reyting_stars_cont img {
-  width: 14px;
-  height: 13px;
+  width: 100%;
+  height: 100%;
 }
 .move_info_cont .reyting_stars_cont .reyting_stars_bg_width {
   position: absolute;
@@ -484,7 +545,7 @@ header::before {
 
 .triller-video {
   position: absolute;
-  right: 0;
+  right: -1px;
   width: 70%;
   height: 100%;
   z-index: 0;
@@ -496,6 +557,28 @@ header::before {
   height: 100%;
   -o-object-fit: cover;
      object-fit: cover;
+  z-index: -1;
+}
+
+.triller-video-active::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 100%;
+  height: 15%;
+  background-color: #000000;
+  z-index: 1;
+}
+.triller-video-active::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 100%;
+  height: 15%;
+  background-color: #000000;
+  z-index: 1;
 }
 
 .head-swiper-container {
@@ -996,19 +1079,19 @@ footer .pages-active {
   .categories .categories__tag {
     font-size: 13px;
   }
-  header {
+  .header-wrapper {
     background-size: cover;
     background-position: center;
   }
 }
 @media screen and (max-width: 700px) {
-  header {
+  .header-wrapper {
     background-size: contain;
     background-position: 0 200px;
     height: 65vh;
     margin-bottom: 140px;
   }
-  header::before {
+  .header-wrapper::before {
     display: none;
   }
   .triller-video {
@@ -1163,5 +1246,11 @@ footer .pages-active {
     width: inherit;
     min-width: inherit;
     font-size: 12px;
+  }
+}
+@media screen and (max-width: 350px) {
+  .move_info_cont {
+    min-width: 310px;
+    margin-left: 5px;
   }
 }/*# sourceMappingURL=index.css.map */
