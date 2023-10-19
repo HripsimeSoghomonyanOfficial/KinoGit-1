@@ -123,7 +123,7 @@ function get_top_movies() {
                 div.style = `background-image:url(https://image.tmdb.org/t/p/w500/${el.poster_path})`
                 div.innerHTML = `
                     <div class='movie_estimate'>
-                        <img class='movie_favorite' src='../../assets/svg/favorite.svg' />
+                        <img class='movie_favorite' src="assets/svg/favorite.svg">
                     </div>
 
 					<div class="allMovie movie head-swiper-wrapper-play-img-cont" id='${el.id}' move_data='${el.title} , ${el.original_title} , ${String(el.release_date).slice(0, 4)}'}>

@@ -1,10 +1,7 @@
 const D = new Date();
 const thisMonth = D.toLocaleString('en', { month: 'long' }); // june
 const thisYear = D.getFullYear() // 2023
-// allMovie
-{/* <div class='movie_estimate'>
-<img class='movie_favorite' src='../../assets/svg/favorite.svg' />
-</div> */}
+
 document.getElementById('FullYear').innerText = thisYear
 
 const search__films__cont = document.getElementById('search__films__cont');
@@ -126,7 +123,7 @@ function get_top_movies() {
                 div.style = `background-image:url(https://image.tmdb.org/t/p/w500/${el.poster_path})`
                 div.innerHTML = `
                     <div class='movie_estimate'>
-                        <img class='movie_favorite' src='../../assets/svg/favorite.svg' />
+                        <img class='movie_favorite' src='../../assets/svg/favorite.svg'>
                     </div>
             
 					<div class="head-swiper-wrapper-play-img-cont allMovie" id='${el.id}' move_data='${el.title} , ${el.original_title} , ${String(el.release_date).slice(0, 4)}'>
@@ -194,7 +191,7 @@ function showMovies(data) {
         if (Boolean(el.title) && el.poster_path) {
             movieEl.innerHTML = `
             <div class='movie_estimate'>
-                <img class='movie_favorite' src='../../assets/svg/favorite.svg' />
+                <img class='movie_favorite' src='../../assets/svg/favorite.svg'>
             </div>
 
             <div class="watch__now">
@@ -389,7 +386,7 @@ function recomendet_movies(url) {
                 if (Boolean(el.title) && el.poster_path) {
                     movieEl.innerHTML = `
                         <div class='movie_estimate'>
-                            <img class='movie_favorite' src='../../assets/svg/favorite.svg' />
+                            <img class='movie_favorite' src='../../assets/svg/favorite.svg'>
                         </div>
 
                         <div class="watch__now allMovie" id='${el.id}' move_data='${el.title} , ${el.original_title} , ${String(el.release_date).slice(0, 4)}'>
