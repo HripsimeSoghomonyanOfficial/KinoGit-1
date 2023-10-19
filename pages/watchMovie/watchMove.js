@@ -130,7 +130,7 @@ function get_top_movies() {
                     </div>
             
 					<div class="head-swiper-wrapper-play-img-cont allMovie" id='${el.id}' move_data='${el.title} , ${el.original_title} , ${String(el.release_date).slice(0, 4)}'>
-						<img src="./../../assets/svg/play-icon.svg" alt="play-button">
+						<img src="../../assets/svg/play-icon.svg" alt="play-button">
 					</div>
 
 					<div class="head_swiper_info" style="display:none">
@@ -343,7 +343,7 @@ function get_Watch_move_info_cont() {
         localStorage.setItem("move_id", `${move_id}`)
 
         // location
-        window.location.href = './../../pages/watchMovie/watchMovie.html'
+        window.location.href = '../../pages/watchMovie/watchMovie.html'
     })
 }
 
@@ -372,7 +372,7 @@ function get_Watch_Move_andPlay() {
             localStorage.setItem("move_id", `${move_id}`);
 
             // location
-            window.location.href = './../../pages/watchMovie/watchMovie.html';
+            window.location.href = '../../pages/watchMovie/watchMovie.html';
         })
     })
 }

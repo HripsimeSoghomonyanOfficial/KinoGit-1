@@ -127,7 +127,7 @@ function get_top_movies() {
                     </div>
 
 					<div class="allMovie movie head-swiper-wrapper-play-img-cont" id='${el.id}' move_data='${el.title} , ${el.original_title} , ${String(el.release_date).slice(0, 4)}'}>
-						<img src="./assets/svg/play-icon.svg" alt="play-button">
+						<img src="assets/svg/play-icon.svg" alt="play-button">
 					</div>
 
 					<div class="head_swiper_info" style="display:none">
@@ -326,12 +326,12 @@ function showMovies(data) {
         if (Boolean(el.title) && el.poster_path) {
             movieEl.innerHTML = `
             <div class='movie_estimate'>
-                <img class='movie_favorite' src='./assets/svg/favorite.svg' />
+                <img class='movie_favorite' src="assets/svg/favorite.svg">
             </div>
 
             <img src="${IMG_URL + el.poster_path}" alt="${el.title}">
             <div class="watch__now allMovie" id='${el.id}' move_data='${el.title} ${el.original_title} ${String(el.release_date).slice(0, 4)}/'>
-                <img src="./assets/svg/play-icon.svg" alt="play-button">
+                <img src="assets/svg/play-icon.svg" alt="play-button">
             </div>
             <div class="movie-info">
                 <h3 class="movie-info-title movie-title">${el.title}</h3>
@@ -461,7 +461,7 @@ function move_info_cont_play() {
         localStorage.setItem("move_id", `${move_id}`);
 
         // location
-        window.location.href = './pages/watchMovie/watchMovie.html';
+        window.location.href = 'pages/watchMovie/watchMovie.html';
     })
 }
 
@@ -479,7 +479,7 @@ function get_move_andPlay() {
             localStorage.setItem("move_id", `${move_id}`);
 
             // location
-            window.location.href = './pages/watchMovie/watchMovie.html';
+            window.location.href = 'pages/watchMovie/watchMovie.html';
         })
     })
 }
