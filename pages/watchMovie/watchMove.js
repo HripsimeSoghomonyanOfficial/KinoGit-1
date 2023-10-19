@@ -190,10 +190,6 @@ function showMovies(data) {
         // есле у фильма отсутствует название не показывать фильм ???
         if (Boolean(el.title) && el.poster_path) {
             movieEl.innerHTML = `
-            <div class='movie_estimate'>
-                <img class='movie_favorite' src='../../assets/svg/favorite.svg'>
-            </div>
-
             <div class="watch__now">
                 <img src="${IMG_URL + el.poster_path}" alt="${el.title}">
             </div>
@@ -201,8 +197,7 @@ function showMovies(data) {
             <div class="movie-info">
                 <h3 class="movie-info-title movie-title">${el.title}</h3>
                 <p class="movie-info-paragraph">${String(el.release_date).slice(0, 4)}</p>
-            </div>
-            `
+            </div>`
             search__films__cont.appendChild(movieEl);
         }
     })
