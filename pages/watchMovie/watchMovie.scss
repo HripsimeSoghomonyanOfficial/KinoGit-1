@@ -575,16 +575,26 @@ header {
     right: -10px;
     width: fit-content;
     width: auto;
-    z-index: 100;
+    z-index: 30;
+    transition: 150ms;
+    filter: grayscale(1);
 
-    .movie_favorite{
-        width: 35px;
+    &:hover {
+        filter: grayscale(0);
+    }
+
+    .movie_favorite {
+        width: 30px !important;
         transition: 150ms;
 
-        &:hover{
+        &:hover {
             transform: scale(1.1);
         }
     }
+}
+
+.movie_estimate-active {
+    filter: grayscale(0);
 }
 
 // -------------------------
@@ -1182,7 +1192,7 @@ main {
 
         &:active {
             transition: 30ms;
-            transform: scale(0.95);
+            transform: scale(0.99);
         }
     }
 

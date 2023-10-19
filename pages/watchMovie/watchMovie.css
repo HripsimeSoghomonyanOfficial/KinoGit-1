@@ -517,14 +517,23 @@ header {
   width: -moz-fit-content;
   width: fit-content;
   width: auto;
-  z-index: 100;
+  z-index: 30;
+  transition: 150ms;
+  filter: grayscale(1);
+}
+.movie_estimate:hover {
+  filter: grayscale(0);
 }
 .movie_estimate .movie_favorite {
-  width: 35px;
+  width: 30px !important;
   transition: 150ms;
 }
 .movie_estimate .movie_favorite:hover {
   transform: scale(1.1);
+}
+
+.movie_estimate-active {
+  filter: grayscale(0);
 }
 
 .move_info_cont {
@@ -1069,7 +1078,7 @@ main {
 }
 .recomendet-films-cont .recomendet-films-items:active {
   transition: 30ms;
-  transform: scale(0.95);
+  transform: scale(0.99);
 }
 .recomendet-films-cont .recomendet-films-prev-unique,
 .recomendet-films-cont .recomendet-films-next-unique {

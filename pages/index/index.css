@@ -901,14 +901,23 @@ main {
   width: -moz-fit-content;
   width: fit-content;
   width: auto;
-  z-index: 10;
+  z-index: 30;
+  transition: 150ms;
+  filter: grayscale(1);
+}
+.movie_estimate:hover {
+  filter: grayscale(0);
 }
 .movie_estimate .movie_favorite {
-  width: 35px !important;
+  width: 30px !important;
   transition: 150ms;
 }
 .movie_estimate .movie_favorite:hover {
   transform: scale(1.1);
+}
+
+.movie_estimate-active {
+  filter: grayscale(0);
 }
 
 .main__section {
