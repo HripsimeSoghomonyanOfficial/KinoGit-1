@@ -119,12 +119,14 @@ function get_top_movies() {
 
             films.forEach(el => {
                 const div = document.createElement('div')
-                div.className = 'movie swiper-slide head-swiper-slide'
-                div.id = el.id
-                div.setAttribute('move_data', `${el.title} , ${el.original_title} , ${String(el.release_date).slice(0, 4)}`)
+                div.className = 'swiper-slide head-swiper-slide'
                 div.style = `background-image:url(https://image.tmdb.org/t/p/w500/${el.poster_path})`
                 div.innerHTML = `
-					<div class="head-swiper-wrapper-play-img-cont">
+                    <div class='movie_estimate'>
+                        <img class='movie_favorite' src='../../assets/svg/favorite.svg' />
+                    </div>
+
+					<div class="allMovie movie head-swiper-wrapper-play-img-cont" id='${el.id}' move_data='${el.title} , ${el.original_title} , ${String(el.release_date).slice(0, 4)}'}>
 						<img src="./assets/svg/play-icon.svg" alt="play-button">
 					</div>
 
@@ -186,7 +188,7 @@ function setGenre() {
 
 
     const select_year = () => {
-        let years = [thisYear - 9, thisYear - 8,thisYear - 7, thisYear - 6, thisYear - 5, thisYear - 4, thisYear - 3, thisYear - 2, thisYear - 1, thisYear]
+        let years = [thisYear - 9, thisYear - 8, thisYear - 7, thisYear - 6, thisYear - 5, thisYear - 4, thisYear - 3, thisYear - 2, thisYear - 1, thisYear]
 
         let div = document.createElement('div')
         div.className = 'categories__tag__year__cont'
@@ -320,13 +322,17 @@ function showMovies(data) {
     data.forEach(el => {
         const movieEl = document.createElement('div');
         movieEl.className = 'movie'
-        movieEl.id = el.id
-        movieEl.setAttribute('move_data', `${el.title} ${el.original_title} ${String(el.release_date).slice(0, 4)}/`)
         // есле у фильма отсутствует название не показывать фильм
         if (Boolean(el.title) && el.poster_path) {
             movieEl.innerHTML = `
+            <div class='movie_estimate'>
+                <img class='movie_favorite' src='./assets/svg/favorite.svg' />
+            </div>
+
             <img src="${IMG_URL + el.poster_path}" alt="${el.title}">
-            <div class="watch__now"><img src="./assets/svg/play-icon.svg" alt="play-button"></div>
+            <div class="watch__now allMovie" id='${el.id}' move_data='${el.title} ${el.original_title} ${String(el.release_date).slice(0, 4)}/'>
+                <img src="./assets/svg/play-icon.svg" alt="play-button">
+            </div>
             <div class="movie-info">
                 <h3 class="movie-info-title movie-title">${el.title}</h3>
                 <div class='movie-info-subtitle-cont'>
@@ -410,7 +416,7 @@ document.getElementById('comedy').addEventListener('click', () => {
     document.getElementById('main__section__films').scrollIntoView({ behavior: 'smooth' })
 })
 
-document.getElementById('Family').addEventListener('click', () => {
+document.getElementById('family').addEventListener('click', () => {
     getMovies(BASE_URL + `/discover/movie?language=${language}?language=en-EN?sort_by=popularity.desc&${API_KEY}&with_genres=10751`)
     document.getElementById('main__section__films').scrollIntoView({ behavior: 'smooth' })
 })
@@ -444,7 +450,8 @@ function pageCall(page) {
 
 function move_info_cont_play() {
     document.querySelector('.move_info_cont_play').addEventListener('click', () => {
-        let el = document.querySelector('.swiper-slide-active')
+        let el = document.querySelector('.move_info_cont_play')
+        console.log(el);
         // get data
         let move_data = el.getAttribute('move_data')
         let move_id = el.getAttribute('id')
@@ -460,7 +467,7 @@ function move_info_cont_play() {
 
 get_move_andPlay()
 function get_move_andPlay() {
-    document.querySelectorAll('.movie').forEach(el => {
+    document.querySelectorAll('.allMovie').forEach(el => {
         el.addEventListener('click', () => {
 
             // get data

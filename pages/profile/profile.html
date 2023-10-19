@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- <link rel="apple-touch-icon" sizes="144x144" href="../../assets/logo-icon/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="../../assets/logo-icon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="../../assets/logo-icon/favicon-16x16.png"> -->
+    <!-- <link rel="manifest" href="../../assets/logo-icon/site.webmanifest">
+    <link rel="mask-icon" href="../../assets/logo-icon/safari-pinned-tab.svg" color="#ff9500"> -->
+    <meta name="msapplication-TileColor" content="#da532c">
+    <meta name="theme-color" content="#ffffff">
+    <!-- loader -->
+    <link rel="stylesheet" href="../../css/loader/loader.css">
+    <!-- helper -->
+    <link rel="stylesheet" href="../../css/helper/helper.css">
+    <!-- fonts -->
+    <link rel="stylesheet" href="../../assets/fonts/TsukimiRounded/stylesheet.css">
+    <link rel="stylesheet" href="../../assets/fonts/Inter/inter.css">
+    <!-- swiper -->
+    <link rel="stylesheet" href="../../css/swiper/swiper-bundle.min.css">
+    <link rel="stylesheet" href="../../css/swiper/swiperStyles.css">
+    <!-- main -->
+    <link rel="stylesheet" href="./profile.css">
+
+    <title>KinoGid</title>
+</head>
+
+<body>
+    <div class="app">
+        <header>
+            <div class="head-top-cont">
+                <a href="../../index.html" class="logo">
+                    <h1>Kino<span>Gid</span></h1>
+                </a>
+            </div>
+        </header>
+        <main id="main">
+            <div class="main_Wrapper">
+                <div class="personalInfo">
+                    <div class="personalInfo_cont">
+                        <img src="../../assets/img/Sample_User_Icon.png" alt="person">
+                        <h3><b>имя:</b> <span>Edgar Karapetyan</span></h3>
+                        <p><b>почта:</b> <span>edo099919956@gmail.com</span></p>
+                        <p><b>возраст:</b> <span>06/08/1995</span></p>
+                    </div>
+                </div>
+
+                <div class="main_sliderCont">
+                    <div class="main_items">
+                        <div class="main_items_imgCont main_items_imgCont-redact">
+                            <img src="../../assets/svg/history.svg" alt="history">
+                        </div>
+                        <div class="main_items_textCont">
+                            <h4>история просмотра</h4>
+                        </div>
+                    </div>
+                    <!-- Swiper -->
+                    <div class="swiper mySwiper">
+                        <div class="swiper-wrapper">
+                            <div class="swiper-slide">
+                                <img src="">
+                                <p>Slide</p>
+                            </div>
+                            <div class="swiper-slide">
+                                <img src="">
+                                <p>Slide</p>
+                            </div>
+                            <div class="swiper-slide">
+                                <img src="">
+                                <p>Slide</p>
+                            </div>
+                            <div class="swiper-slide">
+                                <img src="">
+                                <p>Slide</p>
+                            </div>
+                            <div class="swiper-slide">
+                                <img src="">
+                                <p>Slide</p>
+                            </div>
+                            <div class="swiper-slide">
+                                <img src="">
+                                <p>Slide</p>
+                            </div>
+                            <div class="swiper-slide">
+                                <img src="">
+                                <p>Slide</p>
+                            </div>
+                        </div>
+                        <div class="swiper-button-next history-buttons"></div>
+                        <div class="swiper-button-prev history-buttons"></div>
+                        <div class="swiper-pagination swiper-pagination-1"></div>
+                    </div>
+                </div>
+                <div class="main_sliderCont">
+                    <div class="main_items">
+                        <div class="main_items_imgCont">
+                            <img src="../../assets/svg/favorite.svg" alt="favorite">
+                        </div>
+                        <div class="main_items_textCont">
+                            <h4>Избранные видео</h4>
+                        </div>
+                    </div>
+                    <!-- Swiper -->
+                    <div class="swiper mySwiper">
+                        <div class="swiper-wrapper">
+                            <div class="swiper-slide">
+                                <img src="">
+                                <p>Slide</p>
+                            </div>
+                            <div class="swiper-slide">
+                                <img src="">
+                                <p>Slide</p>
+                            </div>
+                            <div class="swiper-slide">
+                                <img src="">
+                                <p>Slide</p>
+                            </div>
+                            <div class="swiper-slide">
+                                <img src="">
+                                <p>Slide</p>
+                            </div>
+                            <div class="swiper-slide">
+                                <img src="">
+                                <p>Slide</p>
+                            </div>
+                            <div class="swiper-slide">
+                                <img src="">
+                                <p>Slide</p>
+                            </div>
+                            <div class="swiper-slide">
+                                <img src="">
+                                <p>Slide</p>
+                            </div>
+                        </div>
+                        <div class="swiper-button-next favorite-buttons"></div>
+                        <div class="swiper-button-prev favorite-buttons"></div>
+                        <div class="swiper-pagination swiper-pagination-2"></div>
+                    </div>
+                </div>
+                <div class="main_sliderCont">
+                    <div class="main_items row">
+                        <div class="main_items_imgCont">
+                            <img src="../../assets/svg/ads.svg" alt="favorite">
+                        </div>
+                        <div class="main_items_textCont">
+                            <h4>реклама в нашем сайте</h4>
+                        </div>
+                        <div class="main_items_imgCont">
+                            <img class="main_items_imgCont_adsImgRot" src="../../assets/svg/ads.svg" alt="favorite">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Initialize Swiper -->
+                <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
+                <script>
+                    var swiper = new Swiper(".mySwiper", {
+                        slidesPerView: 6,
+                        spaceBetween: 30,
+                        // autoplay:true,
+                        pagination: {
+                            el: ".swiper-pagination",
+                            clickable: true,
+                        },
+                        navigation: {
+                            nextEl: ".swiper-button-next",
+                            prevEl: ".swiper-button-prev",
+                        },
+                    });
+                </script>
+            </div>
+        </main>
+
+        <footer>
+            <div class="footer-wrapper">
+                <a href="../../index.html" class="logo">
+                    <h1>Kino<span>Gid</span></h1>
+                </a>
+            </div>
+
+            <div class="loader">
+                <div class="loader-wrapper">
+                    <svg class="pl" viewBox="0 0 176 160" width="176px" height="160px"
+                        xmlns="http://www.w3.org/2000/svg">
+                        <defs>
+                            <linearGradient id="pl-grad" x1="0" y1="0" x2="0" y2="1">
+                                <stop offset="0%" stop-color="hsl(33,90%,55%)" />
+                                <stop offset="30%" stop-color="hsl(33,90%,55%)" />
+                                <stop offset="100%" stop-color="hsl(3,90%,55%)" />
+                            </linearGradient>
+                        </defs>
+                        <g fill="none" stroke-width="16" stroke-linecap="round">
+                            <circle class="pl__ring" r="56" cx="88" cy="96" stroke="hsla(0,10%,10%,0.1)" />
+                            <path class="pl__worm1" d="M144,96A56,56,0,0,1,32,96" stroke="url(#pl-grad)"
+                                stroke-dasharray="43.98 307.87" />
+                            <path class="pl__worm2" d="M32,136V96s-.275-25.725,14-40" stroke="hsl(33,90%,55%)"
+                                stroke-dasharray="0 40 0 44" stroke-dashoffset="0.001" visibility="hidden" />
+                            <path class="pl__worm3" d="M144,136V96s.275-25.725-14-40" stroke="hsl(33,90%,55%)"
+                                stroke-dasharray="0 40 0 44" stroke-dashoffset="0.001" visibility="hidden" />
+                        </g>
+                    </svg>
+
+                    <div class="logo logo-loader">
+                        <h1>Kino<span>Gid</span></h1>
+                    </div>
+
+                    <script>
+                        setTimeout(() => {
+                            document.querySelector('.loader').style.display = 'none'
+                        }, 1000);
+                    </script>
+                </div>
+            </div>
+
+        </footer>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-element-bundle.min.js"></script>
+
+    <script type="text/javascript" src="./profile.js"></script>
+</body>
+
+</html>

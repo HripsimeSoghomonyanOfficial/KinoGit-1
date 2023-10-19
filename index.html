@@ -4,11 +4,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="apple-touch-icon" sizes="144x144" href="./assets/logo-icon/apple-touch-icon.png">
+    <!-- <link rel="apple-touch-icon" sizes="144x144" href="./assets/logo-icon/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="./assets/logo-icon/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="./assets/logo-icon/favicon-16x16.png">
-    <link rel="manifest" href="./assets/logo-icon/site.webmanifest">
-    <link rel="mask-icon" href="./assets/logo-icon/safari-pinned-tab.svg" color="#ff9500">
+    <link rel="icon" type="image/png" sizes="16x16" href="./assets/logo-icon/favicon-16x16.png"> -->
+    <!-- <link rel="manifest" href="./assets/logo-icon/site.webmanifest">
+    <link rel="mask-icon" href="./assets/logo-icon/safari-pinned-tab.svg" color="#ff9500"> -->
     <meta name="msapplication-TileColor" content="#da532c">
     <meta name="theme-color" content="#ffffff">
     <!-- loader -->
@@ -41,24 +41,24 @@
                         </div>
 
                         <!-- login -->
-                        <form action="#####" method="post" class="login" id="login__">
-                            <div class="flexBox">
+                        <form action="./backend/login.php" method="post" class="login" id="login__">
+                            <div>
                                 <div>
                                     <div class="clumn_conts">
-                                        <label>имя пользователя</label>
-                                        <input type="text" name="username" id="loginUsername">
+                                        <label>электронная почта</label>
+                                        <input type="email" name="loginMail" id="loginEmail">
                                     </div>
                                 </div>
                                 <div>
                                     <div class="clumn_conts">
                                         <label>пароль</label>
-                                        <input type="text" name="password" id="loginPassword">
+                                        <input type="password" name="loginPassword" id="loginPassword">
                                     </div>
                                 </div>
                             </div>
                             <div class="keep-me clumn_conts">
                                 <label class="checkBox__block" for="check_box">
-                                    <input class="checkbox" id="check_box" type="checkbox" name="keep-me">
+                                    <input class="checkbox" id="check_box" type="checkbox" name="keepMe" value="3">
                                     <span class="checkBox_el"></span>
                                 </label>
                                 <p>Не выходить из системы</p>
@@ -66,39 +66,43 @@
 
                             <input class="submit" name="signup" value="войти" type="submit">
 
-                            <p>Забыли пароль?</p>
+                            <a class="forgetBtn" href="javascript:void(0)">Забыли пароль?</a>
                         </form>
 
                         <!-- registr -->
-                        <form action="#####" method="post" class="registr active-block" id="registr__">
+                        <form action="./backend/register.php" method="post" class="registr active-block" id="registr__">
                             <div class="flexBox">
                                 <div>
                                     <div class="clumn_conts">
-                                        <label>имя пользователя</label>
-                                        <input type="text" id="registrUsername" name="username">
+                                        <label>имя</label>
+                                        <input type="text" id="regName" name="regName">
+                                    </div>
+                                    <div class="clumn_conts">
+                                        <label>фамилия</label>
+                                        <input type="text" id="regLname" name="regLname">
                                     </div>
                                     <div class="clumn_conts">
                                         <label>возраст</label>
-                                        <input type="text" id="registrAge" name="age">
+                                        <input type="date" id="regAge" name="regAge">
                                     </div>
                                 </div>
                                 <div>
                                     <div class="clumn_conts">
                                         <label>электронная почта</label>
-                                        <input type="text" id="registrMail" name="e-mail">
+                                        <input type="email" name="regEmail" id="regEmail">
                                     </div>
                                     <div class="clumn_conts">
                                         <label>пароль</label>
-                                        <input type="password" id="registrPassword" name="password">
+                                        <input type="password" id="regPassword" name="regPassword">
                                     </div>
                                     <div class="clumn_conts">
                                         <label>Подтвердите пароль</label>
-                                        <input type="password" id="registrConfirm">
+                                        <input type="password" id="regConfirm" name="regConfirm">
                                     </div>
                                 </div>
                             </div>
 
-                            <input class="submit" value="регистрация" type="submit">
+                            <input class="submit" value="регистрация" type="submit" name="submit">
                         </form>
                     </div>
                 </div>
@@ -122,7 +126,7 @@
                         <a href="javascript:void(0)" class="head-top-nav-items" id="action">Премьеры</a>
                         <a href="javascript:void(0)" class="head-top-nav-items" id="animation">мультики</a>
                         <a href="javascript:void(0)" class="head-top-nav-items" id="comedy">комедии</a>
-                        <a href="javascript:void(0)" class="head-top-nav-items" id="Family">Семейные</a>
+                        <a href="javascript:void(0)" class="head-top-nav-items" id="family">Семейные</a>
                         <a href="javascript:void(0)"
                             class="head-top-nav-items head-top-nav-items-login login__openPopup" id="login">
                             <text>Войти</text>
@@ -172,20 +176,21 @@
                                     let head_swiper_info_id = document.querySelector('.swiper-slide-active>.head_swiper_info>.head_swiper_info_id').textContent
                                     // set
                                     document.querySelector('.move_info_cont').innerHTML = `<h2 class="move_info_cont_title">${move_info_cont_title}</h2>
-                                <p class="move_info_cont_date">дата выхода - ${head_swiper_info_data.replace(/-/g, " / ")}</p>
-                                <p class="move_info_cont_reyting">рейтинг 
-                                    <img src="./assets/svg/TMDB-icon.svg" alt="TMDB-icon">
-                                    <span class='reyting_stars_cont' id='reyting_stars_cont'>
-                                        <span class='reyting_stars_bg_width' id='reyting_stars_bg_width'></span>
-                                        <img src='./assets/svg/yellowStar.png'>
-                                    </span>
-                                </p>
+                                        <p class="move_info_cont_date">дата выхода - ${head_swiper_info_data.replace(/-/g, " / ")}</p>
+                                        <p class="move_info_cont_reyting">рейтинг 
+                                            <img src="./assets/svg/TMDB-icon.svg" alt="TMDB-icon">
+                                            <span class='reyting_stars_cont' id='reyting_stars_cont'>
+                                                <span class='reyting_stars_bg_width' id='reyting_stars_bg_width'></span>
+                                                <img src='./assets/svg/yellowStar.png'>
+                                            </span>
+                                        </p>
 
-                                <div class="move_info_cont_row">
-                                    <div class="move_info_cont_play movie" move_data="${move_info_cont_title} ,${move_info_cont_original_title}, ${head_swiper_info_data.slice(0, 4)}">
-                                        <img src="./assets/svg/icons-play.png" alt="play">смотреть
-                                    </div>
-                                </div>`;
+                                        <div class="move_info_cont_row">
+                                            <div class="move_info_cont_play" id='${head_swiper_info_id}' move_data="${move_info_cont_title} ,${move_info_cont_original_title}, ${head_swiper_info_data.slice(0, 4)}">
+                                                <img src="./assets/svg/icons-play.png" alt="play">смотреть
+                                            </div>
+                                        </div>`;
+                                        console.log();
 
                                     setTimeout((e) => {
                                         document.querySelector('.move_info_cont_title').classList.add('move_info_cont_date_anim')
@@ -283,12 +288,10 @@
                                     fetch(`${BASE_URL}/movie/${id}/videos?${API_KEY}`).then(res => res.json())
                                         .then(videoData => {
                                             let el = videoData.results
-                                            console.log(el.length);
                                             for (let i = 0; i < el.length; i++) {
                                                 arr.unshift(`<iframe src="https://www.youtube.com/embed/${el[i].key}?controls=0&autoplay=1&loop=1&playlist=${el[i].key}&showinfo=0&mute=1" title="${el[i].name}"></iframe>`)
                                                 document.getElementById('triller_video').innerHTML = arr[0]
-                                                console.log((el[i].name));
-                                                if (el[i].name && (String(el[i].name).toLocaleLowerCase()).match('final trailer') || (String(el[i].name).toLocaleLowerCase()).match('official trailer'))
+                                                if ((String(el[i].name).toLocaleLowerCase()).match('official trailer') || el[i].name && (String(el[i].name).toLocaleLowerCase()).match('final trailer'))
                                                     break
                                             }
                                         })
@@ -386,7 +389,8 @@
     <script type="text/javascript" src="./js/searchAnim/searchAnim.js"></script>
     <script type="text/javascript" src="./js/mob_open_close/mob_open_close.js"></script>
     <script type="text/javascript" src="./pages/index/index.js"></script>
-    <script type="text/javascript" src="./pages/index/registationForm.js"></script>
+    <script type="text/javascript" src="./js/registationForm.js"></script>
+    <script type="text/javascript" src="./js/script.js"></script>
 </body>
 
 </html>

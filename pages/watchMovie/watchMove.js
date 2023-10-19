@@ -1,7 +1,10 @@
 const D = new Date();
 const thisMonth = D.toLocaleString('en', { month: 'long' }); // june
 const thisYear = D.getFullYear() // 2023
-
+// allMovie
+{/* <div class='movie_estimate'>
+<img class='movie_favorite' src='../../assets/svg/favorite.svg' />
+</div> */}
 document.getElementById('FullYear').innerText = thisYear
 
 const search__films__cont = document.getElementById('search__films__cont');
@@ -120,11 +123,13 @@ function get_top_movies() {
             films.forEach(el => {
                 const div = document.createElement('div')
                 div.className = 'movie swiper-slide head-swiper-slide'
-                div.id = el.id
-                div.setAttribute('move_data', `${el.title} , ${el.original_title} , ${String(el.release_date).slice(0, 4)}`)
                 div.style = `background-image:url(https://image.tmdb.org/t/p/w500/${el.poster_path})`
                 div.innerHTML = `
-					<div class="head-swiper-wrapper-play-img-cont">
+                    <div class='movie_estimate'>
+                        <img class='movie_favorite' src='../../assets/svg/favorite.svg' />
+                    </div>
+            
+					<div class="head-swiper-wrapper-play-img-cont allMovie" id='${el.id}' move_data='${el.title} , ${el.original_title} , ${String(el.release_date).slice(0, 4)}'>
 						<img src="./../../assets/svg/play-icon.svg" alt="play-button">
 					</div>
 
@@ -134,6 +139,7 @@ function get_top_movies() {
 						<h2 class="head_swiper_info_title">${el.title}</h2>
                         <span class="head_swiper_info_reyting">${String(el.vote_average).slice(0, 3)}</span>
                         <span class="head_swiper_info_data">${el.release_date}</span>
+                        <span class="head_swiper_info_id">${el.id}</span>
 					</div>`
                 swiper_wrapper.appendChild(div)
             })
@@ -187,6 +193,10 @@ function showMovies(data) {
         // есле у фильма отсутствует название не показывать фильм ???
         if (Boolean(el.title) && el.poster_path) {
             movieEl.innerHTML = `
+            <div class='movie_estimate'>
+                <img class='movie_favorite' src='../../assets/svg/favorite.svg' />
+            </div>
+
             <div class="watch__now">
                 <img src="${IMG_URL + el.poster_path}" alt="${el.title}">
             </div>
@@ -223,7 +233,7 @@ function showPoster_andData() {
             let about_film = document.getElementById('about_film')
             about_film.style.cssText = `background-image: url(${'https://image.tmdb.org/t/p/original/' + R.backdrop_path})`
             about_film.innerHTML = `
-            <h2 class="about_film_info_title">${R.title.replace(':','<br>')}</h2>
+            <h2 class="about_film_info_title">${R.title.replace(':', '<br>')}</h2>
             <div class="about_film_cont">
                     <div class="about_film_poster">
                         <img id="about_film_poster_img" src="${IMG_URL + R.poster_path}" alt="${R.title}">
@@ -321,10 +331,12 @@ function click_js() {
 
 function get_Watch_move_info_cont() {
     document.querySelector('.move_info_cont_play').addEventListener('click', () => {
-        let el = document.querySelector('.swiper-slide-active')
+        let el = document.querySelector('.move_info_cont_play')
         // get data
         let move_data = el.getAttribute('move_data')
         let move_id = el.getAttribute('id')
+        console.log(move_data);
+        console.log(move_id);
 
         // save in localStorage
         localStorage.setItem("move_data", `${move_data}`)
@@ -349,7 +361,7 @@ function show_recomendet_films(R) {
 
 get_Watch_Move_andPlay()
 function get_Watch_Move_andPlay() {
-    document.querySelectorAll('.movie').forEach(el => {
+    document.querySelectorAll('.allMovie').forEach(el => {
         el.addEventListener('click', () => {
             // get data
             let move_data = el.getAttribute('move_data')
@@ -373,17 +385,19 @@ function recomendet_movies(url) {
             data.results.forEach(el => {
                 let movieEl = document.createElement('div');
                 movieEl.className = 'movie swiper-slide recomendet-films-items'
-                movieEl.id = el.id
-                movieEl.setAttribute('move_data', `${el.title} , ${el.original_title} , ${String(el.release_date).slice(0, 4)}`)
                 // есле у фильма отсутствует название не показывать фильм ???
                 if (Boolean(el.title) && el.poster_path) {
                     movieEl.innerHTML = `
-                        <div class="watch__now">
+                        <div class='movie_estimate'>
+                            <img class='movie_favorite' src='../../assets/svg/favorite.svg' />
+                        </div>
+
+                        <div class="watch__now allMovie" id='${el.id}' move_data='${el.title} , ${el.original_title} , ${String(el.release_date).slice(0, 4)}'>
                             <img src="${IMG_URL + el.poster_path}" alt="${el.title}">
                         </div>
 
                         <div class="movie-info">
-                            <h3 class="movie-info-title movie-title">${el.title}</h3>
+                            <h3 class="movie-info-title movie-title">${el.title.replace(':', '<br>')}</h3>
                             <p class="movie-info-paragraph">${String(el.release_date).slice(0, 4)}</p>
                         </div>`
                     document.getElementById('recomendet_films').appendChild(movieEl);

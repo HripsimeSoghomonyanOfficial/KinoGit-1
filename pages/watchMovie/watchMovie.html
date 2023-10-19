@@ -35,24 +35,24 @@
                     </div>
 
                     <!-- login -->
-                    <form action="#####" method="post" class="login" id="login__">
-                        <div class="flexBox">
+                    <form action="../../backend/login.php" method="post" class="login" id="login__">
+                        <div>
                             <div>
                                 <div class="clumn_conts">
-                                    <label>имя пользователя</label>
-                                    <input type="text" name="username" id="loginUsername">
+                                    <label>электронная почта</label>
+                                    <input type="email" name="loginMail" id="loginEmail">
                                 </div>
                             </div>
                             <div>
                                 <div class="clumn_conts">
                                     <label>пароль</label>
-                                    <input type="text" name="password" id="loginPassword">
+                                    <input type="password" name="loginPassword" id="loginPassword">
                                 </div>
                             </div>
                         </div>
                         <div class="keep-me clumn_conts">
                             <label class="checkBox__block" for="check_box">
-                                <input class="checkbox" id="check_box" type="checkbox" name="keep-me">
+                                <input class="checkbox" id="check_box" type="checkbox" name="keepMe" value="3">
                                 <span class="checkBox_el"></span>
                             </label>
                             <p>Не выходить из системы</p>
@@ -60,39 +60,43 @@
 
                         <input class="submit" name="signup" value="войти" type="submit">
 
-                        <p>Забыли пароль?</p>
+                        <a class="forgetBtn" href="javascript:void(0)">Забыли пароль?</a>
                     </form>
 
                     <!-- registr -->
-                    <form action="#####" method="post" class="registr active-block" id="registr__">
+                    <form action="../../backend/register.php" method="post" class="registr active-block" id="registr__">
                         <div class="flexBox">
                             <div>
                                 <div class="clumn_conts">
-                                    <label>имя пользователя</label>
-                                    <input type="text" id="registrUsername" name="username">
+                                    <label>имя</label>
+                                    <input type="text" id="regName" name="regName">
+                                </div>
+                                <div class="clumn_conts">
+                                    <label>фамилия</label>
+                                    <input type="text" id="regLname" name="regLname">
                                 </div>
                                 <div class="clumn_conts">
                                     <label>возраст</label>
-                                    <input type="text" id="registrAge" name="age">
+                                    <input type="date" id="regAge" name="regAge">
                                 </div>
                             </div>
                             <div>
                                 <div class="clumn_conts">
                                     <label>электронная почта</label>
-                                    <input type="text" id="registrMail" name="e-mail">
+                                    <input type="email" name="regEmail" id="regEmail">
                                 </div>
                                 <div class="clumn_conts">
                                     <label>пароль</label>
-                                    <input type="password" id="registrPassword" name="password">
+                                    <input type="password" id="regPassword" name="regPassword">
                                 </div>
                                 <div class="clumn_conts">
                                     <label>Подтвердите пароль</label>
-                                    <input type="password" id="registrConfirm">
+                                    <input type="password" id="regConfirm" name="regConfirm">
                                 </div>
                             </div>
                         </div>
 
-                        <input class="submit" value="регистрация" type="submit">
+                        <input class="submit" value="регистрация" type="submit" name="submit">
                     </form>
                 </div>
             </div>
@@ -154,6 +158,7 @@
                                 let move_info_cont_title = document.querySelector('.swiper-slide-active>.head_swiper_info>.head_swiper_info_title').textContent.replace(':', '<br>')
                                 let head_swiper_info_data = document.querySelector('.swiper-slide-active>.head_swiper_info>.head_swiper_info_data').textContent
                                 let reyting = document.querySelector('.swiper-slide-active>.head_swiper_info>.head_swiper_info_reyting').textContent
+                                let head_swiper_info_id = document.querySelector('.swiper-slide-active>.head_swiper_info>.head_swiper_info_id').textContent
                                 // set
                                 function reytingStars() {
                                     document.getElementById('reyting_stars_bg_width').style.width = `${reyting.replace('.', '0.')}%`
@@ -170,7 +175,7 @@
                                 </p>
 
                                 <div class="move_info_cont_row">
-                                    <div class="move_info_cont_play movie" move_data="${move_info_cont_title} ,${move_info_cont_original_title}, ${head_swiper_info_data.slice(0, 4)}">
+                                    <div class="move_info_cont_play" id='${head_swiper_info_id}' move_data="${move_info_cont_title} ,${move_info_cont_original_title}, ${head_swiper_info_data.slice(0, 4)}">
                                         <img src="./../../assets/svg/icons-play.png" alt="play">смотреть
                                     </div>
                                 </div>`
@@ -225,22 +230,11 @@
                                 // -------- if buttones activete run this || autoplay--------
                                 slideChange: function () {
                                     move_info_cont_data_change()
-                                    mouseEnter_out()
                                 }
                             }
                         })
 
                         move_info_cont_data_change()
-
-                        function mouseEnter_out() {
-                            const move_info_cont = document.querySelector('.move_info_cont')
-                            move_info_cont.addEventListener('mouseenter', () => { swiper.autoplay.stop() })
-                            move_info_cont.addEventListener('mouseleave', () => { swiper.autoplay.start() })
-
-                            const head_swiper_wrapper = document.getElementById('head-swiper-wrapper')
-                            head_swiper_wrapper.addEventListener('mouseenter', () => { swiper.autoplay.stop() })
-                            head_swiper_wrapper.addEventListener('mouseleave', () => { swiper.autoplay.start() })
-                        }
                     }
                 </script>
             </div>
@@ -382,14 +376,15 @@
     </footer>
 
     <script type="text/javascript" src="./getMovieUrl.js"></script>
-    <script type="text/javascript" src="./registationForm.js"></script>
+    <script type="text/javascript" src="../../js/registationForm.js"></script>
     <script type="text/javascript" src="./watchMove.js"></script>
-
     <!-- scripts -->
+    <script type="text/javascript" src="//kinoplayer.top/top.js"></script>
     <script type="text/javascript" src="./../../js/swiper/swiper-bundle.min.js"></script>
     <script type="text/javascript" src="./../../js/searchAnim/searchAnim.js"></script>
     <script type="text/javascript" src="./../../js/mob_open_close/mob_open_close.js"></script>
-    <script type="text/javascript" src="//kinoplayer.top/top.js"></script>
+    <script type="text/javascript" src="./js/script.js"></script>
+
 </body>
 
 </html>

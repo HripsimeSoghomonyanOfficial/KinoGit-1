@@ -1,23 +1,32 @@
 document.querySelector('.login__openPopup').addEventListener('click', () => {
-    document.querySelector('.reg_popup').style.display='flex'
+    document.querySelector('.reg_popup').style.display = 'flex'
 
     document.getElementById('sign_up_btn').addEventListener('click', () => {
         document.getElementById('sign_up_btn').classList.add('reg_popup_wrap_menu-active');
         document.getElementById('registration_btn').classList.remove('reg_popup_wrap_menu-active');
-        
-        document.getElementById('_login_').classList.add('active-block');
-        document.getElementById('_registr_').classList.remove('active-block');
+
+        document.getElementById('login__').classList.add('active-block');
+        document.getElementById('registr__').classList.remove('active-block');
     });
-    
+
     document.getElementById('registration_btn').addEventListener('click', () => {
         document.getElementById('sign_up_btn').classList.remove('reg_popup_wrap_menu-active');
         document.getElementById('registration_btn').classList.add('reg_popup_wrap_menu-active');
 
-        document.getElementById('_registr_').classList.add('active-block');
-        document.getElementById('_login_').classList.remove('active-block');
+        document.getElementById('registr__').classList.add('active-block');
+        document.getElementById('login__').classList.remove('active-block');
     });
 })
 
 document.querySelector('.reg_popup_close').addEventListener('click', () => {
-    document.querySelector('.reg_popup').style.display='none';
+    document.querySelector('.reg_popup').style.display = 'none';
 })
+
+if (window.location.href.indexOf('?1') !== -1) {
+    document.querySelector('.reg_popup').style = "display: flex;"
+    document.querySelector('.reg_popup_wrap').innerHTML = '<div style="padding: 80px;">вы успешно зарегистрирова</div>'
+
+    setTimeout(() => {
+        document.querySelector('.reg_popup').style = "display: none;"
+    }, 1000);
+}
