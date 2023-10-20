@@ -202,6 +202,12 @@ main {
   height: auto;
   margin: 10px 0;
 }
+.main_Wrapper .main_items .main_items_textCont_history {
+  color: #007aff;
+}
+.main_Wrapper .main_items .main_items_textCont_favorite {
+  color: #ffb700;
+}
 .main_Wrapper .row {
   width: 100%;
   border-radius: 20px;
@@ -217,7 +223,7 @@ main {
   background-color: #1e1e1e;
   border-radius: 0 20px 20px 20px;
   padding: 30px 40px;
-  filter: drop-shadow(-14px 15px 10px black);
+  filter: drop-shadow(-14px 20px 10px black);
 }
 .main_Wrapper .swiper-wrapper {
   width: 100%;
@@ -234,6 +240,11 @@ main {
   background-position: center;
   border-radius: 20px;
   flex-direction: column;
+  transition: 200ms;
+  cursor: pointer;
+}
+.main_Wrapper .swiper-slide:hover {
+  transform: scale(1.05);
 }
 .main_Wrapper .swiper-slide p {
   width: 90%;
@@ -245,20 +256,26 @@ main {
 .main_Wrapper .history-buttons {
   color: #007aff;
 }
+.main_Wrapper .history-buttons::after {
+  font-size: 35px;
+}
+.main_Wrapper .history-buttons:hover {
+  transform: scale(0.9);
+}
 .main_Wrapper .favorite-buttons {
   color: #ffb700;
 }
-.main_Wrapper .heart-buttons {
-  color: red;
+.main_Wrapper .favorite-buttons::after {
+  font-size: 35px;
+}
+.main_Wrapper .favorite-buttons:hover {
+  transform: scale(0.9);
 }
 .main_Wrapper .swiper-pagination-1 > .swiper-pagination-bullet-active {
   background-color: #007aff;
 }
 .main_Wrapper .swiper-pagination-2 > .swiper-pagination-bullet-active {
   background-color: #ffb700;
-}
-.main_Wrapper .swiper-pagination-3 > .swiper-pagination-bullet-active {
-  background-color: red;
 }
 
 footer {

@@ -93,6 +93,7 @@ header {
                 box-shadow: 0px 0px 8px -1px $colororange;
                 cursor: pointer;
             }
+
             &:hover input {
                 color: red;
                 box-shadow: 0px 0px 15px 0 red;
@@ -232,6 +233,14 @@ main {
             height: auto;
             margin: 10px 0;
         }
+
+        .main_items_textCont_history {
+            color: #007aff;
+        }
+
+        .main_items_textCont_favorite {
+            color: $colororange;
+        }
     }
 
     .row {
@@ -254,7 +263,7 @@ main {
         background-color: $color1;
         border-radius: 0 20px 20px 20px;
         padding: 30px 40px;
-        filter: drop-shadow(-14px 15px 10px black);
+        filter: drop-shadow(-14px 20px 10px black);
     }
 
     .swiper-wrapper {
@@ -273,6 +282,12 @@ main {
         background-position: center;
         border-radius: 20px;
         flex-direction: column;
+        transition: 200ms;
+        cursor: pointer;
+
+        &:hover {
+            transform: scale(1.05);
+        }
 
         p {
             width: 90%;
@@ -285,14 +300,26 @@ main {
 
     .history-buttons {
         color: #007aff;
+
+        &::after {
+            font-size: 35px;
+        }
+
+        &:hover {
+            transform: scale(0.90);
+        }
     }
 
     .favorite-buttons {
         color: $colororange;
-    }
 
-    .heart-buttons {
-        color: red;
+        &::after {
+            font-size: 35px;
+        }
+
+        &:hover {
+            transform: scale(0.90);
+        }
     }
 
     .swiper-pagination-1>.swiper-pagination-bullet-active {
@@ -301,10 +328,6 @@ main {
 
     .swiper-pagination-2>.swiper-pagination-bullet-active {
         background-color: $colororange;
-    }
-
-    .swiper-pagination-3>.swiper-pagination-bullet-active {
-        background-color: red;
     }
 }
 

@@ -1264,6 +1264,10 @@ footer {
 }
 
 @media screen and (max-width: 700px) {
+    .move_info_cont .reyting_stars_cont {
+        height: 12px;
+    }
+
     .head-top-slesh {
         display: none;
     }
@@ -1389,7 +1393,7 @@ footer {
         position: absolute;
         flex-direction: column-reverse;
         align-items: flex-end;
-        top: 50px;
+        top: 99%;
         right: -400px;
         background-color: #0c0c0cf0;
         width: 50%;

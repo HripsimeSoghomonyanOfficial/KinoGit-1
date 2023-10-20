@@ -1184,6 +1184,9 @@ main {
   }
 }
 @media screen and (max-width: 700px) {
+  .move_info_cont .reyting_stars_cont {
+    height: 12px;
+  }
   .head-top-slesh {
     display: none;
   }
@@ -1272,7 +1275,7 @@ main {
     position: absolute;
     flex-direction: column-reverse;
     align-items: flex-end;
-    top: 50px;
+    top: 99%;
     right: -400px;
     background-color: rgba(12, 12, 12, 0.9411764706);
     width: 50%;
