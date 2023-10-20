@@ -22,18 +22,58 @@
     <link rel="stylesheet" href="../../css/swiper/swiper-bundle.min.css">
     <link rel="stylesheet" href="../../css/swiper/swiperStyles.css">
     <!-- main -->
-    <link rel="stylesheet" href="./profile.css">
+    <link rel="stylesheet" href="profile.css">
 
     <title>KinoGid</title>
 </head>
 
 <body>
+    <div class="loader">
+        <!-- loader  -->
+        <div class="loader-wrapper">
+            <svg class="pl" viewBox="0 0 176 160" width="176px" height="160px" xmlns="http://www.w3.org/2000/svg">
+                <defs>
+                    <linearGradient id="pl-grad" x1="0" y1="0" x2="0" y2="1">
+                        <stop offset="0%" stop-color="hsl(33,90%,55%)" />
+                        <stop offset="30%" stop-color="hsl(33,90%,55%)" />
+                        <stop offset="100%" stop-color="hsl(3,90%,55%)" />
+                    </linearGradient>
+                </defs>
+                <g fill="none" stroke-width="16" stroke-linecap="round">
+                    <circle class="pl__ring" r="56" cx="88" cy="96" stroke="hsla(0,10%,10%,0.1)" />
+                    <path class="pl__worm1" d="M144,96A56,56,0,0,1,32,96" stroke="url(#pl-grad)"
+                        stroke-dasharray="43.98 307.87" />
+                    <path class="pl__worm2" d="M32,136V96s-.275-25.725,14-40" stroke="hsl(33,90%,55%)"
+                        stroke-dasharray="0 40 0 44" stroke-dashoffset="0.001" visibility="hidden" />
+                    <path class="pl__worm3" d="M144,136V96s.275-25.725-14-40" stroke="hsl(33,90%,55%)"
+                        stroke-dasharray="0 40 0 44" stroke-dashoffset="0.001" visibility="hidden" />
+                </g>
+            </svg>
+
+            <div class="logo logo-loader">
+                <h1>Kino<span>Gid</span></h1>
+            </div>
+
+            <script>
+                setTimeout(() => {
+                    document.querySelector('.loader').style.display = 'none'
+                }, 1000);
+            </script>
+        </div>
+        <!------------->
+    </div>
+
     <div class="app">
         <header>
             <div class="head-top-cont">
                 <a href="../../index.html" class="logo">
                     <h1>Kino<span>Gid</span></h1>
                 </a>
+                <form action="../../backend/logout.php" method="post">
+                    <div class="log-aut">
+                        <input type="submit" name="submit" value="выйти">
+                    </div>
+                </form>
             </div>
         </header>
         <main id="main">
@@ -41,9 +81,9 @@
                 <div class="personalInfo">
                     <div class="personalInfo_cont">
                         <img src="../../assets/img/Sample_User_Icon.png" alt="person">
-                        <h3><b>имя:</b> <span>Edgar Karapetyan</span></h3>
-                        <p><b>почта:</b> <span>edo099919956@gmail.com</span></p>
-                        <p><b>возраст:</b> <span>06/08/1995</span></p>
+                        <h3><b class="nameSurname">имя :</b> <span id="_nameSurname">text</span></h3>
+                        <p><b class="mail">почта :</b> <span id="_mail">text</span></p>
+                        <p><b class="birthday">возраст :</b> <span id="_birthday">text</span></p>
                     </div>
                 </div>
 
@@ -179,46 +219,12 @@
                     <h1>Kino<span>Gid</span></h1>
                 </a>
             </div>
-
-            <div class="loader">
-                <div class="loader-wrapper">
-                    <svg class="pl" viewBox="0 0 176 160" width="176px" height="160px"
-                        xmlns="http://www.w3.org/2000/svg">
-                        <defs>
-                            <linearGradient id="pl-grad" x1="0" y1="0" x2="0" y2="1">
-                                <stop offset="0%" stop-color="hsl(33,90%,55%)" />
-                                <stop offset="30%" stop-color="hsl(33,90%,55%)" />
-                                <stop offset="100%" stop-color="hsl(3,90%,55%)" />
-                            </linearGradient>
-                        </defs>
-                        <g fill="none" stroke-width="16" stroke-linecap="round">
-                            <circle class="pl__ring" r="56" cx="88" cy="96" stroke="hsla(0,10%,10%,0.1)" />
-                            <path class="pl__worm1" d="M144,96A56,56,0,0,1,32,96" stroke="url(#pl-grad)"
-                                stroke-dasharray="43.98 307.87" />
-                            <path class="pl__worm2" d="M32,136V96s-.275-25.725,14-40" stroke="hsl(33,90%,55%)"
-                                stroke-dasharray="0 40 0 44" stroke-dashoffset="0.001" visibility="hidden" />
-                            <path class="pl__worm3" d="M144,136V96s.275-25.725-14-40" stroke="hsl(33,90%,55%)"
-                                stroke-dasharray="0 40 0 44" stroke-dashoffset="0.001" visibility="hidden" />
-                        </g>
-                    </svg>
-
-                    <div class="logo logo-loader">
-                        <h1>Kino<span>Gid</span></h1>
-                    </div>
-
-                    <script>
-                        setTimeout(() => {
-                            document.querySelector('.loader').style.display = 'none'
-                        }, 1000);
-                    </script>
-                </div>
-            </div>
-
         </footer>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-element-bundle.min.js"></script>
-
+    <script type="text/javascript" src="../../js/script.js"></script>
     <script type="text/javascript" src="./profile.js"></script>
+
 </body>
 
 </html>

@@ -327,10 +327,10 @@ header {
     cursor: pointer;
 
     h1 {
+        font-size: 30px;
         font-weight: 400;
         animation: blur1 10s ease-out infinite;
         font-family: 'Tsukimi Rounded', sans-serif;
-        transition: 150ms;
 
         span {
             color: $colororange;
@@ -361,6 +361,11 @@ header {
 
     &:hover {
         color: $colororange;
+        transform: translate(-1px, 1px);
+    }
+
+    &:active {
+        transform: translate(0, 0);
     }
 }
 
@@ -371,15 +376,7 @@ header {
         transform: scale(0.9);
     }
 
-    text {
-        box-sizing: content-box;
-        padding-left: 30px;
-    }
-
     img {
-        position: absolute;
-        left: 0;
-        top: -3px;
         width: 24px;
         height: 24px;
     }
@@ -387,7 +384,7 @@ header {
     .user-icon {
         position: absolute;
         left: 0;
-        top: -3px;
+        top: 0;
         width: 24px;
         height: 24px;
         border: 1px solid $colororange;
@@ -418,11 +415,19 @@ header {
     }
 }
 
+.login__openPopup {
+    color: $colororange;
+
+    &:hover {
+        transform: scale(0.9) ;
+    }
+}
+
 // search animate
 .search {
     position: relative;
     border-radius: 25px;
-    border: 2px solid $colororange;
+    border: 2px solid $colorWhite;
     background-color: $colorBlack;
     width: 22px;
     height: 22px;
@@ -444,7 +449,7 @@ header {
         right: -3px;
         width: 0;
         height: 10px;
-        border: 1px solid $colororange;
+        border: 1px solid $colorWhite;
         transform: rotate(-45deg);
         transition: 400ms;
         cursor: pointer;
@@ -1309,7 +1314,10 @@ main {
     }
 }
 
-@media screen and (max-width: 780px) {
+@media screen and (max-width: 700px) {
+    .head-top-slesh{
+        display: none;
+    }
     .recomendet-films-items {
         width: calc(94%/4);
 

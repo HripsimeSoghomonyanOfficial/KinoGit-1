@@ -4,25 +4,25 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- <link rel="apple-touch-icon" sizes="144x144" href="./assets/logo-icon/apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="./assets/logo-icon/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="./assets/logo-icon/favicon-16x16.png"> -->
-    <!-- <link rel="manifest" href="./assets/logo-icon/site.webmanifest">
-    <link rel="mask-icon" href="./assets/logo-icon/safari-pinned-tab.svg" color="#ff9500"> -->
+    <!-- <link rel="apple-touch-icon" sizes="144x144" href="assets/logo-icon/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="assets/logo-icon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="assets/logo-icon/favicon-16x16.png"> -->
+    <!-- <link rel="manifest" href="assets/logo-icon/site.webmanifest">
+    <link rel="mask-icon" href="assets/logo-icon/safari-pinned-tab.svg" color="#ff9500"> -->
     <meta name="msapplication-TileColor" content="#da532c">
     <meta name="theme-color" content="#ffffff">
     <!-- loader -->
-    <link rel="stylesheet" href="./css/loader/loader.css">
+    <link rel="stylesheet" href="css/loader/loader.css">
     <!-- helper -->
-    <link rel="stylesheet" href="./css/helper/helper.css">
+    <link rel="stylesheet" href="css/helper/helper.css">
     <!-- fonts -->
-    <link rel="stylesheet" href="./assets/fonts/TsukimiRounded/stylesheet.css">
-    <link rel="stylesheet" href="./assets/fonts/Inter/inter.css">
+    <link rel="stylesheet" href="assets/fonts/TsukimiRounded/stylesheet.css">
+    <link rel="stylesheet" href="assets/fonts/Inter/inter.css">
     <!-- swiper -->
-    <link rel="stylesheet" href="./css/swiper/swiper-bundle.min.css">
-    <link rel="stylesheet" href="./css/swiper/swiperStyles.css">
+    <link rel="stylesheet" href="css/swiper/swiper-bundle.min.css">
+    <link rel="stylesheet" href="css/swiper/swiperStyles.css">
     <!-- main -->
-    <link rel="stylesheet" href="./pages/index/index.css">
+    <link rel="stylesheet" href="pages/index/index.css">
 
     <title>KinoGid</title>
 </head>
@@ -40,7 +40,7 @@
                             <div class="reg_popup_close">X</div>
                         </div>
                         <!-- login -->
-                        <form action="./backend/login.php" method="post" class="login" id="login__">
+                        <form action="backend/login.php" method="post" class="login" id="login__">
                             <div>
                                 <div>
                                     <div class="clumn_conts">
@@ -69,7 +69,7 @@
                         </form>
 
                         <!-- registr -->
-                        <form action="./backend/register.php" method="post" class="registr active-block" id="registr__">
+                        <form action="backend/register.php" method="post" class="registr active-block" id="registr__">
                             <div class="flexBox">
                                 <div>
                                     <div class="clumn_conts">
@@ -107,7 +107,7 @@
                 </div>
                 <!-- head swiper container-->
                 <div class="head-top-cont">
-                    <a href="./index.html" class="logo">
+                    <a href="index.html" class="logo">
                         <h1>Kino<span>Gid</span></h1>
                     </a>
 
@@ -115,7 +115,7 @@
                         <div class="search" id="search">
                             <input class="search-inp" id="search_inp" type="text">
                             <span class="search-close" id="search-close"></span>
-                            <img src="./assets/svg/search-icon.svg" class="search-btn" id="search_btn">
+                            <img src="assets/svg/search-icon.svg" class="search-btn" id="search_btn">
                         </div>
 
                         <a href="javascript:void(0)" class="head-top-nav-items" id="top_movies">топ
@@ -126,16 +126,17 @@
                         <a href="javascript:void(0)" class="head-top-nav-items" id="animation">мультики</a>
                         <a href="javascript:void(0)" class="head-top-nav-items" id="comedy">комедии</a>
                         <a href="javascript:void(0)" class="head-top-nav-items" id="family">Семейные</a>
-                        <a href="javascript:void(0)"
-                            class="head-top-nav-items head-top-nav-items-login login__openPopup" id="login">
-                            <text>Войти</text>
-                            <img src="./assets/svg/login-icon.svg" alt="login-icon">
+                        <span class="head-top-slesh">|</span>
+                        <a href="javascript:void(0)" class="head-top-nav-items login__openPopup" id="login">Войти</a>
+                        <a href="pages/profile/profile.html"
+                            class="head-top-nav-items head-top-nav-items-login">
+                            <img src="assets/svg/login-icon.svg" alt="login-icon">
                             <div class="user-icon"></div>
                         </a>
                     </nav>
 
                     <div class="mob_open_close" id="mob_open_close">
-                        <img src="./assets/svg/burger-menu-right-svgrepo-com.svg" alt="">
+                        <img src="assets/svg/burger-menu-right-svgrepo-com.svg" alt="">
                     </div>
                 </div>
 
@@ -177,19 +178,19 @@
                                     document.querySelector('.move_info_cont').innerHTML = `<h2 class="move_info_cont_title">${move_info_cont_title}</h2>
                                         <p class="move_info_cont_date">дата выхода - ${head_swiper_info_data.replace(/-/g, " / ")}</p>
                                         <p class="move_info_cont_reyting">рейтинг 
-                                            <img src="./assets/svg/TMDB-icon.svg" alt="TMDB-icon">
+                                            <img src="assets/svg/TMDB-icon.svg" alt="TMDB-icon">
                                             <span class='reyting_stars_cont' id='reyting_stars_cont'>
                                                 <span class='reyting_stars_bg_width' id='reyting_stars_bg_width'></span>
-                                                <img src='./assets/svg/yellowStar.png'>
+                                                <img src='assets/svg/yellowStar.png'>
                                             </span>
                                         </p>
 
                                         <div class="move_info_cont_row">
                                             <div class="move_info_cont_play" id='${head_swiper_info_id}' move_data="${move_info_cont_title} ,${move_info_cont_original_title}, ${head_swiper_info_data.slice(0, 4)}">
-                                                <img src="./assets/svg/icons-play.png" alt="play">смотреть
+                                                <img src="assets/svg/icons-play.png" alt="play">смотреть
                                             </div>
                                         </div>`;
-                                        console.log();
+                                    console.log();
 
                                     setTimeout((e) => {
                                         document.querySelector('.move_info_cont_title').classList.add('move_info_cont_date_anim')
@@ -329,7 +330,7 @@
         <footer>
             <div class="pagination">
                 <div class="page-prev" id="prev">
-                    <img src="./assets/svg/next-svgrepo-com.svg" alt="prev btn">
+                    <img src="assets/svg/next-svgrepo-com.svg" alt="prev btn">
                 </div>
 
                 <div class="current" id="current">
@@ -337,19 +338,19 @@
                 </div>
 
                 <div class="page-next" id="next">
-                    <img src="./assets/svg/next-svgrepo-com.svg" alt="next btn">
+                    <img src="assets/svg/next-svgrepo-com.svg" alt="next btn">
                 </div>
             </div>
 
             <div class="all-info">
-                <a href="./index.html" class="logo">
+                <a href="index.html" class="logo">
                     <h1>Kino<span>Gid</span></h1>
                 </a>
                 <nav class="navigation">
-                    <a href="./pages/privacy-polic/privacy-polic.html">Правообладателям</a>
-                    <a href="./pages/faq/fac.html">фэк</a>
-                    <a href="./pages/app/app.html">Приложение</a>
-                    <a href="./pages/contact/contact.html">Контакты</a>
+                    <a href="pages/privacy-polic/privacy-polic.html">Правообладателям</a>
+                    <a href="pages/faq/fac.html">фэк</a>
+                    <a href="pages/app/app.html">Приложение</a>
+                    <a href="pages/contact/contact.html">Контакты</a>
                 </nav>
             </div>
 
@@ -384,13 +385,13 @@
         </footer>
     </div>
 
-    <script type="text/javascript" src="./js/swiper/swiper-bundle.min.js"></script>
-    <script type="text/javascript" src="./js/searchAnim/searchAnim.js"></script>
-    <script type="text/javascript" src="./js/mob_open_close/mob_open_close.js"></script>
-    <script type="text/javascript" src="./pages/index/index.js"></script>
-    <script type="text/javascript" src="./js/registationForm.js"></script>
-    <script type="text/javascript" src="./js/estimate.js"></script>
-    <script type="text/javascript" src="./js/script.js"></script>
+    <script type="text/javascript" src="js/swiper/swiper-bundle.min.js"></script>
+    <script type="text/javascript" src="js/searchAnim/searchAnim.js"></script>
+    <script type="text/javascript" src="js/mob_open_close/mob_open_close.js"></script>
+    <script type="text/javascript" src="pages/index/index.js"></script>
+    <script type="text/javascript" src="js/registationForm.js"></script>
+    <script type="text/javascript" src="js/estimate.js"></script>
+    <script type="text/javascript" src="js/script.js"></script>
 </body>
 
 </html>

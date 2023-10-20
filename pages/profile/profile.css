@@ -35,7 +35,7 @@ header .head-top-cont {
   top: 0;
   right: 0;
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   top: 0;
   width: 100%;
   height: 60px;
@@ -63,6 +63,25 @@ header .head-top-cont .logo h1 span {
 }
 header .head-top-cont .logo:hover {
   text-shadow: 0 0 5px #ffb700;
+}
+header .head-top-cont .log-aut {
+  position: relative;
+}
+header .head-top-cont .log-aut input {
+  border: none;
+  outline: none;
+  transition: 150ms;
+  font-size: 15px;
+  padding: 5px 15px;
+  border-radius: 8px;
+  background-color: transparent;
+  color: #ffb700;
+  box-shadow: 0px 0px 8px -1px #ffb700;
+  cursor: pointer;
+}
+header .head-top-cont .log-aut:hover input {
+  color: red;
+  box-shadow: 0px 0px 15px 0 red;
 }
 
 main {
@@ -105,6 +124,11 @@ main {
 }
 .personalInfo .personalInfo_cont b {
   margin-right: 8px;
+}
+.personalInfo .birthday,
+.personalInfo .mail,
+.personalInfo .nameSurname {
+  text-transform: capitalize;
 }
 
 .main_Wrapper {

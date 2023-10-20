@@ -22,7 +22,8 @@ if (isset($submit)) {
               $last_inserted_id = mysqli_insert_id($connect);
               if (!file_exists("users"))
                 mkdir("users");
-              mkdir("users/" . $last_inserted_id);
+              if (!file_exists("users/" . $last_inserted_id))
+                mkdir("users/" . $last_inserted_id);
               setcookie('user_id', $last_inserted_id, time() + (60 * 60 * 24), "/", "test1.ru", false, true);
               setcookie('user_id_check', sha1(sha1($regPassword)), time() + (60 * 60 * 24), "/", "test1.ru", false, true);
               header("Location: http://www.test1.ru/index.html?1");

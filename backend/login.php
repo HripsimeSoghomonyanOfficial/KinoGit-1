@@ -1,13 +1,14 @@
 <?php
 $login = addslashes($_POST['loginMail']);
 $password = addslashes($_POST['loginPassword']);
-$keep_me=addslashes($_POST['keepMe']);
-if(!isset($keep_me))
-$keep_me=1;
+$keep_me = $_POST['keepMe'];
+if (!isset($keep_me))
+	$keep_me = 1;
+else $keep_me=3;
 $connect_for_login = mysqli_connect("localhost", "root", "", "karapetyan");
 if (mysqli_connect_errno()) {
-    echo "Failed to connect to MySQL: " . mysqli_connect_error() . ". Try to connect again";
-    exit();
+	echo "Failed to connect to MySQL: " . mysqli_connect_error() . ". Try to connect again";
+	exit();
 }
 $sql_login = "select * from users where email='" . $login . "' and password='" . sha1($password) . "' limit 1";
 $sql_login = mysqli_query($connect_for_login, $sql_login);

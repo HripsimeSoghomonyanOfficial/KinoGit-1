@@ -34,7 +34,7 @@ setTimeout(() => {
     document.querySelectorAll('.video-players').forEach(el => {
         el.style.cssText = `width:${get_width}px; height:${get_height}px`
     })
-}, 1500);
+}, 2000);
 
 // window.onhashchange = () => {
 //     if (window.innerDocClick) {
