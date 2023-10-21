@@ -330,6 +330,7 @@ header {
     text-transform: capitalize;
     padding-right: 25px;
     border-radius: 0 0 0 25px;
+    transition: 350ms;
 }
 
 .head-top-nav-items {
@@ -1263,7 +1264,7 @@ footer {
 
 }
 
-@media screen and (max-width: 700px) {
+@media screen and (max-width: 800px) {
     .move_info_cont .reyting_stars_cont {
         height: 12px;
     }
@@ -1397,7 +1398,7 @@ footer {
         right: -400px;
         background-color: #0c0c0cf0;
         width: 50%;
-        min-width: 250px;
+        min-width: 295px;
         padding-top: 20px;
         padding-bottom: 40px;
     }
@@ -1418,9 +1419,12 @@ footer {
     }
 
     .search {
-        position: relative;
+        position: absolute;
+        top: 21px;
+        right: 70px;
+        z-index: 100;
         background-color: #0C0C0C;
-        max-width: 200px !important;
+        max-width: 210px !important;
     }
 
     .head-swiper-slide {

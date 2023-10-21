@@ -1314,7 +1314,7 @@ main {
     }
 }
 
-@media screen and (max-width: 700px) {
+@media screen and (max-width: 800px) {
     .move_info_cont .reyting_stars_cont {
         height: 12px;
     }
@@ -1435,7 +1435,7 @@ main {
         right: -400px;
         background-color: #0c0c0cf0;
         width: 50%;
-        min-width: 250px;
+        min-width: 295px;
         padding-top: 20px;
         padding-bottom: 40px;
         transition: 350ms;
@@ -1457,9 +1457,12 @@ main {
     }
 
     .search {
-        position: relative;
+        position: absolute;
+        top: 18px;
+        right: 70px;
+        z-index: 100;
         background-color: #0C0C0C;
-        max-width: 200px !important;
+        max-width: 210px !important;
     }
 
     .head-top-nav-items {
