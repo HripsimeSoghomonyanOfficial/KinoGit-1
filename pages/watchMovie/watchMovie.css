@@ -377,11 +377,14 @@ header {
 .search {
   position: relative;
   border-radius: 25px;
-  border: 2px solid #ffffff;
+  border: 2px solid #ffb700;
   background-color: #000000;
   width: 22px;
   height: 22px;
   transition: 400ms;
+  transform: scale(0.9);
+}
+.search:hover {
   transform: scale(0.8);
 }
 
@@ -399,7 +402,7 @@ header {
   right: -3px;
   width: 0;
   height: 10px;
-  border: 1px solid #ffffff;
+  border: 1px solid #ffb700;
   transform: rotate(-45deg);
   transition: 400ms;
   cursor: pointer;
@@ -411,7 +414,7 @@ header {
   right: 0px;
   width: 0;
   height: 16px;
-  border: 1px solid #ffffff;
+  border: 1px solid #ffb700;
   transform: rotate(45deg);
   transition: 350ms;
   opacity: 0;
@@ -424,7 +427,9 @@ header {
   border-radius: 8px;
   padding-left: 5px;
   padding-right: 45px;
-  transform: scale(1);
+}
+.search-anime-inp:hover {
+  transform: scale(0.9);
 }
 
 .search-anime-close {
@@ -441,6 +446,7 @@ header {
   opacity: 1;
   bottom: 4px;
   right: 11px;
+  border-color: #ffffff;
 }
 
 .search-btn {
@@ -525,15 +531,16 @@ header {
   transition: 150ms;
   filter: grayscale(1);
 }
-.movie_estimate:hover {
-  filter: grayscale(0);
-}
 .movie_estimate .movie_favorite {
   width: 30px !important;
   transition: 150ms;
 }
 .movie_estimate .movie_favorite:hover {
   transform: scale(1.1);
+}
+.movie_estimate .movie_favorite:active {
+  transform: scale(1);
+  transition: 50ms;
 }
 
 .movie_estimate-active {
@@ -1156,7 +1163,11 @@ main {
   cursor: pointer;
 }
 .mob_open_close:hover {
-  filter: drop-shadow(0 0 6px #ffffff);
+  filter: drop-shadow(0 0 2px #ffb700);
+}
+.mob_open_close:active {
+  transform: scale(0.9);
+  transition: none;
 }
 
 @media screen and (max-width: 1700px) {
@@ -1329,10 +1340,6 @@ main {
   .reclam_player {
     width: 95%;
     height: 250px;
-  }
-  .video-players {
-    min-width: inherit;
-    height: 250px !important;
   }
   #yohoho {
     width: 100% !important;

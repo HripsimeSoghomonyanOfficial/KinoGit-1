@@ -108,7 +108,6 @@ const genres = [
     },
 ]
 // -----------------
-get_top_movies()
 function get_top_movies() {
     fetch(BASE_URL + `/discover/movie?language=${language}?language=en-EN?sort_by=popularity.desc&` + API_KEY)
         // slider top 20
@@ -208,7 +207,6 @@ function showMovies(data) {
     })
 }
 
-showPoster_andData()
 function showPoster_andData() {
     let movieUrl = decodeURI(window.location.search)
     let get_id = movieUrl.slice(4, movieUrl.indexOf('&'))
@@ -356,7 +354,6 @@ function show_recomendet_films(R) {
     recomendet_movies(BASE_URL + `/discover/movie?language=${language}?language=en-EN?sort_by=popularity.desc&` + API_KEY + '&with_genres=' + encodeURI(selectedGenre.join(',')))
 }
 
-get_Watch_Move_andPlay()
 function get_Watch_Move_andPlay() {
     document.querySelectorAll('.allMovie').forEach(el => {
         el.addEventListener('click', () => {
@@ -422,6 +419,11 @@ document.getElementById('arrow_to_top').addEventListener('click', () => {
 })
 
 // loader off
+setTimeout(() => {
+    get_top_movies()
+    showPoster_andData()
+    get_Watch_Move_andPlay()
+}, 1000);
 setTimeout(() => {
     document.querySelector('.loader').style.opacity = '0'
 }, 2000)
