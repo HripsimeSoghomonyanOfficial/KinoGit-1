@@ -464,7 +464,7 @@ header {
     padding-left: 5px;
     padding-right: 45px;
 
-    &:hover{
+    &:hover {
         transform: scale(0.9);
     }
 }
@@ -723,14 +723,11 @@ main {
 
     &:hover::before {
         opacity: 1;
-    }
-
-    &:hover {
-        filter: drop-shadow(0 0 2px $colorWhite);
+        background-color: $colororange;
     }
 
     &:active {
-        filter: drop-shadow(0 0 5px $colororange);
+        transform: scale(0.95);
     }
 }
 
@@ -740,14 +737,11 @@ main {
 
     &:hover::before {
         opacity: 1;
-    }
-
-    &:hover {
-        filter: drop-shadow(0 0 2px $colororange);
+        background-color: $colororange;
     }
 
     &:active {
-        filter: drop-shadow(0 0 5px $colororange);
+        transform: rotate(180deg) scale(0.95);
     }
 }
 
@@ -803,12 +797,12 @@ main {
     height: 38px;
     bottom: 0;
 
-    &-bullet {
+    .head-swiper-pagination-bullet {
         background-color: $colorWhite;
         opacity: 0.4;
     }
 
-    &-bullet-active {
+    .head-swiper-pagination-bullet-active {
         background-color: $colorWhite;
         opacity: 1;
         transform: scale(1.7);
@@ -819,13 +813,18 @@ main {
         width: 8px;
         height: 8px;
         background-color: $colorWhite;
+        transition: 250ms;
+        margin: 2px !important;
 
-        &-active {
-            background-color: $colorWhite;
+        &:hover {
+            background-color: $colororange !important;
+            opacity: 1;
+            transform: scale(1.5);
         }
     }
 
     .swiper-pagination-bullet-active {
+        background-color: $colorWhite;
         transform: scale(1.4);
         transition: 350ms;
     }
@@ -1016,24 +1015,18 @@ main {
     position: absolute;
     top: -10px;
     right: -10px;
-    width: fit-content;
-    width: auto;
+    width: 30px;
     z-index: 30;
     transition: 150ms;
     filter: grayscale(1);
 
-    .movie_favorite {
-        width: 30px !important;
-        transition: 150ms;
+    &:hover {
+        transform: scale(1.1);
+    }
 
-        &:hover {
-            transform: scale(1.1);
-        }
-
-        &:active {
-            transform: scale(1.0);
-            transition: 50ms;
-        }
+    &:active {
+        transform: scale(1.0);
+        transition: 50ms;
     }
 }
 
@@ -1195,11 +1188,11 @@ footer {
     }
 
     .pages-active {
-        color: $colorWhite;
-        background-color: $colorWhite;
+        background-color: $colororange;
         color: $colorBlack;
         font-weight: 600;
         opacity: 1;
+        text-shadow: 0 0 0 $colorBlack;
     }
 }
 
@@ -1254,7 +1247,8 @@ footer {
     &:hover {
         filter: drop-shadow(0 0 2px $colororange);
     }
-    &:active{
+
+    &:active {
         transform: scale(0.90);
         transition: none;
     }

@@ -656,12 +656,10 @@ main {
 }
 .swiper-button-next-unique:hover::before {
   opacity: 1;
-}
-.swiper-button-next-unique:hover {
-  filter: drop-shadow(0 0 2px #ffffff);
+  background-color: #ffb700;
 }
 .swiper-button-next-unique:active {
-  filter: drop-shadow(0 0 5px #ffb700);
+  transform: scale(0.95);
 }
 
 .swiper-button-prev-unique {
@@ -670,12 +668,10 @@ main {
 }
 .swiper-button-prev-unique:hover::before {
   opacity: 1;
-}
-.swiper-button-prev-unique:hover {
-  filter: drop-shadow(0 0 2px #ffb700);
+  background-color: #ffb700;
 }
 .swiper-button-prev-unique:active {
-  filter: drop-shadow(0 0 5px #ffb700);
+  transform: rotate(180deg) scale(0.95);
 }
 
 .head-swiper-wrapper-play-img-cont {
@@ -724,11 +720,11 @@ main {
   height: 38px;
   bottom: 0;
 }
-.head-swiper-pagination-bullet {
+.head-swiper-pagination .head-swiper-pagination-bullet {
   background-color: #ffffff;
   opacity: 0.4;
 }
-.head-swiper-pagination-bullet-active {
+.head-swiper-pagination .head-swiper-pagination-bullet-active {
   background-color: #ffffff;
   opacity: 1;
   transform: scale(1.7);
@@ -738,11 +734,16 @@ main {
   width: 8px;
   height: 8px;
   background-color: #ffffff;
+  transition: 250ms;
+  margin: 2px !important;
+}
+.head-swiper-pagination .swiper-pagination-bullet:hover {
+  background-color: #ffb700 !important;
+  opacity: 1;
+  transform: scale(1.5);
 }
 .head-swiper-pagination .swiper-pagination-bullet-active {
   background-color: #ffffff;
-}
-.head-swiper-pagination .swiper-pagination-bullet-active {
   transform: scale(1.4);
   transition: 350ms;
 }
@@ -911,21 +912,15 @@ main {
   position: absolute;
   top: -10px;
   right: -10px;
-  width: -moz-fit-content;
-  width: fit-content;
-  width: auto;
+  width: 30px;
   z-index: 30;
   transition: 150ms;
   filter: grayscale(1);
 }
-.movie_estimate .movie_favorite {
-  width: 30px !important;
-  transition: 150ms;
-}
-.movie_estimate .movie_favorite:hover {
+.movie_estimate:hover {
   transform: scale(1.1);
 }
-.movie_estimate .movie_favorite:active {
+.movie_estimate:active {
   transform: scale(1);
   transition: 50ms;
 }
@@ -1069,11 +1064,11 @@ footer .pages:hover {
   opacity: 1;
 }
 footer .pages-active {
-  color: #ffffff;
-  background-color: #ffffff;
+  background-color: #ffb700;
   color: #000000;
   font-weight: 600;
   opacity: 1;
+  text-shadow: 0 0 0 #000000;
 }
 
 .Privacy-Polic-cont {
