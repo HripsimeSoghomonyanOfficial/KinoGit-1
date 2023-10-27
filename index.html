@@ -128,8 +128,7 @@
                         <a href="javascript:void(0)" class="head-top-nav-items" id="family">Семейные</a>
                         <span class="head-top-slesh">|</span>
                         <a href="javascript:void(0)" class="head-top-nav-items login__openPopup" id="login">Войти</a>
-                        <a href="pages/profile/profile.html"
-                            class="head-top-nav-items head-top-nav-items-login">
+                        <a href="pages/profile/profile.html" class="head-top-nav-items head-top-nav-items-login">
                             <img src="assets/svg/login-icon.svg" alt="login-icon">
                             <div class="user-icon"></div>
                         </a>
@@ -314,9 +313,64 @@
                 <nav class="right-nav">
                     <h3 class="categories-title">
                         <span class="text_1">категории</span>
-                        <span class="text_2">выберите любимый жанры</span>
+                        <span class="text_2">фильтры по фильмам</span>
                     </h3>
-                    <div class="categories" id="categories"></div>
+                    <div class="categories" id="categories">
+
+                        <div class="categories__grup">
+                            <div class="select select__genres">
+                                <div class="select__text">
+                                    <p>Жанры</p>
+                                    <span class="select__arrow">></span>
+                                </div>
+                                <!-- popup genres-->
+                                <div class="genres__popup select__genres__popup">
+                                    <div class="genres__and__img" id="genres__and__img"></div>
+                                    <h6 class="genres__title">можете выбрать 3 жанра</h6>
+                                    <div class="open__cont genres__text" id="genres__text"></div>
+                                </div>
+                            </div>
+
+                            <div class="select select__years">
+                                <div class="select__text">
+                                    <p>Годы</p><span class="select__arrow">></span>
+                                </div>
+                                <!--  popup years-->
+                                <div class="genres__popup">
+                                    <h6 class="years__title">выберите один год</h6>
+                                    <div class="open__cont select__years__popup"></div>
+                                </div>
+                            </div>
+
+                            <div class="select select__countries">
+                                <div class="select__text">
+                                    <p>Страны</p><span class="select__arrow">></span>
+                                </div>
+                                <!-- countries popup -->
+                                <div class="genres__popup">
+                                    <h6 class="countries__title">выберите одну страну</h6>
+                                    <div class="open__cont select__countries__popup"></div>
+                                </div>
+                            </div>
+
+                            <div class="select select__rating">
+                                <div class="select__text">
+                                    <p>Рейтинг</p><span class="select__arrow">></span>
+                                </div>
+                                <!-- rating popup -->
+                                <div class=" genres__popup">
+                                    <h6 class="rating__title">выберите одну оценку</h6>
+                                    <div class="open__cont select__rating__popup"></div>
+                                </div>
+                            </div>
+
+                            <div class="btn__reset__default">
+                                <div class="select__text reset__default">
+                                    <p>очистить</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </nav>
             </div>
 

@@ -10,10 +10,12 @@ function get_And_Save() {
     let movie_estimate = document.querySelectorAll('.movie_estimate')
 
     movie_estimate.forEach(M => {
-        M.addEventListener('click', () => { M.classList.toggle('movie_estimate-active'); setAllSaveMuvies(movie_estimate); })
+        M.addEventListener('click', () => {
+            M.classList.toggle('movie_estimate-active');
+            setAllSaveMuvies(movie_estimate);
+        })
     })
 }
-
 function setAllSaveMuvies(movie_estimate) {
     MovieData = []
     movie_estimate.forEach((e, i) => {
@@ -22,14 +24,48 @@ function setAllSaveMuvies(movie_estimate) {
             MovieData.push(id)
         }
     })
-    console.log('MovieData -> ', MovieData);
+
+    fetch(`../../backend/bookmark.php?id=${Number(MovieData.reverse()[0])}`, { method: "GET", })
+        .then(r => console.log('ok'))
+        .catch(err => console.log(err))
 }
 
-WatchHistorySave()
-function WatchHistorySave() {
-    console.log(window.location.href.split('/').indexOf('watchMovie'));
-    if (localStorage.getItem('move_id') && (window.location.href.split('/').indexOf('watchMovie') > 0)) {
-        historySaveId.push(localStorage.getItem('move_id'))
-        console.log(historySaveId);
-    }
-}
+// get bockmark in server and show
+
+fetch('../../backend/get_bookmark.php')
+    .then(r => r.json())
+    .then(r => {
+        r.forEach(el => {
+            document.querySelectorAll('.allMovie').forEach((movie, i) => {
+                if (el[1] == movie.getAttribute('id')) {
+                    document.querySelectorAll('.movie_estimate')[i].classList.add('movie_estimate-active')
+                }
+            })
+        })
+    })
+    .catch(err => console.log(err))
+
+
+
+// ---- check url name ----
+
+// WatchHistorySave()
+// function WatchHistorySave() {
+//     if (localStorage.getItem('move_id') && (window.location.href.split('/').indexOf('watchMovie') > 0)) {
+//         historySaveId.push(localStorage.getItem('move_id'))
+//         console.log(historySaveId);
+//     }
+// }
+
+
+// not worcking
+
+// getUser()
+// function getUser() {
+//     fetch('../../backend/check_login.php')
+//         // .then(r => r)
+//         .then(r => {
+//             console.log('user',r);
+//         })
+//         .catch(err => console.log(err))
+// }

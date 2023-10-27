@@ -420,12 +420,3 @@ setTimeout(() => {
     showPoster_andData()
     get_Watch_Move_andPlay()
 }, 1000);
-setTimeout(() => {
-    document.querySelector('.loader').style.opacity = '0'
-}, 2000)
-
-setTimeout(() => {
-    document.querySelector('.loader').style.display = 'none'
-
-    document.getElementById('main').scrollIntoView({ behavior: 'smooth' })
-}, 2500)
