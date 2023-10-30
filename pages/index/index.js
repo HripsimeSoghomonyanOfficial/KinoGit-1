@@ -605,12 +605,14 @@ function serchLogic(e) {
         }, 1500);
     }
 }
+
 // нумерация страниц назад 
 prev.addEventListener('click', () => {
     if (prevPage > 0) {
         pageCall(prevPage);
     }
 })
+
 // нумерация страниц вперед 
 next.addEventListener('click', () => {
     if (nextPage <= totalPages) {
@@ -673,7 +675,7 @@ function pageCall(page) {
 function move_info_cont_play() {
     document.querySelector('.move_info_cont_play').addEventListener('click', () => {
         let el = document.querySelector('.move_info_cont_play')
-        console.log(el);
+
         // get data
         let move_data = el.getAttribute('move_data')
         let move_id = el.getAttribute('id')

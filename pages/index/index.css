@@ -187,11 +187,57 @@ body {
 .reg_popup_wrap .clumn_conts input {
   border: none;
   outline: none;
-  background-color: rgba(36, 36, 36, 0.8784313725);
+  background: rgba(36, 36, 36, 0.8784313725);
   color: white;
   border-radius: 5px;
   padding: 5px;
   margin-left: 5px;
+}
+.reg_popup_wrap .clumn_conts .inputDate {
+  display: block;
+  position: relative;
+  height: 100%;
+  background: rgba(36, 36, 36, 0.8784313725) url(../../assets/svg/calendar-icon.png);
+  background-size: 16px;
+  image-rendering: pixelated;
+  background-position: 97% 5px;
+  background-repeat: no-repeat;
+  cursor: pointer;
+}
+.reg_popup_wrap .clumn_conts .inputDate:focus {
+  outline: none;
+  border-color: transparent;
+}
+.reg_popup_wrap .clumn_conts .inputDate::-webkit-datetime-edit-month-field:hover,
+.reg_popup_wrap .clumn_conts .inputDate::-webkit-datetime-edit-day-field:hover,
+.reg_popup_wrap .clumn_conts .inputDate::-webkit-datetime-edit-year-field:hover {
+  background: #0078fa;
+  font-weight: 600;
+}
+.reg_popup_wrap .clumn_conts .inputDate::-webkit-datetime-edit-text {
+  opacity: 0;
+}
+.reg_popup_wrap .clumn_conts .inputDate::-webkit-clear-button,
+.reg_popup_wrap .clumn_conts .inputDate::-webkit-inner-spin-button {
+  display: none;
+}
+.reg_popup_wrap .clumn_conts .inputDate::-webkit-calendar-picker-indicator {
+  position: absolute;
+  width: 2.5rem;
+  height: 100%;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  opacity: 0;
+  color: #0078fa;
+  background: #0078fa;
+  cursor: pointer;
+}
+.reg_popup_wrap .clumn_conts .inputDate:hover::-webkit-calendar-picker-indicator {
+  transform: scale(0.9);
+}
+.reg_popup_wrap .clumn_conts .inputDate:hover::-webkit-calendar-picker-indicator:hover {
+  transform: scale(0.9);
 }
 .reg_popup_wrap .submit {
   border: none;
@@ -867,7 +913,7 @@ main {
 .categories .categories__grup {
   display: flex;
   flex-wrap: nowrap;
-  justify-content: space-between;
+  justify-content: space-evenly;
   padding: 6px;
   box-shadow: 0 0 20px -5px black;
   border-radius: 6px;
@@ -1251,9 +1297,7 @@ footer .pages-active {
   .move_info_cont .move_info_cont_title {
     font-size: 16px;
   }
-  .move_info_cont .move_info_cont_date {
-    font-size: 13px;
-  }
+  .move_info_cont .move_info_cont_date,
   .move_info_cont .move_info_cont_reyting {
     font-size: 13px;
   }
@@ -1339,38 +1383,21 @@ footer .pages-active {
     width: 98%;
   }
   .categories {
-    width: 129px;
+    width: 100%;
     color: #b7b7b7;
   }
   .categories .select:hover > .select__text {
     background-color: #101010;
     color: #ffb700;
   }
-  .categories .categories__grup {
-    flex-direction: column;
-  }
   .categories .genres__popup {
-    width: 170px;
-    padding: 15px 8px;
-    left: 110px;
-    top: 0;
+    min-width: 100%;
   }
   .categories .select__genres__popup {
     width: auto;
   }
-  .categories .select,
-  .categories .btn__reset__default {
-    width: -moz-fit-content;
-    width: fit-content;
-  }
-  .categories .select__arrow {
-    transition: 350ms;
-  }
-  .categories .select__arrow--active {
-    transform: rotate(359.9deg) rotateY(0deg);
-  }
   .categories .select__text {
-    width: 105px;
+    font-size: 11px;
   }
   .categories .genres__title,
   .categories .years__title,
@@ -1399,12 +1426,43 @@ footer .pages-active {
     display: none;
   }
 }
-@media screen and (max-width: 560px) {
-  .categories .genres__text {
-    grid-template-areas: "a";
+@media screen and (max-width: 475px) {
+  .categories {
+    width: 100%;
   }
-  .categories .select__genres__popup {
-    width: 170px;
+  .categories .categories__grup {
+    padding: 0;
+  }
+  .categories .genres__text .genres__text__items {
+    font-size: 12px;
+  }
+  .categories .open__cont > div {
+    padding: 5px 10px 3px 0;
+  }
+  .categories .open__cont .select__years__items {
+    font-size: 12px;
+    text-align: center;
+  }
+  .categories .select {
+    width: auto;
+    margin: 0;
+    margin-left: 2px;
+  }
+  .categories .select__text {
+    padding: 6px 8px;
+    width: 73px;
+  }
+  .categories .select__rating .genres__popup {
+    left: auto;
+    right: 0;
+  }
+  .categories .btn__reset__default {
+    position: absolute;
+    right: 2%;
+    top: -46px;
+  }
+  .categories .select__text {
+    font-size: 11px;
   }
 }
 @media screen and (max-width: 350px) {
