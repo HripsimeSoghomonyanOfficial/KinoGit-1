@@ -6,18 +6,7 @@
 //     }
 // })
 
-// loader off
-setTimeout(() => {
-    document.querySelector('.loader').style.opacity = '0'
-    window.scrollTo(0, 0)
-}, 0)
-
-setTimeout(() => {
-    document.querySelector('.loader').style.display = 'none'
-}, 0)
-
 // scroll effect 
-// scroll efect
 window.addEventListener('scroll', () => {
     if (scrollY > 500) {
         document.getElementById('arrow_to_top').style.cssText = 'right:20px'
@@ -32,6 +21,4 @@ document.getElementById('arrow_to_top').addEventListener('click', () => {
         behavior: "smooth"
     })
 })
-
-// ---- save in local storage ----
 

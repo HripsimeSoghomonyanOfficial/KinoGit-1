@@ -4,7 +4,7 @@ $colorBlack: #000000;
 $bgColor: #131313;
 $color1: #1e1e1e;
 $textColor: #b7b7b7;
-$colororange: #ffb700;
+$colororange: #FFB700;
 
 // scrollbar
 /* width */
@@ -87,12 +87,20 @@ body {
     border: 3px solid #ffffff24;
     text-transform: capitalize;
 
+    .helper_text {
+        margin-bottom: 20px;
+        color: #ffa301;
+        font-size: 11px;
+        font-family: system-ui;
+    }
+
     .flexBox {
         width: 100%;
         display: flex;
         flex-wrap: wrap;
         justify-content: space-evenly;
         gap: 10px;
+        color: $textColor;
     }
 
     .reg_popup_wrap_menu {
@@ -132,7 +140,7 @@ body {
         }
 
         .reg_popup_wrap_menu-active {
-            background-color: orange;
+            background-color: $colororange;
         }
 
         .reg_popup_close {
@@ -228,11 +236,61 @@ body {
         input {
             border: none;
             outline: none;
-            background-color: #242424e0;
+            background: #242424e0;
             color: white;
             border-radius: 5px;
             padding: 5px;
             margin-left: 5px;
+            text-transform: capitalize;
+        }
+
+        #regName_chack,
+        #regLname_chack,
+        #regEmail_chack,
+        #date_chack,
+        #gender_chack,
+        #regPassword_chack,
+        #regConfirm_chack {
+            font-size: 11px;
+        }
+    }
+
+    .gender_man,
+    .gender_women {
+        margin: 5px;
+        padding: 4px 8px;
+        border-radius: 4px;
+        background-color: $color1;
+        transition: 250ms;
+        cursor: pointer;
+
+        input {
+            display: none;
+        }
+
+        &:hover {
+            background-color: orange;
+        }
+    }
+
+    .gender_radio--active {
+        background-color: $colororange;
+    }
+
+    .clumn_conts_data {
+        display: flex;
+        align-items: center;
+
+        input {
+            margin: 0 5px;
+        }
+
+        .regAge_2 {
+            width: 25px;
+        }
+
+        .regAge_4 {
+            width: 40px;
         }
     }
 
@@ -243,9 +301,9 @@ body {
         background-color: #ffffff24;
         transition: 250ms;
         padding: 8px 12px;
+        margin-bottom: 20px;
         border-radius: 5px;
         text-transform: capitalize;
-        margin-bottom: 20px;
         cursor: pointer;
 
         &:hover {
@@ -264,6 +322,10 @@ body {
 
     .active-block {
         display: flex;
+    }
+
+    #regEmail {
+        text-transform: lowercase;
     }
 }
 
@@ -349,7 +411,6 @@ header {
     height: fit-content;
     text-transform: capitalize;
     padding-right: 25px;
-    border-radius: 0 0 0 25px;
 }
 
 .head-top-nav-items {
@@ -371,47 +432,27 @@ header {
 
 .head-top-nav-items-login {
     position: relative;
+    display: none;
+    align-items: center;
 
     &:hover {
         transform: scale(0.9);
     }
 
-    img {
-        width: 24px;
-        height: 24px;
+    .user-nameShow {
+        width: 30px;
+        height: 28px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: #ff7a00;
+        color: white;
+        border-radius: 5px;
+        font-family: emoji;
     }
 
-    .user-icon {
-        position: absolute;
-        left: 0;
-        top: 0;
-        width: 24px;
-        height: 24px;
-        border: 1px solid $colororange;
-        border-radius: 100%;
-        overflow: hidden;
-
-        &::after {
-            content: "";
-            position: absolute;
-            width: 9px;
-            height: 9px;
-            left: 6px;
-            top: 2px;
-            border: 1px solid #ffb700;
-            border-radius: 100%;
-        }
-
-        &::before {
-            content: "";
-            position: absolute;
-            width: 17px;
-            height: 13px;
-            left: 2px;
-            top: 12px;
-            border: 1px solid #ffb700;
-            border-radius: 100%;
-        }
+    &--active {
+        display: flex;
     }
 }
 
@@ -429,6 +470,7 @@ header {
     border-radius: 25px;
     border: 2px solid $colororange;
     background-color: $colorBlack;
+    bottom: 2px;
     width: 22px;
     height: 22px;
     transition: 400ms;
@@ -589,20 +631,21 @@ header {
     width: 30px;
     z-index: 30;
     transition: 150ms;
-    filter: grayscale(1);
+    filter: drop-shadow(0 0 3px $colorBlack) grayscale(1);
 
     &:hover {
         transform: scale(1.1);
+        filter: drop-shadow(0 0 3px $colororange);
     }
 
     &:active {
         transform: scale(1.0);
         transition: 50ms;
     }
-}
 
-.movie_estimate-active {
-    filter: grayscale(0);
+    &--active {
+        filter: grayscale(0);
+    }
 }
 
 // -------------------------
@@ -695,7 +738,7 @@ header {
         background: -moz-linear-gradient(180deg, rgba(255, 183, 0, 1) 0%, rgba(255, 183, 0, 1) 45%, rgba(175, 132, 32, 1) 100%);
         background: -webkit-linear-gradient(180deg, rgba(255, 183, 0, 1) 0%, rgba(255, 183, 0, 1) 45%, rgba(175, 132, 32, 1) 100%);
         background: linear-gradient(180deg, rgba(255, 183, 0, 1) 0%, rgba(255, 183, 0, 1) 45%, rgba(175, 132, 32, 1) 100%);
-        filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#ffb700", endColorstr="#af8420", GradientType=1);
+        filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="$colororange", endColorstr="#af8420", GradientType=1);
 
         &:hover {
             transform: translate(2px, 2px);
@@ -1202,6 +1245,11 @@ main {
             transition: 30ms;
             transform: scale(0.99);
         }
+
+        &>.movie_estimate {
+            top: -20px;
+            right: 0;
+        }
     }
 
     .recomendet-films-prev-unique,
@@ -1284,7 +1332,8 @@ main {
     &:hover {
         filter: drop-shadow(0 0 2px $colororange);
     }
-    &:active{
+
+    &:active {
         transform: scale(0.90);
         transition: none;
     }
@@ -1439,11 +1488,11 @@ main {
         flex-direction: column-reverse;
         align-items: flex-end;
         top: 99%;
-        right: -400px;
+        right: -110%;
         background-color: #0c0c0cf0;
-        width: 50%;
+        width: 100%;
         min-width: 295px;
-        padding-top: 20px;
+        padding-top: 55px;
         padding-bottom: 40px;
         transition: 350ms;
     }
@@ -1466,10 +1515,14 @@ main {
     .search {
         position: absolute;
         top: 18px;
-        right: 70px;
+        right: 35px;
         z-index: 100;
         background-color: #0C0C0C;
         max-width: 210px !important;
+    }
+
+    .search-anime-inp {
+        right: 25px !important;
     }
 
     .head-top-nav-items {

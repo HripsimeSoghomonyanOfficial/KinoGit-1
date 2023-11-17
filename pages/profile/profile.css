@@ -1,6 +1,9 @@
 body {
   background-color: #131313;
   font-family: Inter;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+          user-select: none;
 }
 
 header {
@@ -116,30 +119,42 @@ main {
   padding: 30px;
   background-color: rgba(0, 0, 0, 0.7607843137);
 }
-.personalInfo .personalInfo_cont .box {
+.personalInfo .box {
   display: flex;
   align-items: center;
   justify-content: center;
   flex-direction: column;
-  min-height: 450px;
-  width: 60%;
-}
-.personalInfo .personalInfo_cont .box img {
-  width: 25%;
-  min-width: 141px;
-  max-width: 350px;
-  border-radius: 30px;
-  box-shadow: 0 0 20px 0 white;
-  margin-bottom: 20px;
-  background-color: rgba(0, 0, 0, 0.4901960784);
-}
-.personalInfo .personalInfo_cont .box b {
-  margin-right: 8px;
-}
-.personalInfo .birthday,
-.personalInfo .mail,
-.personalInfo .nameSurname {
   text-transform: capitalize;
+  min-height: 450px;
+  max-width: 230px;
+}
+.personalInfo .box .user_first_letter {
+  display: flex;
+  width: 100px;
+  height: 100px;
+  font-family: emoji;
+  font-size: 80px;
+  background-color: #ff9900;
+  box-shadow: 0 0 4px 5px #ffffff;
+  border-radius: 15px;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 10px;
+}
+.personalInfo .box #_mail {
+  text-transform: lowercase;
+}
+.personalInfo .box h3 {
+  margin: 5px 0 30px;
+  text-align: center;
+}
+.personalInfo .mail,
+.personalInfo .birthday,
+.personalInfo .nameSurname {
+  display: inline-block;
+  margin-right: 8px;
+  margin-bottom: 10px;
+  color: #ffb700;
 }
 
 .main_Wrapper {
@@ -160,7 +175,7 @@ main {
   align-items: center;
   justify-content: center;
   flex-direction: row;
-  max-width: 300px;
+  max-width: 375px;
   width: 90%;
   background-color: #1e1e1e;
   padding: 15px 15px;
@@ -193,6 +208,23 @@ main {
 }
 .main_Wrapper .main_items .main_items_imgCont .main_items_imgCont_adsImgRot {
   transform: rotateY(180deg);
+}
+.main_Wrapper .main_items .clearAll {
+  color: #007aff;
+  padding: 5px;
+  background-color: #101010;
+  border-radius: 5px;
+  transition: 250ms;
+  font-weight: 600;
+  cursor: pointer;
+}
+.main_Wrapper .main_items .clearAll:hover {
+  background-color: #000000;
+  font-weight: 600;
+  color: red;
+}
+.main_Wrapper .main_items .clearAll_boockmark {
+  color: #ffb700;
 }
 .main_Wrapper .main_items .main_items_imgCont-redact {
   min-width: 45px;
@@ -248,23 +280,18 @@ main {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background: url(../../assets/logo-icon/logo-icon.jpg) #000000;
+  max-width: 220px;
   background-size: 50%;
   background-repeat: no-repeat;
   background-position: center;
-  border-radius: 20px;
   flex-direction: column;
   transition: 200ms;
-  overflow: hidden;
   cursor: pointer;
 }
-.main_Wrapper .swiper-slide:hover {
-  transform: scale(1.05);
+.main_Wrapper .swiper-slide a {
+  position: relative;
 }
-.main_Wrapper .swiper-slide:hover p {
-  opacity: 0;
-}
-.main_Wrapper .swiper-slide p {
+.main_Wrapper .swiper-slide a p {
   position: absolute;
   bottom: 0;
   left: 0;
@@ -278,13 +305,40 @@ main {
   word-break: break-word;
   transition: 250ms;
   background-color: rgba(19, 19, 19, 0.7294117647);
+  border-radius: 0 0 9px 9px;
 }
-.main_Wrapper .swiper-slide img {
+.main_Wrapper .swiper-slide a img {
   display: inline-block;
   -o-object-fit: cover;
      object-fit: cover;
   width: 100%;
   height: 100%;
+  border-radius: 10px;
+}
+.main_Wrapper .swiper-slide .deleteMovie {
+  position: absolute;
+  z-index: 5;
+  top: 0px;
+  right: 0px;
+  padding: 1px 5px;
+  border-radius: 3px;
+  color: white;
+  box-shadow: -3px 3px 10px -5px black;
+  transition: 250ms;
+  opacity: 0;
+  cursor: pointer;
+}
+.main_Wrapper .swiper-slide:hover {
+  transform: scale(1.05);
+}
+.main_Wrapper .swiper-slide:hover p {
+  opacity: 0;
+}
+.main_Wrapper .swiper-slide:hover .deleteMovie {
+  opacity: 1;
+  top: -8px;
+  right: -8px;
+  background-color: red;
 }
 .main_Wrapper .history-buttons {
   color: #007aff;
@@ -309,6 +363,9 @@ main {
 }
 .main_Wrapper .swiper-pagination-2 > .swiper-pagination-bullet-active {
   background-color: #ffb700;
+}
+.main_Wrapper .off {
+  display: none;
 }
 
 footer {

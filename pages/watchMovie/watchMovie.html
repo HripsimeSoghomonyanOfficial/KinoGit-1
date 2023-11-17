@@ -3,10 +3,17 @@
 
 <head>
     <meta charset="UTF-8">
-    <link rel="apple-touch-icon" sizes="180x180" href="../../assets/logo-icon/logo2.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="../../assets/logo-icon/logo-icon.jpg">
-    <link rel="mask-icon" type="image/png" sizes="16x16" href="../../assets/logo-icon/logo-icon.jpg">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- icons -->
+    <link rel="apple-touch-icon" sizes="144x144" href="../../assets/logo-icon/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="../../assets/logo-icon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="../../assets/logo-icon/favicon-16x16.png">
+    <link rel="manifest" href="../../assets/logo-icon/site.webmanifest">
+    <link rel="mask-icon" href="../../assets/logo-icon/safari-pinned-tab.logo-icon" color="#5bbad5">
+    <link rel="shortcut icon" href="../../assets/logo-icon/favicon.ico">
+    <meta name="msapplication-TileColor" content="#da532c">
+    <meta name="msapplication-config" content="../../assets/logo-icon/browserconfig.xml">
+    <meta name="theme-color" content="#ffffff">
     <!-- loader -->
     <link rel="stylesheet" href="../../css/loader/loader.css">
     <!-- helper -->
@@ -19,6 +26,9 @@
     <link rel="stylesheet" href="./../../css/swiper/swiperStyles.css">
     <!-- css -->
     <link rel="stylesheet" href="./watchMovie.css">
+    <!-- async scripts -->
+    <script async type="text/javascript" src="../../js/swiper/swiper-bundle.min.js"></script>
+
     <title>KinoGid</title>
 </head>
 
@@ -33,9 +43,8 @@
                         </div>
                         <div class="reg_popup_close">X</div>
                     </div>
-
                     <!-- login -->
-                    <form action="####" method="post" class="login" id="login__">
+                    <form action="../../backend/login.php" method="post" class="login" id="login__">
                         <div>
                             <div>
                                 <div class="clumn_conts">
@@ -64,39 +73,53 @@
                     </form>
 
                     <!-- registr -->
-                    <form action="####" method="post" class="registr active-block" id="registr__">
+                    <form action="../../backend/register.php" method="post" class="registr active-block" id="registr__">
+                        <div class="helper_text">я вам помогу зарегистрироваться</div>
                         <div class="flexBox">
                             <div>
                                 <div class="clumn_conts">
-                                    <label>имя</label>
-                                    <input type="text" id="regName" name="regName">
+                                    <label>имя <span id="regName_chack"></span></label>
+                                    <input type="text" id="regName" name="regName" required>
                                 </div>
                                 <div class="clumn_conts">
-                                    <label>фамилия</label>
-                                    <input type="text" id="regLname" name="regLname">
+                                    <label>фамилия <span id="regLname_chack"></span></label>
+                                    <input type="text" id="regLname" name="regLname" required>
                                 </div>
                                 <div class="clumn_conts">
-                                    <label>возраст</label>
-                                    <input type="date" id="regAge" name="regAge">
+                                    <label>возраст <span id="date_chack"></span></label>
+                                    <input class="inputDate" maxlength="10" type="text" id="regAge" name="regAge"
+                                        placeholder="01/01/2001">
                                 </div>
                             </div>
                             <div>
                                 <div class="clumn_conts">
-                                    <label>электронная почта</label>
-                                    <input type="email" name="regEmail" id="regEmail">
+                                    <label>электронная почта <span id="regEmail_chack"></span></label>
+                                    <input type="email" name="regEmail" id="regEmail" required>
                                 </div>
                                 <div class="clumn_conts">
-                                    <label>пароль</label>
-                                    <input type="password" id="regPassword" name="regPassword">
+                                    <label>пароль <span id="regPassword_chack"></span></label>
+                                    <input type="password" id="regPassword" name="regPassword" required>
                                 </div>
                                 <div class="clumn_conts">
-                                    <label>Подтвердите пароль</label>
-                                    <input type="password" id="regConfirm" name="regConfirm">
+                                    <label>Подтвердите пароль <span id="regConfirm_chack"></span></label>
+                                    <input type="password" id="regConfirm" name="regConfirm" required>
+                                </div>
+                                <div class="clumn_conts">
+                                    <label>пол <span id="gender_chack"></span></label>
+                                    <div>
+                                        <label class="gender_man gender_radio">man
+                                            <input type="radio" name="gender" value="man">
+                                        </label>
+
+                                        <label class="gender_women gender_radio">women
+                                            <input type="radio" name="gender" value="women">
+                                        </label>
+                                    </div>
                                 </div>
                             </div>
                         </div>
 
-                        <input class="submit" value="регистрация" type="submit" name="submit">
+                        <input class="submit" value="регистрация" type="submit" name="submit_btn" id="reg_submit">
                     </form>
                 </div>
             </div>
@@ -123,8 +146,8 @@
                     <span class="head-top-slesh">|</span>
                     <a href="javascript:void(0)" class="head-top-nav-items login__openPopup" id="login">Войти</a>
                     <a href="../../pages/profile/profile.html" class="head-top-nav-items head-top-nav-items-login">
-                        <img src="../../assets/svg/login-icon.svg" alt="login-icon">
                         <div class="user-icon"></div>
+                        <p class="user-nameShow"></p>
                     </a>
                 </nav>
 
@@ -151,7 +174,7 @@
 
                         let move_info_cont_data_change = () => {
                             setTimeout(() => {
-
+                                Sinit()
                                 bacground_poster_push.style.backgroundImage = `url(${document.querySelector('.swiper-slide-active>.head_swiper_info>.head_swiper_info_imgSrc').textContent}`
                                 // get 
                                 let move_info_cont_original_title = document.querySelector('.swiper-slide-active>.head_swiper_info>.head_swiper_info_original_title').textContent
@@ -175,9 +198,9 @@
                                 </p>
 
                                 <div class="move_info_cont_row">
-                                    <div class="move_info_cont_play" id='${head_swiper_info_id}' move_data="${move_info_cont_title} ,${move_info_cont_original_title}, ${head_swiper_info_data.slice(0, 4)}">
+                                    <a href='watchMovie.html?${head_swiper_info_id},${move_info_cont_original_title},${move_info_cont_title},${head_swiper_info_data.slice(0, 4)}' class="move_info_cont_play" id='${head_swiper_info_id}' move_data="${move_info_cont_title} ,${move_info_cont_original_title}, ${head_swiper_info_data.slice(0, 4)}">
                                         <img src="./../../assets/svg/icons-play.png" alt="play">смотреть
-                                    </div>
+                                    </a>
                                 </div>`
 
                                 setTimeout(() => {
@@ -188,51 +211,52 @@
                                 }, 500);
 
                                 reytingStars()
-                                get_Watch_move_info_cont()
                             }, 500)
                         }
 
-                        let swiper = new Swiper('.head-swiper-container', {
-                            effect: 'coverflow',
-                            speed: 400,
-                            centeredSlides: true,
-                            slidesPerView: 'auto',
-                            // loop: true,
-                            coverflowEffect: {
-                                depth: 40,
-                                modifier: 5,
-                                rotate: 0,
-                                // scale:1.1,
-                                slideShadows: true,
-                                stretch: -10,
-                            },
-                            navigation: {
-                                nextEl: '.swiper-button-next-unique',
-                                prevEl: '.swiper-button-prev-unique',
-                            },
-                            pagination: {
-                                el: '.swiper-pagination',
-                                clickable: true,
-                            },
-                            autoplay: {
-                                delay: 6000,
-                            },
-                            keyboard: {
-                                enabled: true,
-                                onlyInViewport: false,
-                            },
-                            on: {
-                                // -------- touch & move--------
-                                sliderMove: function () {
-                                    move_info_cont_data_change()
+                        function Sinit() {
+                            let swiper = new Swiper('.head-swiper-container', {
+                                effect: 'coverflow',
+                                speed: 400,
+                                centeredSlides: true,
+                                slidesPerView: 'auto',
+                                // loop: true,
+                                coverflowEffect: {
+                                    depth: 40,
+                                    modifier: 5,
+                                    rotate: 0,
+                                    // scale:1.1,
+                                    slideShadows: true,
+                                    stretch: -10,
                                 },
+                                navigation: {
+                                    nextEl: '.swiper-button-next-unique',
+                                    prevEl: '.swiper-button-prev-unique',
+                                },
+                                pagination: {
+                                    el: '.swiper-pagination',
+                                    clickable: true,
+                                },
+                                autoplay: {
+                                    delay: 6000,
+                                },
+                                keyboard: {
+                                    enabled: true,
+                                    onlyInViewport: false,
+                                },
+                                on: {
+                                    // -------- touch & move--------
+                                    sliderMove: function () {
+                                        move_info_cont_data_change()
+                                    },
 
-                                // -------- if buttones activete run this || autoplay--------
-                                slideChange: function () {
-                                    move_info_cont_data_change()
+                                    // -------- if buttones activete run this || autoplay--------
+                                    slideChange: function () {
+                                        move_info_cont_data_change()
+                                    }
                                 }
-                            }
-                        })
+                            })
+                        }
 
                         move_info_cont_data_change()
                     }
@@ -342,8 +366,8 @@
             <nav class="navigation">
                 <a href="./../privacy-polic/privacy-polic.html">Правообладателям</a>
                 <a href="./../app/app.html">Приложение</a>
-                <a href="./../faq/fac.html">фэк</a>
                 <a href="./../contact/contact.html">Контакты</a>
+                <a href="./../faq/fac.html">фэк</a>
             </nav>
         </div>
 
@@ -380,12 +404,11 @@
     <script type="text/javascript" src="watchMove.js"></script>
     <!-- scripts -->
     <script type="text/javascript" src="//kinoplayer.top/top.js"></script>
-    <script type="text/javascript" src="../../js/swiper/swiper-bundle.min.js"></script>
+    <script type="text/javascript" src="./user_login_check.js"></script>
+    <script type="text/javascript" src="./formValidation.js"></script>
     <script type="text/javascript" src="../../js/searchAnim/searchAnim.js"></script>
     <script type="text/javascript" src="../../js/mob_open_close/mob_open_close.js"></script>
-    <script type="text/javascript" src="../../js/estimate.js"></script>
     <script type="text/javascript" src="../../js/script.js"></script>
-
 </body>
 
 </html>

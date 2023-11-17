@@ -1,9 +1,9 @@
 {
-    "name": "KinoGit",
-    "short_name": "KinoGit",
+    "name": "",
+    "short_name": "",
     "icons": [
         {
-            "src": "/android-chrome-144x144.png",
+            "src": "android-chrome-144x144.png",
             "sizes": "144x144",
             "type": "image/png"
         }

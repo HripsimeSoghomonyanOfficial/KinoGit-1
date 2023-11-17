@@ -9,6 +9,7 @@ $colororange: #ffb700;
 body {
     background-color: $bgColor;
     font-family: Inter;
+    user-select: none;
 }
 
 header {
@@ -133,35 +134,48 @@ main {
         width: 100%;
         padding: 30px;
         background-color: #000000c2;
+    }
 
-        .box {
+    .box {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        text-transform: capitalize;
+        min-height: 450px;
+        max-width: 230px;
+
+        .user_first_letter {
             display: flex;
+            width: 100px;
+            height: 100px;
+            font-family: emoji;
+            font-size: 80px;
+            background-color: #ff9900;
+            box-shadow: 0 0 4px 5px #ffffff;
+            border-radius: 15px;
             align-items: center;
             justify-content: center;
-            flex-direction: column;
-            min-height: 450px;
-            width: 60%;
+            margin-bottom: 10px;
+        }
 
-            img {
-                width: 25%;
-                min-width: 141px;
-                max-width: 350px;
-                border-radius: 30px;
-                box-shadow: 0 0 20px 0 white;
-                margin-bottom: 20px;
-                background-color: #0000007d;
-            }
+        #_mail {
+            text-transform: lowercase;
+        }
 
-            b {
-                margin-right: 8px;
-            }
+        h3 {
+            margin: 5px 0 30px;
+            text-align: center;
         }
     }
 
-    .birthday,
     .mail,
+    .birthday,
     .nameSurname {
-        text-transform: capitalize;
+        display: inline-block;
+        margin-right: 8px;
+        margin-bottom: 10px;
+        color: $colororange;
     }
 }
 
@@ -184,7 +198,7 @@ main {
         align-items: center;
         justify-content: center;
         flex-direction: row;
-        max-width: 300px;
+        max-width: 375px;
         width: 90%;
         background-color: $color1;
         padding: 15px 15px;
@@ -222,6 +236,26 @@ main {
             .main_items_imgCont_adsImgRot {
                 transform: rotateY(180deg);
             }
+        }
+
+        .clearAll {
+            color: #007aff;
+            padding: 5px;
+            background-color: #101010;
+            border-radius: 5px;
+            transition: 250ms;
+            font-weight: 600;
+            cursor: pointer;
+
+            &:hover {
+                background-color: #000000;
+                font-weight: 600;
+                color: red;
+            }
+        }
+
+        .clearAll_boockmark {
+            color: #ffb700;
         }
 
         .main_items_imgCont-redact {
@@ -291,15 +325,56 @@ main {
         display: flex;
         justify-content: space-between;
         align-items: center;
-        background: url(../../assets/logo-icon/logo-icon.jpg) #000000;
+        max-width: 220px;
         background-size: 50%;
         background-repeat: no-repeat;
         background-position: center;
-        border-radius: 20px;
         flex-direction: column;
         transition: 200ms;
-        overflow: hidden;
         cursor: pointer;
+
+        a {
+            position: relative;
+
+            p {
+                position: absolute;
+                bottom: 0;
+                left: 0;
+                width: 100%;
+                text-align: center;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                padding: 10px 5px;
+                font-size: 10px;
+                word-break: break-word;
+                transition: 250ms;
+                background-color: #131313ba;
+                border-radius: 0 0 9px 9px;
+            }
+
+            img {
+                display: inline-block;
+                object-fit: cover;
+                width: 100%;
+                height: 100%;
+                border-radius: 10px;
+            }
+        }
+
+        .deleteMovie {
+            position: absolute;
+            z-index: 5;
+            top: 0px;
+            right: 0px;
+            padding: 1px 5px;
+            border-radius: 3px;
+            color: white;
+            box-shadow: -3px 3px 10px -5px black;
+            transition: 250ms;
+            opacity: 0;
+            cursor: pointer;
+        }
 
         &:hover {
             transform: scale(1.05);
@@ -307,29 +382,13 @@ main {
             p {
                 opacity: 0;
             }
-        }
 
-        p {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            text-align: center;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 10px 5px;
-            font-size: 10px;
-            word-break: break-word;
-            transition: 250ms;
-            background-color: #131313ba;
-        }
-
-        img {
-            display: inline-block;
-            object-fit: cover;
-            width: 100%;
-            height: 100%;
+            .deleteMovie {
+                opacity: 1;
+                top: -8px;
+                right: -8px;
+                background-color: red;
+            }
         }
     }
 
@@ -363,6 +422,10 @@ main {
 
     .swiper-pagination-2>.swiper-pagination-bullet-active {
         background-color: $colororange;
+    }
+
+    .off {
+        display: none;
     }
 }
 
@@ -512,6 +575,6 @@ footer {
     }
 }
 
-@media screen and (max-width:350px) {
-    .main_Wrapper .main_items {}
-}
+// @media screen and (max-width:350px) {
+//     .main_Wrapper .main_items {}
+// }

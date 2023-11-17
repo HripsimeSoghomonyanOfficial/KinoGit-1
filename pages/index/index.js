@@ -4,13 +4,18 @@ const thisYear = D.getFullYear() // 2023
 
 document.getElementById('FullYear').innerText = thisYear
 
-const main__section__films = document.getElementById('main__section__films'),
+const
+    main__section__films = document.getElementById('main__section__films'),
     search_inp = document.getElementById('search_inp'),
     search_btn = document.getElementById('search_btn'),
     categories_cont = document.getElementById('genres__text'),
     prev = document.getElementById('prev'),
     next = document.getElementById('next'),
-    current = document.getElementById('current');
+    current = document.getElementById('current'),
+    // ----------------------- select genre btn -----------------------
+    select = document.querySelectorAll('.select'),
+    all__select__arrow = document.querySelectorAll('.select__arrow'),
+    genres__popup = document.querySelectorAll('.genres__popup');
 
 let currentPage = 1,
     nextPage = 2,
@@ -20,6 +25,13 @@ let currentPage = 1,
     selectedGenre = [];
 
 //TMDB themoviedb
+const options = {
+    method: 'GET',
+    headers: {
+        accept: 'application/json',
+        Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI3ZjQwYjY2MjVhZWEwNDcyZTU4ZGE2ZDdkZGMxMmZhZCIsInN1YiI6IjY0N2RlZWFjOTM4MjhlMDBhNzY1OGUyZiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.MBEPwwpXitFgjAFw1v_yLu3YhmG39HgHebNjYk1xVb4'
+    }
+};
 
 let language = 'ru-RU'
 
@@ -27,19 +39,29 @@ const API_KEY = 'api_key=1cf50e6248dc270629e802686245c2c8',
     BASE_URL = 'https://api.themoviedb.org/3',
     API_URL = `${BASE_URL}/discover/movie?language=${language}?language=en-EN?sort_by=popularity.desc&${API_KEY}`,
     IMG_URL = 'https://image.tmdb.org/t/p/w500',
-    searchURL = `${BASE_URL}/search/movie?${API_KEY}`,
+    searchURL = `${BASE_URL}/search/movie?${API_KEY}`;
+
+const
     genres = [
+        {
+            "id": 28,
+            "name": "Боевик"
+        },
+        {
+            "id": 10752,
+            "name": "Военный"
+        },
         {
             "id": 18,
             "name": "Драма"
         },
         {
-            "id": 27,
-            "name": "Ужасы"
+            "id": 99,
+            "name": "Документальный"
         },
         {
-            "id": 28,
-            "name": "Боевик"
+            "id": 27,
+            "name": "Ужасы"
         },
         {
             "id": 10402,
@@ -52,10 +74,6 @@ const API_KEY = 'api_key=1cf50e6248dc270629e802686245c2c8',
         {
             "id": 53,
             "name": "Триллер"
-        },
-        {
-            "id": 10752,
-            "name": "Военный"
         },
         {
             "id": 14,
@@ -92,10 +110,6 @@ const API_KEY = 'api_key=1cf50e6248dc270629e802686245c2c8',
         {
             "id": 36,
             "name": "Исторический"
-        },
-        {
-            "id": 99,
-            "name": "Документальный"
         },
         {
             "id": 878,
@@ -247,29 +261,27 @@ const API_KEY = 'api_key=1cf50e6248dc270629e802686245c2c8',
         },
     ];
 
-
 // top slider movies
-get_top_movies()
-function get_top_movies() {
-    fetch(`${BASE_URL}/discover/movie?language=${language}?language=en-EN?sort_by=popularity.desc&${API_KEY}`)
+let get_top_movies = () => {
+    fetch(`${BASE_URL}/discover/movie?language=${language}?language=en-EN?sort_by=popularity.desc&${API_KEY}`, options)
         // slider top 20
         .then(r => r.json())
         .then(r => {
-            let films = r.results
             const swiper_wrapper = document.getElementById('head-swiper-wrapper')
 
-            films.forEach(el => {
+            r.results.forEach(el => {
                 const div = document.createElement('div')
                 div.className = 'swiper-slide head-swiper-slide'
                 div.style = `background-image:url(https://image.tmdb.org/t/p/w500/${el.poster_path})`
+                div.href = `pages/watchMovie/watchMovie.html?${el.id}&${el.title}&${el.original_title}&${String(el.release_date).slice(0, 4)}`
                 div.innerHTML = `
-                    <div class='movie_estimate'>
+                    <div class='movie_estimate top_movie_estimate'>
                         <img class='movie_favorite' src="assets/svg/favorite.svg">
                     </div>
 
-					<div class="allMovie movie head-swiper-wrapper-play-img-cont" id='${el.id}' move_data='${el.title} , ${el.original_title} , ${String(el.release_date).slice(0, 4)}'}>
+					<a href='pages/watchMovie/watchMovie.html?${el.id}&${el.title}&${el.original_title}&${String(el.release_date).slice(0, 4)}' class="allMovie movie head-swiper-wrapper-play-img-cont" id='${el.id}' move_data='${el.title} , ${el.original_title} , ${String(el.release_date).slice(0, 4)}'}>
 						<img src="assets/svg/play-icon.svg" alt="play-button">
-					</div>
+					</a>
 
 					<div class="head_swiper_info" style="display:none">
                         <span class="head_swiper_info_imgSrc">${((window.innerWidth > 650) ? 'https://image.tmdb.org/t/p/original' : 'http://image.tmdb.org/t/p/w500')}${el.backdrop_path}</span>
@@ -281,13 +293,20 @@ function get_top_movies() {
 					</div>`
                 swiper_wrapper.appendChild(div)
             })
-            headSwiper()
-            get_move_andPlay()
+            setTimeout(() => {
+                headSwiper()
+                loaderOFF()
+            }, 300);
+            getTop_move_andPlay()
+            get_top_Bookmark_InServer()
+
+            if (localStorage.getItem('page'))
+                pageCall()
         })
 }
+get_top_movies()
 
 // установить Жанр
-setGenre();
 function setGenre() {
     categories_cont.innerHTML = '';
     let year = 0
@@ -314,8 +333,7 @@ function setGenre() {
                         selectedGenre.push(genre.id)
                     }
                 }
-                getMovies(BASE_URL + `/discover/movie?language=${language}?language=en-EN?&primary_release_year=${year ? year : thisYear}&page=1&year=${year ? year : thisYear}&&sort_by=popularity.desc&` + API_KEY + '&with_genres=' + encodeURI(selectedGenre.join(',')))
-                highlightSelection()
+                getMovies(BASE_URL + `/discover/movie?language=${language}?language=en-EN?&primary_release_year=${year ? year : thisYear}&page=${localStorage.getItem('page')}&year=${year ? year : thisYear}&sort_by=popularity.desc&` + API_KEY + '&with_genres=' + encodeURI(selectedGenre.join(',')))
             })
         } else {
             t.id = genre.id;
@@ -327,8 +345,7 @@ function setGenre() {
         categories_cont.append(t);
     })
 
-    select_year()
-    function select_year() {
+    const select_year = () => {
         let years = []
         for (let i = 0; i <= 10; i++) {
             years.push(`${thisYear - i - 1} - ${thisYear - i}`)
@@ -353,13 +370,12 @@ function setGenre() {
                 year = (String(getYears) !== 'до,1980') ? getYears : getYears[1]
 
                 getMovies(BASE_URL + `/discover/movie?language=${language}?language=en-EN?&page=1&primary_release_date.gte=${year ? year[0] + '-01-01' : thisYear}&primary_release_date.lte=${year ? year[1] + '-12-31' : thisYear}&` + API_KEY + '&with_genres=' + encodeURI(selectedGenre.join(',')))
-                highlightSelection()
             })
         })
     }
+    select_year()
 
-    select_countries()
-    function select_countries() {
+    const select_countries = () => {
         let select__countries__popup = document.querySelector('.select__countries__popup')
         select__countries__popup.innerHTML = ''
 
@@ -378,15 +394,14 @@ function setGenre() {
                 let setCountries = select__countries__items[index].id
 
                 getMovies(BASE_URL + `/discover/movie?language=${language}?language=en-EN?&primary_release_year=${year ? year[0] : thisYear}&page=1&year=${year ? year : thisYear}&with_original_language=${setCountries}&sort_by=popularity.desc&` + API_KEY + '&with_genres=' + encodeURI(selectedGenre.join(',')))
-                highlightSelection()
 
                 getcountries.push(setCountries)
             })
         })
     }
+    select_countries()
 
-    select_rating()
-    function select_rating() {
+    const select_rating = () => {
         let select__rating__popup = document.querySelector('.select__rating__popup')
         select__rating__popup.innerHTML = ''
 
@@ -404,16 +419,13 @@ function setGenre() {
                 let getrating = select__rating__items[index].id
 
                 getMovies(BASE_URL + `/discover/movie?language=${language}?language=en-EN?&primary_release_year=${year ? year[0] : thisYear}&page=1&year=${year ? year : thisYear}&with_original_language=${getcountries}&vote_average.gte=${getrating}&sort_by=popularity.desc&` + API_KEY + '&with_genres=' + encodeURI(selectedGenre.join(',')))
-                highlightSelection()
             })
         })
-    }
-}
 
-// ----------------------- select genre btn -----------------------
-let select = document.querySelectorAll('.select')
-let all__select__arrow = document.querySelectorAll('.select__arrow')
-let genres__popup = document.querySelectorAll('.genres__popup')
+    }
+
+    select_rating()
+}
 
 select.forEach((el, i) => {
     el.addEventListener('click', () => {
@@ -434,84 +446,58 @@ select.forEach((el, i) => {
     })
 })
 
-// on scroll -> off genres popup
-document.addEventListener('scroll', () => {
-    document.querySelectorAll('.genres__popup').forEach((el, i) => {
-        el.classList.remove('genres__popup--active')
-        document.querySelectorAll('.select__arrow')[i].classList.remove('select__arrow--active')
-    })
-})
-// -----------------------------------------------------------------
-
 // множественный выбор жанор 
-const clear = document.querySelector('.reset__default')
-function highlightSelection() {
-    const tags = document.querySelectorAll('.genres__text__items');
-    tags.forEach(el => el.classList.remove('categories--active'))
+
+const highlightSelection = () => {
+    const clear = document.querySelector('.reset__default')
     // очистить кнопкой
     clear.classList.add('reset__default--active');
-    clearClick(clear)
 
-    if (selectedGenre.length != 0) {
-        selectedGenre.forEach(id => {
-            const hightlightedTag = document.getElementById(id);
-            hightlightedTag.classList.add('categories--active');
-        })
-    }
-}
-
-clearClick(clear)
-function clearClick(clear) {
     clear.addEventListener('click', () => {
-        clear.classList.remove('reset__default--active');
         selectedGenre = [];
-        setGenre();
         getMovies(API_URL);
+        localStorage.removeItem('page')
         // delete active
-        select.forEach((e, i) => {
-            all__select__arrow[i].classList.remove('select__arrow--active')
-            select[i].classList.remove('select--active')
-            genres__popup[i].classList.remove('genres__popup--active')
-        })
     })
 }
+highlightSelection()
+
 
 // получить фильмы
-getMovies(API_URL)
 function getMovies(url) {
-    lastUrl = url;
+    return new Promise(resolve => {
+        lastUrl = url;
+        fetch(url, options).then(res => res.json())
+            .then(data => {
+                if (data.results.length !== 0) {
+                    showMovies(data.results);
+                    get_main_Bookmark_InServer()
+                    currentPage = data.page;
+                    nextPage = currentPage + 1;
+                    prevPage = currentPage - 1;
+                    totalPages = data.total_pages;
 
-    fetch(url).then(res => res.json())
-        .then(data => {
+                    pagination(currentPage, totalPages)
 
-            if (data.results.length !== 0) {
-                showMovies(data.results);
-                currentPage = data.page;
-                nextPage = currentPage + 1;
-                prevPage = currentPage - 1;
-                totalPages = data.total_pages;
-
-                pagination(currentPage, totalPages)
-
-                if (currentPage <= 1) {
-                    prev.classList.add('disabled');
-                    next.classList.remove('disabled')
+                    if (currentPage <= 1) {
+                        prev.classList.add('disabled');
+                        next.classList.remove('disabled')
+                    }
+                    else if (currentPage >= totalPages) {
+                        prev.classList.remove('disabled');
+                        next.classList.add('disabled')
+                    }
+                    else {
+                        prev.classList.remove('disabled');
+                        next.classList.remove('disabled')
+                    }
+                } else {
+                    main__section__films.innerHTML = `<h3 class="no-results">No Results Found</h3>`
                 }
-                else if (currentPage >= totalPages) {
-                    prev.classList.remove('disabled');
-                    next.classList.add('disabled')
-                }
-                else {
-                    prev.classList.remove('disabled');
-                    next.classList.remove('disabled')
-                }
-                get_move_andPlay()
-            } else {
-                main__section__films.innerHTML = `<h3 class="no-results">No Results Found</h3>`
-            }
-        })
+            })
+    })
 }
-
+getMovies(API_URL)
 // нумерация страниц
 function pagination(currentPage, totalPages) {
     current.innerHTML = `
@@ -547,14 +533,14 @@ function showMovies(data) {
         // есле у фильма отсутствует название не показывать фильм
         if (Boolean(el.title) && el.poster_path) {
             movieEl.innerHTML = `
-            <div class='movie_estimate'>
+            <div class='movie_estimate main_movie_estimate'>
                 <img class='movie_favorite' src="assets/svg/favorite.svg">
             </div>
 
-            <img src="${IMG_URL + el.poster_path}" alt="${el.title}">
-            <div class="watch__now allMovie" id='${el.id}' move_data='${el.title} ${el.original_title} ${String(el.release_date).slice(0, 4)}/'>
+            <img class='poster-img' src="${IMG_URL + el.poster_path}" alt="${el.title}">
+            <a href='pages/watchMovie/watchMovie.html?${el.id}&${el.title}&${el.original_title}&${String(el.release_date).slice(0, 4)}' class="watch__now allMovie" id='${el.id}' move_data='${el.title} ${el.original_title} ${String(el.release_date).slice(0, 4)}/'>
                 <img src="assets/svg/play-icon.svg" alt="play-button">
-            </div>
+            </a>
             <div class="movie-info">
                 <h3 class="movie-info-title movie-title">${el.title}</h3>
                 <div class='movie-info-subtitle-cont'>
@@ -566,6 +552,8 @@ function showMovies(data) {
             main__section__films.appendChild(movieEl)
         }
     })
+    setGenre();
+    getTMain_move_andPlay()
 }
 
 // получить цвет
@@ -579,47 +567,113 @@ function getColor(vote) {
     }
 }
 
-// search_btn
-search_btn.addEventListener('click', (e) => {
-    serchLogic(e)
-})
-
-// search_inp
-search_inp.addEventListener('keyup', (e) => {
-    serchLogic(e)
-})
-
-// serch click logic
-function serchLogic(e) {
-    if (e.code == 'Enter' || e.code == 'NumpadEnter') {
-        const searchTerm = search_inp.value;
-        selectedGenre = [];
-        setGenre();
-        if (searchTerm) {
-            getMovies(searchURL + '&query=' + searchTerm + `&language=${language}`)
-        } else {
-            getMovies(API_URL);
-        }
-        setTimeout(() => {
-            document.getElementById('main__section__films').scrollIntoView({ behavior: 'smooth' })
-        }, 1500);
-    }
+// serch logic
+let serchLogic = () => {
+    selectedGenre = [];
+    getMovies(searchURL + '&query=' + search_inp.value + `&language=${language}`)
 }
+
+
+// search_btn (click)
+search_btn.addEventListener('click', () => {
+    if (search_inp.value) {
+        serchLogic()
+        document.getElementById('main__section__films').scrollIntoView({ behavior: 'smooth' })
+    }
+})
+
+// search_inp (key)
+search_inp.addEventListener('keyup', (e) => {
+    if (e.key == 'Enter' && search_inp.value)
+        serchLogic()
+})
 
 // нумерация страниц назад 
 prev.addEventListener('click', () => {
     if (prevPage > 0) {
-        pageCall(prevPage);
+        localStorage.setItem('page', prevPage)
+        pageCall();
     }
 })
 
 // нумерация страниц вперед 
 next.addEventListener('click', () => {
     if (nextPage <= totalPages) {
-        pageCall(nextPage);
+        localStorage.setItem('page', nextPage)
+        pageCall();
     }
 })
 
+// нумерация страниц
+function pagination_click() {
+    document.querySelectorAll('#pages').forEach(p => {
+        p.addEventListener('click', () => {
+            localStorage.setItem('page', p.textContent)
+            pageCall()
+        })
+    })
+}
+
+// страница созвать
+function pageCall() {
+    let page = localStorage.getItem('page')
+
+    let urlSplit = lastUrl.split('?');
+    let queryParams = urlSplit[1].split('&');
+    let key = queryParams[queryParams.length - 1].split('=');
+    if (key[0] != 'page') {
+        let url = lastUrl + '&page=' + page
+        getMovies(url);
+    } else {
+        key[1] = page.toString();
+        let a = key.join('=');
+        queryParams[queryParams.length - 1] = a;
+        let b = queryParams.join('&');
+        let url = urlSplit[0] + '?' + b
+        getMovies(url);
+    }
+    document.getElementById('main').scrollIntoView({ behavior: 'smooth' })
+}
+
+// get movie and play 
+function getTop_move_andPlay() {
+    document.querySelectorAll('.head-swiper-wrapper>.swiper-slide>.allMovie').forEach(el => {
+        el.addEventListener('click', () => {
+            fetch('../../backend/historyWatch.php', {
+                method: 'post',
+                headers: { 'Content-Type': 'application/json', },
+                body: JSON.stringify(el.id)
+            })
+                .then(r => r.json())
+                .then(arr => {
+                    // console.log('ok -> ', arr);
+                })
+                .catch(err => {
+                    console.error('error -> ', err);
+                });
+        })
+    })
+}
+function getTMain_move_andPlay() {
+    document.querySelectorAll('.main__section__films>.movie>.allMovie').forEach(el => {
+        el.addEventListener('click', () => {
+            fetch('../../backend/historyWatch.php', {
+                method: 'post',
+                headers: { 'Content-Type': 'application/json', },
+                body: JSON.stringify(el.id)
+            })
+                .then(r => r.json())
+                .then(arr => {
+                    // console.log('ok -> ', arr);
+                })
+                .catch(err => {
+                    console.error('error -> ', err);
+                });
+        })
+    })
+}
+
+// ------------------
 document.getElementById('top_movies').addEventListener('click', () => {
     getMovies(`https://api.themoviedb.org/3/discover/movie?${API_KEY}&language=${language}?language=en-US&page=1&sort_by=popularity.desc&primary_release_date.gte=${thisYear}-01-01`)
     document.getElementById('main__section__films').scrollIntoView({ behavior: 'smooth' })
@@ -645,65 +699,96 @@ document.getElementById('family').addEventListener('click', () => {
     document.getElementById('main__section__films').scrollIntoView({ behavior: 'smooth' })
 })
 
-// нумерация страниц
-function pagination_click() {
-    document.querySelectorAll('#pages').forEach(p => {
-        p.addEventListener('click', () => {
-            pageCall(Number(p.textContent))
-        })
-    })
-}
-
-// страница созвать
-function pageCall(page) {
-    let urlSplit = lastUrl.split('?');
-    let queryParams = urlSplit[1].split('&');
-    let key = queryParams[queryParams.length - 1].split('=');
-    if (key[0] != 'page') {
-        let url = lastUrl + '&page=' + page
-        getMovies(url);
-    } else {
-        key[1] = page.toString();
-        let a = key.join('=');
-        queryParams[queryParams.length - 1] = a;
-        let b = queryParams.join('&');
-        let url = urlSplit[0] + '?' + b
-        getMovies(url);
-    }
-}
-
-function move_info_cont_play() {
-    document.querySelector('.move_info_cont_play').addEventListener('click', () => {
-        let el = document.querySelector('.move_info_cont_play')
-
-        // get data
-        let move_data = el.getAttribute('move_data')
-        let move_id = el.getAttribute('id')
-
-        // save in localStorage
-        localStorage.setItem("move_data", `${move_data}`);
-        localStorage.setItem("move_id", `${move_id}`);
-
-        // location
-        window.location.href = 'pages/watchMovie/watchMovie.html';
-    })
-}
-
-get_move_andPlay()
-function get_move_andPlay() {
-    document.querySelectorAll('.allMovie').forEach(el => {
+// --------- send one id 015131 ------------
+function get_top_Bookmark_InServer() {
+    document.querySelectorAll('.top_movie_estimate').forEach(el => {
         el.addEventListener('click', () => {
+            fetch('../../backend/bookmark.php', {
+                method: 'post',
+                headers: { 'Content-Type': 'application/json', },
+                body: JSON.stringify(el.parentElement.querySelector('.allMovie').id)
+            })
+                .then(r => r.json())
+                .then(arr => {
+                    // console.log('ok -> ', arr);
+                    if (arr.registered) {
+                        el.classList.toggle('movie_estimate--active')
 
-            // get data
-            let move_data = el.getAttribute('move_data')
-            let move_id = el.getAttribute('id')
-
-            // save in localStorage
-            localStorage.setItem("move_data", `${move_data}`);
-            localStorage.setItem("move_id", `${move_id}`);
-
-            // location
-            window.location.href = 'pages/watchMovie/watchMovie.html';
+                        document.querySelectorAll('.main__section__films>.movie>.allMovie').forEach(el2 => {
+                            if (el2.id == el.parentElement.querySelector('.allMovie').id) {
+                                el2.parentElement.querySelector('.movie_estimate').classList.toggle('movie_estimate--active')
+                            }
+                        })
+                    } else {
+                        document.querySelector('.reg_popup').style.display = 'flex'
+                    }
+                })
+                .catch(err => {
+                    console.error('error -> ', err);
+                });
         })
+    });
+}
+
+function get_main_Bookmark_InServer() {
+
+    document.querySelectorAll('.main_movie_estimate').forEach(el => {
+        el.addEventListener('click', () => {
+            fetch('../../backend/bookmark.php', {
+                method: 'post',
+                headers: { 'Content-Type': 'application/json', },
+                body: JSON.stringify(el.parentElement.querySelector('.allMovie').id)
+            })
+                .then(r => r.json())
+                .then(arr => {
+                    // console.log('ok -> ', arr);
+                    if (arr.registered) {
+                        el.classList.toggle('movie_estimate--active')
+
+                        document.querySelectorAll('.head-swiper-slide>.allMovie').forEach(el2 => {
+                            if (el2.id == el.parentElement.querySelector('.allMovie').id) {
+                                el2.parentElement.querySelector('.movie_estimate').classList.toggle('movie_estimate--active')
+                            }
+                        })
+                    } else {
+                        document.querySelector('.reg_popup').style.display = 'flex'
+                    }
+                })
+                .catch(err => {
+                    console.error('error -> ', err);
+                });
+        })
+    });
+}
+
+const get_favorite = () => {
+    fetch('../../backend/get_bookmark.php', {
+        method: 'get',
+        headers: { 'Content-Type': 'application/json', }
     })
+        .then(r => r.json())
+        .then(res => {
+            if (res.length) {
+                res.forEach(el => {
+                    document.querySelectorAll('.allMovie').forEach(movID => {
+                        if (movID.id == el[1]) {
+                            movID.parentElement.querySelector('.movie_estimate').classList.add('movie_estimate--active')
+                        }
+                    });
+                });
+            }
+        })
+        .catch(err => console.error('error -> ', err))
+}
+
+// ________________________________________________________________________________________________
+// loader off
+function loaderOFF() {
+    document.querySelector('.loader').style.opacity = '0'
+    window.scrollTo(0, 0)
+
+    setTimeout(() => {
+        document.querySelector('.loader').style.display = 'none'
+        get_favorite()
+    }, 700)
 }

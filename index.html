@@ -4,12 +4,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- <link rel="apple-touch-icon" sizes="144x144" href="assets/logo-icon/apple-touch-icon.png">
+    <!-- icons -->
+    <link rel="apple-touch-icon" sizes="144x144" href="assets/logo-icon/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="assets/logo-icon/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="assets/logo-icon/favicon-16x16.png"> -->
-    <!-- <link rel="manifest" href="assets/logo-icon/site.webmanifest">
-    <link rel="mask-icon" href="assets/logo-icon/safari-pinned-tab.svg" color="#ff9500"> -->
+    <link rel="icon" type="image/png" sizes="16x16" href="assets/logo-icon/favicon-16x16.png">
+    <link rel="manifest" href="assets/logo-icon/site.webmanifest">
+    <link rel="mask-icon" href="assets/logo-icon/safari-pinned-tab.logo-icon" color="#5bbad5">
+    <link rel="shortcut icon" href="assets/logo-icon/favicon.ico">
     <meta name="msapplication-TileColor" content="#da532c">
+    <meta name="msapplication-config" content="assets/logo-icon/browserconfig.xml">
     <meta name="theme-color" content="#ffffff">
     <!-- loader -->
     <link rel="stylesheet" href="css/loader/loader.css">
@@ -23,6 +26,8 @@
     <link rel="stylesheet" href="css/swiper/swiperStyles.css">
     <!-- main -->
     <link rel="stylesheet" href="pages/index/index.css">
+    <!-- async scripts -->
+    <script async type="text/javascript" src="js/swiper/swiper-bundle.min.js"></script>
 
     <title>KinoGid</title>
 </head>
@@ -70,38 +75,53 @@
 
                         <!-- registr -->
                         <form action="backend/register.php" method="post" class="registr active-block" id="registr__">
+                            <div class="helper_text">я вам помогу зарегистрироваться</div>
                             <div class="flexBox">
                                 <div>
                                     <div class="clumn_conts">
-                                        <label>имя</label>
-                                        <input type="text" id="regName" name="regName">
+                                        <label>имя <span id="regName_chack"></span></label>
+                                        <input type="text" id="regName" name="regName" required>
                                     </div>
                                     <div class="clumn_conts">
-                                        <label>фамилия</label>
-                                        <input type="text" id="regLname" name="regLname">
+                                        <label>фамилия <span id="regLname_chack"></span></label>
+                                        <input type="text" id="regLname" name="regLname" required>
                                     </div>
                                     <div class="clumn_conts">
-                                        <label>возраст</label>
-                                        <input class="inputDate" type="date" id="regAge" name="regAge">
+                                        <label>возраст <span id="date_chack"></span></label>
+                                        <input class="inputDate" maxlength="10" type="text" id="regAge" name="regAge"
+                                            placeholder="01/01/2001">
                                     </div>
                                 </div>
                                 <div>
                                     <div class="clumn_conts">
-                                        <label>электронная почта</label>
-                                        <input type="email" name="regEmail" id="regEmail">
+                                        <label>электронная почта <span id="regEmail_chack"></span></label>
+                                        <input type="email" name="regEmail" id="regEmail" required>
                                     </div>
                                     <div class="clumn_conts">
-                                        <label>пароль</label>
-                                        <input type="password" id="regPassword" name="regPassword">
+                                        <label>пароль <span id="regPassword_chack"></span></label>
+                                        <input type="password" id="regPassword" name="regPassword" required>
                                     </div>
                                     <div class="clumn_conts">
-                                        <label>Подтвердите пароль</label>
-                                        <input type="password" id="regConfirm" name="regConfirm">
+                                        <label>Подтвердите пароль <span id="regConfirm_chack"></span></label>
+                                        <input type="password" id="regConfirm" name="regConfirm" required>
+                                    </div>
+                                    <div class="clumn_conts">
+                                        <label>пол <span id="gender_chack"></span></label>
+                                        <div>
+                                            <label class="gender_man gender_radio">man
+                                                <input type="radio" name="gender" value="man">
+                                            </label>
+
+                                            <label class="gender_women gender_radio">women
+                                                <input type="radio" name="gender" value="women">
+                                            </label>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
 
-                            <input class="submit" value="регистрация" type="submit" name="submit">
+                            <input class="submit" value="регистрация" type="submit" name="submit_btn">
+
                         </form>
                     </div>
                 </div>
@@ -129,8 +149,8 @@
                         <span class="head-top-slesh">|</span>
                         <a href="javascript:void(0)" class="head-top-nav-items login__openPopup" id="login">Войти</a>
                         <a href="pages/profile/profile.html" class="head-top-nav-items head-top-nav-items-login">
-                            <img src="assets/svg/login-icon.svg" alt="login-icon">
                             <div class="user-icon"></div>
+                            <p class="user-nameShow"></p>
                         </a>
                     </nav>
 
@@ -164,6 +184,7 @@
                             let changeSlide = true
 
                             let move_info_cont_data_change = () => {
+                                Sinit()
                                 setTimeout(() => {
 
                                     document.querySelector('.header-wrapper').style.backgroundImage = `url(${document.querySelector('.swiper-slide-active>.head_swiper_info>.head_swiper_info_imgSrc').textContent}`
@@ -185,9 +206,9 @@
                                         </p>
 
                                         <div class="move_info_cont_row">
-                                            <div class="move_info_cont_play" id='${head_swiper_info_id}' move_data="${move_info_cont_title} ,${move_info_cont_original_title}, ${head_swiper_info_data.slice(0, 4)}">
+                                            <a href='pages/watchMovie/watchMovie.html?${head_swiper_info_id},${move_info_cont_original_title},${move_info_cont_title},${head_swiper_info_data.slice(0, 4)}' class="move_info_cont_play" id='${head_swiper_info_id}' move_data="${move_info_cont_title} ,${move_info_cont_original_title}, ${head_swiper_info_data.slice(0, 4)}">
                                                 <img src="assets/svg/icons-play.png" alt="play">смотреть
-                                            </div>
+                                            </a>
                                         </div>`;
                                     console.log();
 
@@ -215,58 +236,60 @@
                                     }, 2000);
 
                                     reytingStars()
-                                    move_info_cont_play()
+                                    // move_info_cont_play()
                                 }, 500)
                             }
-                            let swiper = new Swiper('.head-swiper-container', {
-                                effect: 'coverflow',
-                                speed: 200,
-                                centeredSlides: true,
-                                slidesPerView: 'auto',
-                                // loop: true,
-                                coverflowEffect: {
-                                    depth: 40,
-                                    modifier: 5,
-                                    rotate: 0,
-                                    // scale:1.04,
-                                    slideShadows: true,
-                                    stretch: -5,
-                                },
-                                navigation: {
-                                    nextEl: '.swiper-button-next-unique',
-                                    prevEl: '.swiper-button-prev-unique',
-                                },
-                                pagination: {
-                                    el: '.swiper-pagination',
-                                    clickable: true,
-                                },
-                                autoplay: {
-                                    delay: (window.innerWidth > 600) ? 99000 : 4000,
-                                    pauseOnMouseEnter: true,
-                                },
-                                keyboard: {
-                                    enabled: true,
-                                    onlyInViewport: false,
-                                },
-                                on: {
-                                    // -------- touch & move--------
-                                    sliderMove: function () {
-                                        if (changeSlide) {
-                                            changeSlide = false
-                                            move_info_cont_data_change()
-                                        }
+                            function Sinit() {
+                                let swiper = new Swiper('.head-swiper-container', {
+                                    effect: 'coverflow',
+                                    speed: 200,
+                                    centeredSlides: true,
+                                    slidesPerView: 'auto',
+                                    // loop: true,
+                                    coverflowEffect: {
+                                        depth: 40,
+                                        modifier: 5,
+                                        rotate: 0,
+                                        // scale:1.04,
+                                        slideShadows: true,
+                                        stretch: -5,
                                     },
+                                    navigation: {
+                                        nextEl: '.swiper-button-next-unique',
+                                        prevEl: '.swiper-button-prev-unique',
+                                    },
+                                    pagination: {
+                                        el: '.swiper-pagination',
+                                        clickable: true,
+                                    },
+                                    autoplay: {
+                                        delay: (window.innerWidth > 600) ? 99000 : 4000,
+                                        pauseOnMouseEnter: true,
+                                    },
+                                    keyboard: {
+                                        enabled: true,
+                                        onlyInViewport: false,
+                                    },
+                                    on: {
+                                        // -------- touch & move--------
+                                        sliderMove: function () {
+                                            if (changeSlide) {
+                                                changeSlide = false
+                                                move_info_cont_data_change()
+                                            }
+                                        },
 
-                                    // -------- if buttones activete run this || autoplay--------
-                                    slideChange: function () {
-                                        if (changeSlide) {
-                                            changeSlide = false
-                                            move_info_cont_data_change()
-                                        }
-                                        mouseEnter_out()
-                                    },
-                                }
-                            })
+                                        // -------- if buttones activete run this || autoplay--------
+                                        slideChange: function () {
+                                            if (changeSlide) {
+                                                changeSlide = false
+                                                move_info_cont_data_change()
+                                            }
+                                            mouseEnter_out()
+                                        },
+                                    }
+                                })
+                            }
 
                             move_info_cont_data_change()
 
@@ -402,9 +425,9 @@
                 </a>
                 <nav class="navigation">
                     <a href="pages/privacy-polic/privacy-polic.html">Правообладателям</a>
-                    <a href="pages/faq/fac.html">фэк</a>
                     <a href="pages/app/app.html">Приложение</a>
                     <a href="pages/contact/contact.html">Контакты</a>
+                    <a href="pages/faq/fac.html">фэк</a>
                 </nav>
             </div>
 
@@ -439,12 +462,12 @@
         </footer>
     </div>
 
-    <script type="text/javascript" src="js/swiper/swiper-bundle.min.js"></script>
     <script type="text/javascript" src="js/searchAnim/searchAnim.js"></script>
     <script type="text/javascript" src="js/mob_open_close/mob_open_close.js"></script>
     <script type="text/javascript" src="pages/index/index.js"></script>
     <script type="text/javascript" src="js/registationForm.js"></script>
-    <script type="text/javascript" src="js/estimate.js"></script>
+    <script type="text/javascript" src="pages/index/user_login_check.js"></script>
+    <script type="text/javascript" src="./pages/index/formValidation.js"></script>
     <script type="text/javascript" src="js/script.js"></script>
 </body>
 

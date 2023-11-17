@@ -1,16 +1,10 @@
-// get data and set player name and id
-
-move_data = localStorage.getItem("move_data")
-move_id = localStorage.getItem("move_id")
-
-if (move_data)
-    window.history.replaceState(null, null, `?id=${move_id}&data=${move_data}`)
-
 let movieUrl = decodeURI(window.location.search)
-let get_move_data = movieUrl.slice(movieUrl.indexOf('&') + 6, movieUrl.length)
+let get_move_data = movieUrl.slice(1, movieUrl.length).split('&')
 
-let kinoplayertop = document.getElementById('kinoplayertop')
-kinoplayertop.setAttribute('data-title', get_move_data)
+let move_id = get_move_data[0]
+let move_data = get_move_data[1].concat(' ,', get_move_data[2], ' ,', get_move_data[3])
+
+document.getElementById('kinoplayertop').setAttribute('data-title', move_data)
 
 // select player
 let slect_player_btn = document.querySelectorAll('.slect-player-btn')
@@ -35,13 +29,3 @@ setTimeout(() => {
         el.style.cssText = `width:${get_width}px; height:${get_height}px`
     })
 }, 2000);
-
-// window.onhashchange = () => {
-//     if (window.innerDocClick) {
-//         //Your own in-page mechanism triggered the hash change
-//         console.log('go');
-//     } else {
-//         //Browser back button was clicked
-//         console.log('back');
-//     }
-// }

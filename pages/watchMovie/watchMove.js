@@ -24,11 +24,12 @@ let totalPages = 100;
 
 let language = 'ru-RU'
 
-const API_KEY = 'api_key=1cf50e6248dc270629e802686245c2c8';
-const BASE_URL = 'https://api.themoviedb.org/3';
-const API_URL = BASE_URL + `/discover/movie?language=${language}?language=en-EN?sort_by=popularity.desc&` + API_KEY;
-const IMG_URL = 'https://image.tmdb.org/t/p/w500';
-const searchURL = BASE_URL + `/search/movie?` + API_KEY;
+const API_KEY = 'api_key=1cf50e6248dc270629e802686245c2c8',
+    BASE_URL = 'https://api.themoviedb.org/3',
+    API_URL = `${BASE_URL}/discover/multi?language=${language}?language=en-EN?sort_by=popularity.desc&${API_KEY}`,
+    IMG_URL = 'https://image.tmdb.org/t/p/w500',
+    searchURL = `${BASE_URL}/search/multi?${API_KEY}`;
+
 const genres = [
     {
         "id": 12,
@@ -108,6 +109,7 @@ const genres = [
     },
 ]
 // -----------------
+get_top_movies()
 function get_top_movies() {
     fetch(BASE_URL + `/discover/movie?language=${language}?language=en-EN?sort_by=popularity.desc&` + API_KEY)
         // slider top 20
@@ -121,13 +123,13 @@ function get_top_movies() {
                 div.className = 'movie swiper-slide head-swiper-slide'
                 div.style = `background-image:url(https://image.tmdb.org/t/p/w500/${el.poster_path})`
                 div.innerHTML = `
-                    <div class='movie_estimate'>
+                    <div class='movie_estimate top_movie_estimate'>
                         <img class='movie_favorite' src='../../assets/svg/favorite.svg'>
                     </div>
             
-					<div class="head-swiper-wrapper-play-img-cont allMovie" id='${el.id}' move_data='${el.title} , ${el.original_title} , ${String(el.release_date).slice(0, 4)}'>
+                    <a href='watchMovie.html?${el.id}&${el.title}&${el.original_title}&${String(el.release_date).slice(0, 4)}' class="head-swiper-wrapper-play-img-cont allMovie" id='${el.id}' move_data='${el.title} , ${el.original_title} , ${String(el.release_date).slice(0, 4)}'>
 						<img src="../../assets/svg/play-icon.svg" alt="play-button">
-					</div>
+					</a>
 
 					<div class="head_swiper_info" style="display:none">
                     <span class="head_swiper_info_imgSrc">${((window.innerWidth > 650) ? 'https://image.tmdb.org/t/p/original' : 'http://image.tmdb.org/t/p/w500')}${el.backdrop_path}</span>
@@ -139,8 +141,15 @@ function get_top_movies() {
 					</div>`
                 swiper_wrapper.appendChild(div)
             })
+
+            showPoster_andData()
             headSwiper()
-            get_Watch_Move_andPlay()
+            getTop_move_andPlay()
+
+            setTimeout(() => {
+                get_top_Bookmark_InServer()
+                loaderOFF()
+            }, 700);
         })
         .catch(err => console.error(err));
 }
@@ -171,7 +180,6 @@ function getMovies(url) {
 
         if (data.results.length !== 0) {
             showMovies(data.results);
-            get_Watch_Move_andPlay()
         } else {
             search__films__cont.innerHTML = `<h3 class="no-results">No Results Found</h3>`
         }
@@ -182,13 +190,14 @@ function showMovies(data) {
     search__films__cont.innerHTML = '';
 
     data.forEach(el => {
-        const movieEl = document.createElement('div');
-        movieEl.className = 'movie'
-        movieEl.id = el.id
-        movieEl.setAttribute('move_data', `${el.title} ${el.original_title} ${String(el.release_date).slice(0, 4)}/`)
+        const a = document.createElement('a');
+        a.href = `watchMovie.html?${el.id}&${el.title}&${el.original_title}&${String(el.release_date).slice(0, 4)}`
+        a.className = 'movie'
+        a.id = el.id
+        a.setAttribute('move_data', `${el.title} ${el.original_title} ${String(el.release_date).slice(0, 4)}/`)
         // есле у фильма отсутствует название не показывать фильм ???
         if (Boolean(el.title) && el.poster_path) {
-            movieEl.innerHTML = `
+            a.innerHTML = `
             <div class="watch__now">
                 <img src="${IMG_URL + el.poster_path}" alt="${el.title}">
             </div>
@@ -198,23 +207,26 @@ function showMovies(data) {
                 <p class="movie-info-paragraph">${String(el.release_date).slice(0, 4)}</p>
             </div>
             `
-            search__films__cont.appendChild(movieEl);
+            search__films__cont.appendChild(a);
         }
     })
 }
 
 function showPoster_andData() {
     let movieUrl = decodeURI(window.location.search)
-    let get_id = movieUrl.slice(4, movieUrl.indexOf('&'))
+    let get_move_data = movieUrl.slice(1, movieUrl.length).split('&')
 
-    fetch(`${BASE_URL}/movie/${get_id}?language=${language}&` + API_KEY)
+    let move_id = get_move_data[0]
+    // let move_data = get_move_data[1].concat(' ,', get_move_data[2], ' ,', get_move_data[3])
+
+    fetch(`https://api.themoviedb.org/3/movie/${move_id}?language=RU-ru&api_key=1cf50e6248dc270629e802686245c2c8`)
         .then(response => response.json())
         .then(R => {
             function reytingStars() {
                 for (let i = 0; i < 10; i++) {
                     let span = document.createElement('span')
                     span.className = 'reyting_stars'
-                    document.querySelector('.reyting_stars_cont').appendChild(span)
+                    document.querySelector('.about_film_reyting_stars_cont').appendChild(span)
 
                     if (i <= Math.round(R.vote_average)) {
                         document.querySelectorAll('.reyting_stars')[i].style.cssText = 'background-color: yellow'
@@ -243,7 +255,7 @@ function showPoster_andData() {
 
                         <p class="about_film_info_genres_vote_average" id='about_film_info_genres_vote_average'>
                             <span>рейтинг TMDB - </span>
-                            <span class='reyting_stars_cont'></span>
+                            <span class='reyting_stars_cont about_film_reyting_stars_cont'></span>
                         </p>
 
                         <p class="about_film_info_runtime">
@@ -256,7 +268,7 @@ function showPoster_andData() {
             </div>`
             reytingStars()
             show_recomendet_films(R)
-            watch_thriller(get_id, R)
+            watch_thriller(move_id, R)
         })
         .catch(err => console.error(err));
 }
@@ -277,6 +289,43 @@ function watch_thriller(id, R) {
             }
         })
         .catch(e => console.log(e))
+}
+
+function getTop_move_andPlay() {
+    document.querySelectorAll('.head-swiper-slide>.allMovie').forEach(el => {
+        el.addEventListener('click', () => {
+            fetch('../../backend/historyWatch.php', {
+                method: 'post',
+                headers: { 'Content-Type': 'application/json', },
+                body: JSON.stringify(el.id)
+            })
+                .then(r => r.json())
+                .then(arr => {
+                    // console.log('ok -> ', arr);
+                })
+                .catch(err => {
+                    console.error('error -> ', err);
+                });
+        })
+    })
+}
+function getTMain_move_andPlay() {
+    document.querySelectorAll('.recomendet-films-items>.allMovie').forEach(el => {
+        el.addEventListener('click', () => {
+            fetch('../../backend/historyWatch.php', {
+                method: 'post',
+                headers: { 'Content-Type': 'application/json', },
+                body: JSON.stringify(el.id)
+            })
+                .then(r => r.json())
+                .then(arr => {
+                    // console.log('ok -> ', arr);
+                })
+                .catch(err => {
+                    console.error('error -> ', err);
+                });
+        })
+    })
 }
 
 document.getElementById('top_movies').addEventListener('click', (e) => {
@@ -320,24 +369,6 @@ function click_js() {
     }
 }
 
-function get_Watch_move_info_cont() {
-    document.querySelector('.move_info_cont_play').addEventListener('click', () => {
-        let el = document.querySelector('.move_info_cont_play')
-        // get data
-        let move_data = el.getAttribute('move_data')
-        let move_id = el.getAttribute('id')
-        console.log(move_data);
-        console.log(move_id);
-
-        // save in localStorage
-        localStorage.setItem("move_data", `${move_data}`)
-        localStorage.setItem("move_id", `${move_id}`)
-
-        // location
-        window.location.href = '../../pages/watchMovie/watchMovie.html'
-    })
-}
-
 function show_recomendet_films(R) {
     let selectedGenre = []
     genres.forEach(el => {
@@ -350,52 +381,39 @@ function show_recomendet_films(R) {
     recomendet_movies(BASE_URL + `/discover/movie?language=${language}?language=en-EN?sort_by=popularity.desc&` + API_KEY + '&with_genres=' + encodeURI(selectedGenre.join(',')))
 }
 
-function get_Watch_Move_andPlay() {
-    document.querySelectorAll('.allMovie').forEach(el => {
-        el.addEventListener('click', () => {
-            // get data
-            let move_data = el.getAttribute('move_data')
-            let move_id = el.getAttribute('id')
-
-            // save in localStorage
-            localStorage.setItem("move_data", `${move_data}`);
-            localStorage.setItem("move_id", `${move_id}`);
-
-            // location
-            window.location.href = '../../pages/watchMovie/watchMovie.html';
-        })
-    })
-}
-
-
 function recomendet_movies(url) {
     fetch(url).then(res => res.json()).then(data => {
 
-        if (data.results.length !== 0) {
+        if (data.results.length != 0) {
             data.results.forEach(el => {
-                let movieEl = document.createElement('div');
-                movieEl.className = 'movie swiper-slide recomendet-films-items'
+                let div = document.createElement('div');
+                div.className = 'movie swiper-slide recomendet-films-items'
                 // есле у фильма отсутствует название не показывать фильм ???
                 if (Boolean(el.title) && el.poster_path) {
-                    movieEl.innerHTML = `
-                        <div class='movie_estimate'>
+                    div.innerHTML = `
+                        <div class='movie_estimate recomendet_films_movie_estimate'>
                             <img class='movie_favorite' src='../../assets/svg/favorite.svg'>
                         </div>
 
-                        <div class="watch__now allMovie" id='${el.id}' move_data='${el.title} , ${el.original_title} , ${String(el.release_date).slice(0, 4)}'>
+                        <a href='watchMovie.html?${el.id}&${el.title}&${el.original_title}&${String(el.release_date).slice(0, 4)}' class="watch__now allMovie" id='${el.id}' move_data='${el.title} , ${el.original_title} , ${String(el.release_date).slice(0, 4)}'>
                             <img src="${IMG_URL + el.poster_path}" alt="${el.title}">
-                        </div>
+                        </a>
 
                         <div class="movie-info">
                             <h3 class="movie-info-title movie-title">${el.title.replace(':', '<br>')}</h3>
                             <p class="movie-info-paragraph">${String(el.release_date).slice(0, 4)}</p>
                         </div>`
-                    document.getElementById('recomendet_films').appendChild(movieEl);
+                    document.getElementById('recomendet_films').appendChild(div);
                 }
             })
         }
-        recomendet_films_Swiper()
-        get_Watch_Move_andPlay()
+
+        setTimeout(() => {
+            recomendet_films_Swiper()
+        }, 1000);
+
+        get_recomendet_films_Bookmark_InServer()
+        getTMain_move_andPlay()
     })
 }
 
@@ -414,9 +432,117 @@ document.getElementById('arrow_to_top').addEventListener('click', () => {
     });
 })
 
+// --------- send one id 015131 ------------
+function get_top_Bookmark_InServer() {
+    // ------------ get all favorite -----------
+    fetch('../../backend/get_bookmark.php', {
+        method: 'get',
+        headers: { 'Content-Type': 'application/json', }
+    })
+        .then(r => r.json())
+        .then(res => {
+            if (res.registered) {
+                res.forEach(el => {
+                    document.querySelectorAll('.allMovie').forEach(movID => {
+                        if (movID.id == el[1]) {
+                            movID.parentElement.querySelector('.movie_estimate').classList.add('movie_estimate--active')
+                        }
+                    });
+                });
+            }
+        })
+        .catch(err => console.error('error -> ', err))
+    // -----------------------------------------
+
+    document.querySelectorAll('.top_movie_estimate').forEach(el => {
+        el.addEventListener('click', () => {
+
+            fetch('../../backend/bookmark.php', {
+                method: 'post',
+                headers: { 'Content-Type': 'application/json', },
+                body: JSON.stringify(el.parentElement.querySelector('.allMovie').id)
+            })
+                .then(r => r.json())
+                .then(res => {
+                    // console.log('ok -> ', res);
+                    if (res.registered) {
+                        el.classList.toggle('movie_estimate--active')
+
+                        document.querySelectorAll('.recomendet-films>.movie>.allMovie').forEach(el2 => {
+                            if (el2.id == el.parentElement.querySelector('.allMovie').id) {
+                                el2.parentElement.querySelector('.movie_estimate').classList.toggle('movie_estimate--active')
+                            }
+                        })
+                    } else {
+                        document.querySelector('.reg_popup').style.display = 'flex'
+                    }
+                })
+                .catch(err => {
+                    console.error('error -> ', err);
+                });
+        })
+    });
+}
+
+function get_recomendet_films_Bookmark_InServer() {
+
+    document.querySelectorAll('.recomendet_films_movie_estimate').forEach(el => {
+        el.addEventListener('click', () => {
+
+            fetch('../../backend/bookmark.php', {
+                method: 'post',
+                headers: { 'Content-Type': 'application/json', },
+                body: JSON.stringify(el.parentElement.querySelector('.allMovie').id)
+            })
+                .then(r => r.json())
+                .then(res => {
+                    // console.log('ok -> ', res);
+                    if (res.registered) {
+                        el.classList.toggle('movie_estimate--active')
+
+                        document.querySelectorAll('.head-swiper-wrapper>.movie>.allMovie').forEach(el2 => {
+                            if (el2.id == el.parentElement.querySelector('.allMovie').id) {
+                                el2.parentElement.querySelector('.movie_estimate').classList.toggle('movie_estimate--active')
+                            }
+                        })
+                    } else {
+                        document.querySelector('.reg_popup').style.display = 'flex'
+                    }
+                })
+                .catch(err => {
+                    console.error('error -> ', err);
+                });
+        })
+    });
+}
+
+const get_favorite = () => {
+    fetch('../../backend/get_bookmark.php', {
+        method: 'get',
+        headers: { 'Content-Type': 'application/json', }
+    })
+        .then(r => r.json())
+        .then(res => {
+            if (res.length) {
+                res.forEach(el => {
+                    document.querySelectorAll('.allMovie').forEach(movID => {
+                        if (movID.id == el[1]) {
+                            movID.parentElement.querySelector('.movie_estimate').classList.add('movie_estimate--active')
+                        }
+                    });
+                });
+            }
+        })
+        .catch(err => console.error('error -> ', err))
+}
+
 // loader off
-setTimeout(() => {
-    get_top_movies()
-    showPoster_andData()
-    get_Watch_Move_andPlay()
-}, 1000);
+function loaderOFF() {
+    document.querySelector('.loader').style.opacity = '0'
+    window.scrollTo(0, 0)
+
+    setTimeout(() => {
+        document.querySelector('.loader').style.display = 'none'
+        get_favorite()
+    }, 700)
+}

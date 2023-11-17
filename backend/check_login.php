@@ -1,5 +1,6 @@
 <?php
-$connection = mysqli_connect("localhost", "root", "", "karapetyan");
+function check_login(){
+    $connection = mysqli_connect("kinogit", "root", "", "karapetyan");
 if (mysqli_connect_errno()) {
     echo "Failed to connect to MySQL: " . mysqli_connect_error() . ". Try to connect again";
     exit();
@@ -11,8 +12,12 @@ if (isset($_COOKIE['user_id'])) {
     $fetch_assoc = mysqli_fetch_assoc($cookie_query);
 }
 if (!isset($_COOKIE['user_id']) || $_COOKIE['user_id_check'] != sha1($fetch_assoc['password']) || $number_rows_of_cookie_query == 0) {
-    return false;
+    return "{'user_check':'false'}";
 } else {
-    return $fetch_assoc;
+    return json_encode($fetch_assoc);
 }
+}
+check_login();
+// stuguma usery login exaca te che / ete login exaca veradarcnuma useri tvyalnery
+
 ?>
