@@ -180,11 +180,12 @@
                     <div class="swiper-pagination head-swiper-pagination"></div>
                     <!--swiper configs -->
                     <script>
+                        Sinit()
                         function headSwiper() {
                             let changeSlide = true
 
                             let move_info_cont_data_change = () => {
-                                Sinit()
+                                
                                 setTimeout(() => {
 
                                     document.querySelector('.header-wrapper').style.backgroundImage = `url(${document.querySelector('.swiper-slide-active>.head_swiper_info>.head_swiper_info_imgSrc').textContent}`
