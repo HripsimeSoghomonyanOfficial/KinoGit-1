@@ -180,8 +180,13 @@
                     <div class="swiper-pagination head-swiper-pagination"></div>
                     <!--swiper configs -->
                     <script>
-                        Sinit()
+                        let chack_ = true
                         function headSwiper() {
+                        if (chack_ == true) {
+                            Sinit()
+                            chack_ = false
+                        }
+    
                             let changeSlide = true
 
                             let move_info_cont_data_change = () => {
