@@ -167,9 +167,13 @@
                 <div class="swiper-pagination head-swiper-pagination"></div>
                 <!--swiper configs -->
                 <script>
-                    
+                    let chack_ = true
                     function headSwiper() {
-
+                        if (chack_ == true) {
+                            Sinit()
+                            chack_ = false
+                        }
+                        
                         let bacground_poster_push = document.querySelector('.header-wrapper')
                         let move_info_cont = document.querySelector('.move_info_cont')
 
