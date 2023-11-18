@@ -141,7 +141,7 @@ function get_top_movies() {
 					</div>`
                 swiper_wrapper.appendChild(div)
             })
-
+Sinit()
             showPoster_andData()
             headSwiper()
             getTop_move_andPlay()
