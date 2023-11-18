@@ -167,6 +167,7 @@
                 <div class="swiper-pagination head-swiper-pagination"></div>
                 <!--swiper configs -->
                 <script>
+                    Sinit()
                     function headSwiper() {
 
                         let bacground_poster_push = document.querySelector('.header-wrapper')
@@ -174,7 +175,7 @@
 
                         let move_info_cont_data_change = () => {
                             setTimeout(() => {
-                                Sinit()
+                                
                                 bacground_poster_push.style.backgroundImage = `url(${document.querySelector('.swiper-slide-active>.head_swiper_info>.head_swiper_info_imgSrc').textContent}`
                                 // get 
                                 let move_info_cont_original_title = document.querySelector('.swiper-slide-active>.head_swiper_info>.head_swiper_info_original_title').textContent
