@@ -80,10 +80,10 @@ document.addEventListener("DOMContentLoaded", function () {
             regEmail_chack.innerHTML = '&#10004;'
         }
         // ----------------------------------------------
-        if (String(regPassword).length < 7) {
+        if (!/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$/.test(regPassword)) {
             regPassword_chack.style.cssText = 'color:red'
             regPassword_chack.innerHTML = '&#10040;'
-            document.querySelector('.helper_text').innerHTML = 'придумайте надежный пароль'
+            document.querySelector('.helper_text').innerHTML = 'Пароль должен содержать хотя бы одну <br> (маленькую букву) - (большую букву) - (одну цифру)'
             return false;
         } else {
             regPassword_chack.style.cssText = 'color:#59ff00'
@@ -105,9 +105,6 @@ document.addEventListener("DOMContentLoaded", function () {
             gender_chack.innerHTML = '&#10040;'
             document.querySelector('.helper_text').innerHTML = 'ваш пол'
             return false;
-        } else {
-            gender_chack.style.cssText = 'color:#59ff00'
-            gender_chack.innerHTML = '&#10004;'
         }
         // ----------------------------------------------
         // Если все проверки пройдены, возвращаем true
@@ -169,5 +166,8 @@ all_gender_radio.forEach(el => {
             el2.classList.remove('gender_radio--active')
         })
         el.classList.add('gender_radio--active')
+        
+        gender_chack.style.cssText = 'color:#59ff00'
+        gender_chack.innerHTML = '&#10004;'
     })
 })

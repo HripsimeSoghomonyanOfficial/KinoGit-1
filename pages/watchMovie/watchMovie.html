@@ -35,12 +35,12 @@
 <body>
     <header>
         <div class="header-wrapper">
+            <!-- popups  -->
             <div class="reg_popup">
                 <div class="reg_popup_wrap">
                     <div class="reg_popup_wrap_menu">
-                        <div class="sign_up_btn" id="sign_up_btn">login</div>
-                        <div class="registration_btn reg_popup_wrap_menu-active" id="registration_btn">registration
-                        </div>
+                        <div class="sign_up_btn" id="sign_up_btn">логин</div>
+                        <div class="registration_btn reg_popup_wrap_menu-active" id="registration_btn">Регистрация</div>
                         <div class="reg_popup_close">X</div>
                     </div>
                     <!-- login -->
@@ -123,6 +123,14 @@
                     </form>
                 </div>
             </div>
+
+            <div class="reg_popup_account" id="reg_popup_account">
+                <div class="reg_popup_account_wrap">
+                    <div>вы не зарегистрированы! но это легко исправить</div>
+                    <div class="registration_btn" id="reg_popup_account_registration">регистрация</div>
+                    <div class="reg_popup_close" id="reg_popup_account_close">X</div>
+                </div>
+            </div>
             <!-- head swiper container-->
             <div class="head-top-cont">
                 <a href="./../../index.html" class="logo">
@@ -169,17 +177,15 @@
                 <script>
                     let chack_ = true
                     function headSwiper() {
-                        if (chack_ == true) {
-                            Sinit()
-                            chack_ = false
-                        }
-                        
                         let bacground_poster_push = document.querySelector('.header-wrapper')
                         let move_info_cont = document.querySelector('.move_info_cont')
 
                         let move_info_cont_data_change = () => {
+                            if (chack_) {
+                                Sinit()
+                                chack_ = false
+                            }
                             setTimeout(() => {
-                                
                                 bacground_poster_push.style.backgroundImage = `url(${document.querySelector('.swiper-slide-active>.head_swiper_info>.head_swiper_info_imgSrc').textContent}`
                                 // get 
                                 let move_info_cont_original_title = document.querySelector('.swiper-slide-active>.head_swiper_info>.head_swiper_info_original_title').textContent

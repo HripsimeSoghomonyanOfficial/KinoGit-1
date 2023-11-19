@@ -125,6 +125,14 @@
                         </form>
                     </div>
                 </div>
+
+                <div class="reg_popup_account" id="reg_popup_account">
+                    <div class="reg_popup_account_wrap">
+                        <div>вы не зарегистрированы! но это легко исправить</div>
+                        <div class="registration_btn" id="reg_popup_account_registration">регистрация</div>
+                        <div class="reg_popup_close" id="reg_popup_account_close">X</div>
+                    </div>
+                </div>
                 <!-- head swiper container-->
                 <div class="head-top-cont">
                     <a href="index.html" class="logo">
@@ -181,16 +189,15 @@
                     <!--swiper configs -->
                     <script>
                         let chack_ = true
+                        let changeSlide = true
+
                         function headSwiper() {
-                        if (chack_ == true) {
-                            Sinit()
-                            chack_ = false
-                        }
-    
-                            let changeSlide = true
 
                             let move_info_cont_data_change = () => {
-                                
+                                if (chack_) {
+                                    Sinit()
+                                    chack_ = false
+                                }
                                 setTimeout(() => {
 
                                     document.querySelector('.header-wrapper').style.backgroundImage = `url(${document.querySelector('.swiper-slide-active>.head_swiper_info>.head_swiper_info_imgSrc').textContent}`
@@ -216,7 +223,6 @@
                                                 <img src="assets/svg/icons-play.png" alt="play">смотреть
                                             </a>
                                         </div>`;
-                                    console.log();
 
                                     setTimeout((e) => {
                                         document.querySelector('.move_info_cont_title').classList.add('move_info_cont_date_anim')
@@ -242,7 +248,6 @@
                                     }, 2000);
 
                                     reytingStars()
-                                    // move_info_cont_play()
                                 }, 500)
                             }
                             function Sinit() {
@@ -291,23 +296,19 @@
                                                 changeSlide = false
                                                 move_info_cont_data_change()
                                             }
-                                            mouseEnter_out()
+
+                                            const move_info_cont = document.querySelector('.move_info_cont')
+                                            move_info_cont.addEventListener('mouseenter', () => { swiper.autoplay.stop() })
+                                            move_info_cont.addEventListener('mouseleave', () => { swiper.autoplay.start() })
+
+                                            const head_swiper_wrapper = document.getElementById('head-swiper-wrapper')
+                                            head_swiper_wrapper.addEventListener('mouseenter', () => { swiper.autoplay.stop() })
+                                            head_swiper_wrapper.addEventListener('mouseleave', () => { swiper.autoplay.start() })
                                         },
                                     }
                                 })
                             }
 
-                            move_info_cont_data_change()
-
-                            function mouseEnter_out() {
-                                const move_info_cont = document.querySelector('.move_info_cont')
-                                move_info_cont.addEventListener('mouseenter', () => { swiper.autoplay.stop() })
-                                move_info_cont.addEventListener('mouseleave', () => { swiper.autoplay.start() })
-
-                                const head_swiper_wrapper = document.getElementById('head-swiper-wrapper')
-                                head_swiper_wrapper.addEventListener('mouseenter', () => { swiper.autoplay.stop() })
-                                head_swiper_wrapper.addEventListener('mouseleave', () => { swiper.autoplay.start() })
-                            }
                             // triller
                             function watch_thrillerr(id) {
                                 if (window.innerWidth > 700) {
@@ -326,6 +327,7 @@
                                         .catch(err => console.log(err))
                                 }
                             }
+                            move_info_cont_data_change()
                         }
 
                     </script>

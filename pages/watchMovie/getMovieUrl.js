@@ -18,8 +18,8 @@ slect_player_btn.forEach((el, i) => {
 
         el.classList.add('slect-player-btn-active')
         document.querySelectorAll('.video-players')[i].classList.add('video-player-active')
-    });
-});
+    })
+})
 
 setTimeout(() => {
     let get_width = parseInt(getComputedStyle(kinoplayertop).getPropertyValue('width'))
@@ -28,4 +28,4 @@ setTimeout(() => {
     document.querySelectorAll('.video-players').forEach(el => {
         el.style.cssText = `width:${get_width}px; height:${get_height}px`
     })
-}, 2000);
+}, 2000)

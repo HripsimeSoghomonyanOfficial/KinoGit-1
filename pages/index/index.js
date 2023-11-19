@@ -781,6 +781,17 @@ const get_favorite = () => {
         .catch(err => console.error('error -> ', err))
 }
 
+// reg_popup_account
+const reg_popup_account_close = () => {
+    document.getElementById('reg_popup_account_close').addEventListener('click',()=>{
+        document.getElementById('reg_popup_account').style.cssText='display:none'
+    })
+
+    document.getElementById('reg_popup_account_registration').addEventListener('click',()=>{
+        document.querySelector('.reg_popup').style.cssText='display:flex'
+    })
+}
+
 // ________________________________________________________________________________________________
 // loader off
 function loaderOFF() {
