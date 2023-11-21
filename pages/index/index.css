@@ -66,6 +66,7 @@ body {
   color: #ffa301;
   font-size: 11px;
   font-family: system-ui;
+  text-align: center;
 }
 .reg_popup_wrap .flexBox {
   width: 100%;
@@ -619,7 +620,7 @@ main {
   transform: translateX(-30px);
   opacity: 0;
 }
-.move_info_cont .move_info_cont_reyting img {
+.move_info_cont .move_info_cont_reyting > img {
   width: 70px;
   margin-left: 8px;
 }
@@ -637,7 +638,7 @@ main {
 .move_info_cont .reyting_stars_cont .reyting_stars_bg_width {
   position: absolute;
   width: 50%;
-  height: 95%;
+  height: 100%;
   top: 0;
   left: 0;
   background-color: #FFB700;
@@ -1331,6 +1332,7 @@ footer .pages-active {
 @media screen and (max-width: 810px) {
   .move_info_cont .reyting_stars_cont {
     height: 12px;
+    width: 61px;
   }
   .head-top-slesh {
     display: none;
@@ -1339,6 +1341,7 @@ footer .pages-active {
     background-size: contain;
     background-position: 0 200px;
     height: 65vh;
+    min-height: 410px;
     margin-bottom: 140px;
   }
   .header-wrapper::before {

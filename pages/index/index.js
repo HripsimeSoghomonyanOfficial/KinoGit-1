@@ -268,18 +268,18 @@ let get_top_movies = () => {
         .then(r => r.json())
         .then(r => {
             const swiper_wrapper = document.getElementById('head-swiper-wrapper')
-
             r.results.forEach(el => {
+                let AllData = String(el.id + '|' + el.title + '|' + el.original_title + '|' + el.release_date.split('-')[0]).replaceAll("'", '')
+
                 const div = document.createElement('div')
                 div.className = 'swiper-slide head-swiper-slide'
                 div.style = `background-image:url(https://image.tmdb.org/t/p/w500/${el.poster_path})`
-                div.href = `pages/watchMovie/watchMovie.html?${el.id}&${el.title}&${el.original_title}&${String(el.release_date).slice(0, 4)}`
                 div.innerHTML = `
                     <div class='movie_estimate top_movie_estimate'>
                         <img class='movie_favorite' src="assets/svg/favorite.svg">
                     </div>
 
-					<a href='pages/watchMovie/watchMovie.html?${el.id}&${el.title}&${el.original_title}&${String(el.release_date).slice(0, 4)}' class="allMovie movie head-swiper-wrapper-play-img-cont" id='${el.id}' move_data='${el.title} , ${el.original_title} , ${String(el.release_date).slice(0, 4)}'}>
+					<a href="pages/watchMovie/watchMovie.html?${AllData}" class="allMovie movie head-swiper-wrapper-play-img-cont" id="${el.id}" move_data="${String(el.title + ' ' + el.original_title + ' ' + el.release_date.split('-')[0]).replaceAll("'", '')}"}>
 						<img src="assets/svg/play-icon.svg" alt="play-button">
 					</a>
 
@@ -531,6 +531,8 @@ function showMovies(data) {
         const movieEl = document.createElement('div');
         movieEl.className = 'movie'
         // есле у фильма отсутствует название не показывать фильм
+        let AllData = String(el.id + '|' + el.title + '|' + el.original_title + '|' + el.release_date.split('-')[0]).replaceAll("'", '')
+
         if (Boolean(el.title) && el.poster_path) {
             movieEl.innerHTML = `
             <div class='movie_estimate main_movie_estimate'>
@@ -538,13 +540,13 @@ function showMovies(data) {
             </div>
 
             <img class='poster-img' src="${IMG_URL + el.poster_path}" alt="${el.title}">
-            <a href='pages/watchMovie/watchMovie.html?${el.id}&${el.title}&${el.original_title}&${String(el.release_date).slice(0, 4)}' class="watch__now allMovie" id='${el.id}' move_data='${el.title} ${el.original_title} ${String(el.release_date).slice(0, 4)}/'>
+            <a href="pages/watchMovie/watchMovie.html?${AllData}" class="watch__now allMovie" id="${el.id}" move_data="${String(el.title + ' ' + el.original_title + ' ' + el.release_date.split('-')[0]).replaceAll("'", '')}">
                 <img src="assets/svg/play-icon.svg" alt="play-button">
             </a>
             <div class="movie-info">
                 <h3 class="movie-info-title movie-title">${el.title}</h3>
                 <div class='movie-info-subtitle-cont'>
-                    <p class="movie-info-paragraph">${String(el.release_date).slice(0, 4)}</p>
+                    <p class="movie-info-paragraph">${parseInt(el.release_date.split('-')[0])}</p>
                     <span>${(el.adult == true) ? "Для взрослых 18+" : ""}</span>
                     <span class="movie-info-reyting ${getColor(el.vote_average)}">${String(el.vote_average).slice(0, 3)}</span>
                 </div>
@@ -783,12 +785,12 @@ const get_favorite = () => {
 
 // reg_popup_account
 const reg_popup_account_close = () => {
-    document.getElementById('reg_popup_account_close').addEventListener('click',()=>{
-        document.getElementById('reg_popup_account').style.cssText='display:none'
+    document.getElementById('reg_popup_account_close').addEventListener('click', () => {
+        document.getElementById('reg_popup_account').style.cssText = 'display:none'
     })
 
-    document.getElementById('reg_popup_account_registration').addEventListener('click',()=>{
-        document.querySelector('.reg_popup').style.cssText='display:flex'
+    document.getElementById('reg_popup_account_registration').addEventListener('click', () => {
+        document.querySelector('.reg_popup').style.cssText = 'display:flex'
     })
 }
 

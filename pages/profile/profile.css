@@ -124,9 +124,8 @@ main {
   align-items: center;
   justify-content: center;
   flex-direction: column;
-  text-transform: capitalize;
   min-height: 450px;
-  max-width: 230px;
+  width: 50%;
 }
 .personalInfo .box .user_first_letter {
   display: flex;

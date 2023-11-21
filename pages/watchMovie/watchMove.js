@@ -118,6 +118,8 @@ function get_top_movies() {
             const swiper_wrapper = document.getElementById('head-swiper-wrapper')
 
             films.forEach(el => {
+                let AllData = String(el.id + '|' + el.title + '|' + el.original_title + '|' + el.release_date.split('-')[0]).replaceAll("'", '')
+
                 const div = document.createElement('div')
                 div.className = 'movie swiper-slide head-swiper-slide'
                 div.style = `background-image:url(https://image.tmdb.org/t/p/w500/${el.poster_path})`
@@ -126,7 +128,7 @@ function get_top_movies() {
                         <img class='movie_favorite' src='../../assets/svg/favorite.svg'>
                     </div>
             
-                    <a href='watchMovie.html?${el.id}&${el.title}&${el.original_title}&${String(el.release_date).slice(0, 4)}' class="head-swiper-wrapper-play-img-cont allMovie" id='${el.id}' move_data='${el.title} , ${el.original_title} , ${String(el.release_date).slice(0, 4)}'>
+                    <a href="watchMovie.html?${AllData}" class="head-swiper-wrapper-play-img-cont allMovie" id="${el.id}" move_data="${el.title} , ${el.original_title} , ${parseInt(el.release_date.split('-')[0])}">
 						<img src="../../assets/svg/play-icon.svg" alt="play-button">
 					</a>
 
@@ -139,6 +141,7 @@ function get_top_movies() {
                         <span class="head_swiper_info_id">${el.id}</span>
 					</div>`
                 swiper_wrapper.appendChild(div)
+
             })
 
             showPoster_andData()
@@ -189,11 +192,13 @@ function showMovies(data) {
     search__films__cont.innerHTML = '';
 
     data.forEach(el => {
+        let AllData = String(el.id + '|' + el.title + '|' + el.original_title + '|' + el.release_date.split('-')[0]).replaceAll("'", '')
+
         const a = document.createElement('a');
-        a.href = `watchMovie.html?${el.id}&${el.title}&${el.original_title}&${String(el.release_date).slice(0, 4)}`
+        a.href = `watchMovie.html?${AllData}`
         a.className = 'movie'
         a.id = el.id
-        a.setAttribute('move_data', `${el.title} ${el.original_title} ${String(el.release_date).slice(0, 4)}/`)
+        a.setAttribute('move_data', `${String(el.title + ' ' + el.original_title + ' ' + el.release_date.split('-')[0]).replaceAll("'", '')}`)
         // есле у фильма отсутствует название не показывать фильм ???
         if (Boolean(el.title) && el.poster_path) {
             a.innerHTML = `
@@ -203,17 +208,18 @@ function showMovies(data) {
 
             <div class="movie-info">
                 <h3 class="movie-info-title movie-title">${el.title}</h3>
-                <p class="movie-info-paragraph">${String(el.release_date).slice(0, 4)}</p>
+                <p class="movie-info-paragraph">${parseInt(el.release_date.split('-')[0])}</p>
             </div>
             `
             search__films__cont.appendChild(a);
         }
+
     })
 }
 
 function showPoster_andData() {
     let movieUrl = decodeURI(window.location.search)
-    let get_move_data = movieUrl.slice(1, movieUrl.length).split('&')
+    let get_move_data = movieUrl.slice(1, movieUrl.length).split('|')
 
     let move_id = get_move_data[0]
     // let move_data = get_move_data[1].concat(' ,', get_move_data[2], ' ,', get_move_data[3])
@@ -308,6 +314,7 @@ function getTop_move_andPlay() {
         })
     })
 }
+
 function getTMain_move_andPlay() {
     document.querySelectorAll('.recomendet-films-items>.allMovie').forEach(el => {
         el.addEventListener('click', () => {
@@ -385,6 +392,9 @@ function recomendet_movies(url) {
 
         if (data.results.length != 0) {
             data.results.forEach(el => {
+
+                let AllData = String(el.id + '|' + el.title + '|' + el.original_title + '|' + el.release_date.split('-')[0]).replaceAll("'", '')
+
                 let div = document.createElement('div');
                 div.className = 'movie swiper-slide recomendet-films-items'
                 // есле у фильма отсутствует название не показывать фильм ???
@@ -394,16 +404,17 @@ function recomendet_movies(url) {
                             <img class='movie_favorite' src='../../assets/svg/favorite.svg'>
                         </div>
 
-                        <a href='watchMovie.html?${el.id}&${el.title}&${el.original_title}&${String(el.release_date).slice(0, 4)}' class="watch__now allMovie" id='${el.id}' move_data='${el.title} , ${el.original_title} , ${String(el.release_date).slice(0, 4)}'>
+                        <a href="watchMovie.html?${AllData}" class="watch__now allMovie" id="${el.id}" move_data="${String(el.title + ' ' + el.original_title + ' ' + el.release_date.split('-')[0]).replaceAll("'", '')}">
                             <img src="${IMG_URL + el.poster_path}" alt="${el.title}">
                         </a>
 
                         <div class="movie-info">
                             <h3 class="movie-info-title movie-title">${el.title.replace(':', '<br>')}</h3>
-                            <p class="movie-info-paragraph">${String(el.release_date).slice(0, 4)}</p>
+                            <p class="movie-info-paragraph">${parseInt(el.release_date.split('-')[0])}</p>
                         </div>`
                     document.getElementById('recomendet_films').appendChild(div);
                 }
+
             })
         }
 

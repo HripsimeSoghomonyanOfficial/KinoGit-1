@@ -1,8 +1,21 @@
 let movieUrl = decodeURI(window.location.search)
-let get_move_data = movieUrl.slice(1, movieUrl.length).split('&')
+let get_move_data = movieUrl.slice(1, movieUrl.length).split('|')
 
 let move_id = get_move_data[0]
-let move_data = get_move_data[1].concat(' ,', get_move_data[2], ' ,', get_move_data[3])
+let move_data = []
+if (get_move_data[3]) {
+    if (get_move_data[1]) {
+        move_data = get_move_data[1].concat(', ' + get_move_data[3])
+    } else if (get_move_data[2]) {
+        move_data = get_move_data[2].concat(', ' + get_move_data[3])
+    }
+} else {
+    if (get_move_data[1]) {
+        move_data = get_move_data[1]
+    } else if (get_move_data[2]) {
+        move_data = get_move_data[2]
+    }
+}
 
 document.getElementById('kinoplayertop').setAttribute('data-title', move_data)
 
@@ -28,4 +41,4 @@ setTimeout(() => {
     document.querySelectorAll('.video-players').forEach(el => {
         el.style.cssText = `width:${get_width}px; height:${get_height}px`
     })
-}, 2000)
+}, 3000)

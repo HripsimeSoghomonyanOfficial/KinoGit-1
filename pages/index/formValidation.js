@@ -1,4 +1,4 @@
-document.addEventListener("DOMContentLoaded", function () {
+setTimeout(() => {
     const form = document.getElementById("registr__");
     // Добавляем слушатель события отправки формы
     form.addEventListener("submit", function (e) {
@@ -110,64 +110,64 @@ document.addEventListener("DOMContentLoaded", function () {
         // Если все проверки пройдены, возвращаем true
         return true;
     }
-});
 
-function formatInputDate(input) {
-    // Очищаем от любых символов, кроме цифр
-    var cleanedValue = input.value.replace(/[^\d]/g, '');
+    function formatInputDate(input) {
+        // Очищаем от любых символов, кроме цифр
+        var cleanedValue = input.value.replace(/[^\d]/g, '');
 
-    // Добавляем символ / после первых двух символов и после следующих двух символов
-    if (cleanedValue.length > 2) {
-        cleanedValue = cleanedValue.slice(0, 2) + '/' + cleanedValue.slice(2);
-    }
-    if (cleanedValue.length > 5) {
-        cleanedValue = cleanedValue.slice(0, 5) + '/' + cleanedValue.slice(5);
-    }
-    input.value = cleanedValue;
-}
-
-function validateDateOfBirth() {
-    let regAge_chack = document.getElementById("date_chack")
-
-    var userInput = regAge.value;
-    var dateRegex = /^(\d{2})\/(\d{2})\/(\d{4})$/;
-    if (!dateRegex.test(userInput)) {
-        return false;
-    }
-    var matches = userInput.match(dateRegex);
-    var day = parseInt(matches[1], 10);
-    var month = parseInt(matches[2], 10) - 1;
-    var year = parseInt(matches[3], 10);
-    var userDate = new Date(year, month, day);
-
-    if (isNaN(userDate.getTime())) {
-        document.querySelector('.helper_text').innerHTML = 'введите корректную дату'
-        regAge_chack.innerHTML = '&#10040;'
-        regAge_chack.style.color = 'red'
-        return false;
+        // Добавляем символ / после первых двух символов и после следующих двух символов
+        if (cleanedValue.length > 2) {
+            cleanedValue = cleanedValue.slice(0, 2) + '/' + cleanedValue.slice(2);
+        }
+        if (cleanedValue.length > 5) {
+            cleanedValue = cleanedValue.slice(0, 5) + '/' + cleanedValue.slice(5);
+        }
+        input.value = cleanedValue;
     }
 
-    var currentDate = new Date();
-    if (userDate.getTime() > currentDate.getTime()) {
-        document.querySelector('.helper_text').innerHTML = 'Дата рождения не может быть в будущем'
-        regAge_chack.innerHTML = '&#10040;'
-        regAge_chack.style.color = 'red'
-        return false;
+    function validateDateOfBirth() {
+        let regAge_chack = document.getElementById("date_chack")
+
+        var userInput = regAge.value;
+        var dateRegex = /^(\d{2})\/(\d{2})\/(\d{4})$/;
+        if (!dateRegex.test(userInput)) {
+            return false;
+        }
+        var matches = userInput.match(dateRegex);
+        var day = parseInt(matches[1], 10);
+        var month = parseInt(matches[2], 10) - 1;
+        var year = parseInt(matches[3], 10);
+        var userDate = new Date(year, month, day);
+
+        if (isNaN(userDate.getTime())) {
+            document.querySelector('.helper_text').innerHTML = 'введите корректную дату'
+            regAge_chack.innerHTML = '&#10040;'
+            regAge_chack.style.color = 'red'
+            return false;
+        }
+
+        var currentDate = new Date();
+        if (userDate.getTime() > currentDate.getTime()) {
+            document.querySelector('.helper_text').innerHTML = 'Дата рождения не может быть в будущем'
+            regAge_chack.innerHTML = '&#10040;'
+            regAge_chack.style.color = 'red'
+            return false;
+        }
+
+        return true;
     }
 
-    return true;
-}
+    // radio togle
+    let all_gender_radio = document.querySelectorAll('.gender_radio')
+    all_gender_radio.forEach(el => {
+        el.addEventListener('click', () => {
+            all_gender_radio.forEach(el2 => {
+                el2.classList.remove('gender_radio--active')
+            })
+            el.classList.add('gender_radio--active')
 
-// radio togle
-let all_gender_radio = document.querySelectorAll('.gender_radio')
-all_gender_radio.forEach(el => {
-    el.addEventListener('click', () => {
-        all_gender_radio.forEach(el2 => {
-            el2.classList.remove('gender_radio--active')
+            gender_chack.style.cssText = 'color:#59ff00'
+            gender_chack.innerHTML = '&#10004;'
         })
-        el.classList.add('gender_radio--active')
-        
-        gender_chack.style.cssText = 'color:#59ff00'
-        gender_chack.innerHTML = '&#10004;'
     })
-})
+}, 1900);

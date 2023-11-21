@@ -195,7 +195,9 @@
 
                             let move_info_cont_data_change = () => {
                                 if (chack_) {
-                                    Sinit()
+                                    setTimeout(() => {
+                                        Sinit()
+                                    }, 300);
                                     chack_ = false
                                 }
                                 setTimeout(() => {
@@ -219,7 +221,7 @@
                                         </p>
 
                                         <div class="move_info_cont_row">
-                                            <a href='pages/watchMovie/watchMovie.html?${head_swiper_info_id},${move_info_cont_original_title},${move_info_cont_title},${head_swiper_info_data.slice(0, 4)}' class="move_info_cont_play" id='${head_swiper_info_id}' move_data="${move_info_cont_title} ,${move_info_cont_original_title}, ${head_swiper_info_data.slice(0, 4)}">
+                                            <a href='pages/watchMovie/watchMovie.html?${head_swiper_info_id}|${move_info_cont_original_title.replaceAll("'", '')}|${move_info_cont_title}|${head_swiper_info_data.split('-')[0]}' class="move_info_cont_play" id='${head_swiper_info_id}' move_data="${move_info_cont_title} ,${move_info_cont_original_title}, ${head_swiper_info_data.split('-')[0]}">
                                                 <img src="assets/svg/icons-play.png" alt="play">смотреть
                                             </a>
                                         </div>`;

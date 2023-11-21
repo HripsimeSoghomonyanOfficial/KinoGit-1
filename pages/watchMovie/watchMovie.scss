@@ -92,6 +92,7 @@ body {
         color: #ffa301;
         font-size: 11px;
         font-family: system-ui;
+        text-align: center;
     }
 
     .flexBox {
@@ -1438,6 +1439,7 @@ main {
 @media screen and (max-width: 800px) {
     .move_info_cont .reyting_stars_cont {
         height: 12px;
+        width: 61px;
     }
 
     .head-top-slesh {
@@ -1456,6 +1458,7 @@ main {
     .header-wrapper {
         background-size: contain;
         height: 65vh;
+        min-height: 410px;
         margin-bottom: 130px;
         background-position: 0 200px;
 
