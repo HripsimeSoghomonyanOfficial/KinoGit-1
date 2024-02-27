@@ -106,6 +106,24 @@ main {
     p {
         margin: 5px 20px;
     }
+
+    .btn_clear_catch {
+        border: none;
+        outline: none;
+        color: white;
+        display: inline-block;
+        background-color: rgba(255, 255, 255, 0.1411764706);
+        transition: 250ms;
+        padding: 8px 12px;
+        border-radius: 5px;
+        margin: 5px 0 5px 30px;
+        text-transform: capitalize;
+        cursor: pointer;
+
+        &:hover {
+            background-color: #e89700;
+        }
+    }
 }
 
 footer {

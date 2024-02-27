@@ -1,38 +1,58 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru" foxified>
 
 <head>
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!-- seo -->
+    <meta name="description" content="кино фильмы и сериалы онлайн бесплатно без регистрации">
+    <meta content="" id="meta_keywords"><!-- add in js -->
+    <meta name="author" content="KinoGit">
     <!-- icons -->
-    <link rel="apple-touch-icon" sizes="144x144" href="../../assets/logo-icon/apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="../../assets/logo-icon/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="../../assets/logo-icon/favicon-16x16.png">
-    <link rel="manifest" href="../../assets/logo-icon/site.webmanifest">
-    <link rel="mask-icon" href="../../assets/logo-icon/safari-pinned-tab.logo-icon" color="#5bbad5">
-    <link rel="shortcut icon" href="../../assets/logo-icon/favicon.ico">
+    <link rel="apple-touch-icon" sizes="144x144" href="../../apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="../../favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="../../favicon-16x16.png">
+    <link rel="manifest" href="../../site.webmanifest">
+    <link rel="mask-icon" href="../../safari-pinned-tab.logo-icon" color="#5bbad5">
+    <link rel="shortcut icon" href="../../favicon.ico">
     <meta name="msapplication-TileColor" content="#da532c">
-    <meta name="msapplication-config" content="../../assets/logo-icon/browserconfig.xml">
+    <meta name="msapplication-config" content="../../browserconfig.xml">
     <meta name="theme-color" content="#ffffff">
+    <!-- off Cache-Control -->
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+    <!-- meta google -->
+    <meta name="google-site-verification" content="8sh17N1rHElbBYMNhaPmH5qZgJDzrtwwe5cO4Cs9TTg" />
     <!-- loader -->
-    <link rel="stylesheet" href="../../css/loader/loader.css">
+    <link rel="stylesheet" href="../../css/loader/loader.css?v1">
     <!-- helper -->
-    <link rel="stylesheet" href="./../../css/helper/helper.css">
+    <link rel="stylesheet" href="./../../css/helper/helper.css?v1">
     <!-- fonts -->
-    <link rel="stylesheet" href="./../../assets/fonts/TsukimiRounded/stylesheet.css">
-    <link rel="stylesheet" href="./../../assets/fonts/Inter/inter.css">
+    <link rel="stylesheet" href="./../../assets/fonts/TsukimiRounded/stylesheet.css?v1">
+    <link rel="stylesheet" href="./../../assets/fonts/Inter/inter.css?v1">
     <!-- swiper -->
-    <link rel="stylesheet" href="./../../css/swiper/swiper-bundle.min.css">
-    <link rel="stylesheet" href="./../../css/swiper/swiperStyles.css">
+    <link rel="stylesheet" href="./../../css/swiper/swiper-bundle.min.css?v1">
+    <link rel="stylesheet" href="./../../css/swiper/swiperStyles.css?v1">
     <!-- css -->
-    <link rel="stylesheet" href="./watchMovie.css">
+    <link rel="stylesheet" href="./watchMovie.css?v1">
     <!-- async scripts -->
-    <script async type="text/javascript" src="../../js/swiper/swiper-bundle.min.js"></script>
+    <script async type="text/javascript" src="../../js/swiper/swiper-bundle.min.js?v1"></script>
 
-    <title>KinoGid</title>
+    <title>KinoGit</title>
 </head>
 
 <body>
+    <div class="showMassag?v1">
+        <div>
+            <div class="showMassag_wrap"></div>
+            <a class="showMassag-btn" href="../../index.html">вернуться</a>
+        </div>
+    </div>
     <header>
         <div class="header-wrapper">
             <!-- popups  -->
@@ -48,14 +68,14 @@
                         <div>
                             <div>
                                 <div class="clumn_conts">
-                                    <label>электронная почта</label>
-                                    <input type="email" name="loginMail" id="loginEmail">
+                                    <label>электронная почта <span id="loginEmail_chack"></span></label>
+                                    <input type="email" name="loginMail" id="loginEmail" required>
                                 </div>
                             </div>
                             <div>
                                 <div class="clumn_conts">
-                                    <label>пароль</label>
-                                    <input type="password" name="loginPassword" id="loginPassword">
+                                    <label>пароль <span id="loginPassword_chack"></span></label>
+                                    <input type="password" name="loginPassword" id="loginPassword" required>
                                 </div>
                             </div>
                         </div>
@@ -67,9 +87,9 @@
                             <p>Не выходить из системы</p>
                         </div>
 
-                        <input class="submit" name="signup" value="войти" type="submit">
+                        <input class="submit" name="signup" value="войти" type="submit" id="login_submit">
 
-                        <a class="forgetBtn" href="javascript:void(0)">Забыли пароль?</a>
+                        <a class="forgetBtn" href="../resetPass/resetPass.html">Забыли пароль?</a>
                     </form>
 
                     <!-- registr -->
@@ -107,11 +127,11 @@
                                 <div class="clumn_conts">
                                     <label>пол <span id="gender_chack"></span></label>
                                     <div>
-                                        <label class="gender_man gender_radio">man
+                                        <label class="gender_man gender_radio">мужчина
                                             <input type="radio" name="gender" value="man">
                                         </label>
 
-                                        <label class="gender_women gender_radio">women
+                                        <label class="gender_women gender_radio">женщина
                                             <input type="radio" name="gender" value="women">
                                         </label>
                                     </div>
@@ -134,7 +154,7 @@
             <!-- head swiper container-->
             <div class="head-top-cont">
                 <a href="./../../index.html" class="logo">
-                    <h1>Kino<span>Gid</span></h1>
+                    <h1>Kino<span>Git</span></h1>
                 </a>
 
                 <nav class="head-top-nav">
@@ -175,7 +195,8 @@
                 <div class="swiper-pagination head-swiper-pagination"></div>
                 <!--swiper configs -->
                 <script>
-                    let chack_ = true
+                    let chack_ = true;
+
                     function headSwiper() {
                         let bacground_poster_push = document.querySelector('.header-wrapper')
                         let move_info_cont = document.querySelector('.move_info_cont')
@@ -183,7 +204,7 @@
                         let move_info_cont_data_change = () => {
                             if (chack_) {
                                 setTimeout(() => {
-                                    Sinit() 
+                                    Sinit()
                                 }, 300);
                                 chack_ = false
                             }
@@ -197,7 +218,7 @@
                                 let head_swiper_info_id = document.querySelector('.swiper-slide-active>.head_swiper_info>.head_swiper_info_id').textContent
                                 // set
                                 function reytingStars() {
-                                    document.getElementById('reyting_stars_bg_width').style.width = `${reyting.replace('.', '0.')}%`
+                                    document.getElementById('reyting_stars_bg_width').style.width = reyting.length == 1 ? reyting + '0%' : reyting.replace('.', '0.') + '%'
                                 }
 
                                 move_info_cont.innerHTML = `<h2 class="move_info_cont_title">${move_info_cont_title}</h2>
@@ -206,13 +227,12 @@
                                     <img class='tmbd-logo' src="../../assets/svg/TMDB-icon.svg" alt="TMDB-icon">
                                     <span class='reyting_stars_cont' id='reyting_stars_cont'>
                                         <span class='reyting_stars_bg_width' id='reyting_stars_bg_width'></span>
-                                        <img src='./../../assets/svg/yellowStar.png'>
                                     </span>
                                 </p>
 
                                 <div class="move_info_cont_row">
-                                    <a href='watchMovie.html?${head_swiper_info_id}|${move_info_cont_original_title}|${move_info_cont_title}|${head_swiper_info_data.split('-')[0]}' class="move_info_cont_play" id='${head_swiper_info_id}' move_data="${move_info_cont_title} ,${move_info_cont_original_title}, ${head_swiper_info_data.split('-')[0]}">
-                                        <img src="./../../assets/svg/icons-play.png" alt="play">смотреть
+                                    <a href='watchMovie.html?${head_swiper_info_id}|${move_info_cont_original_title}|${move_info_cont_title}|${head_swiper_info_data.split('-')[0]}| ${movie}' class="move_info_cont_play" id='${head_swiper_info_id}' move_data="${move_info_cont_title} ,${move_info_cont_original_title}, ${head_swiper_info_data.split('-')[0]}">
+                                        <img src="./../../assets/svg/icons-play.svg" alt="play">смотреть
                                     </a>
                                 </div>`
 
@@ -272,6 +292,7 @@
                         }
 
                         move_info_cont_data_change()
+                        runKinoplayertop()
                     }
                 </script>
             </div>
@@ -279,33 +300,45 @@
     </header>
     <main class="main__section" id="main">
         <div class="about_film" id="about_film"></div>
+        <!-- reclam slider  -->
+        <div class="swiper mySwiper reclam_player" id="reclam_player">
+            <div class="swiper-wrapper reclam_player_baner">
 
-        <div class="reclam_player" id="reclam_player">
-            <div class="reclam_player_baner">
-                <h3>здесь может быть ваша реклама</h3>
-                <p>kinogit@gmail.com</p>
+                <div class="swiper-slide reclam_player_items">
+                    <a href="https://beget.com/?id=2049382" target="_blank">
+                        <img src="../../reclams/img/beget.jpg" border="0">
+                    </a>
+                </div>
+
             </div>
         </div>
 
         <!-- player -->
         <div class="players-cont">
             <div class="slect-player">
-                <p class="slect-player-btn slect-player-btn-active">плеер 1</p>
-                <p class="slect-player-btn">триллер</p>
+                <!-- 1 -->
+                <p class="slect-player-btn slect-player-btn-active" data-click-kinoplayer="kinoplayertop"> плеер </p>
+                <!-- 2 triller ru -->
+                <!-- <p class="slect-player-btn" data-click-kinoplayer="triller_ru">триллер ru</p> -->
+                <!-- 3 triller en -->
+                <p class="slect-player-btn">триллер en</p>
             </div>
-
-            <!-- players -->
+            <!-- 1 -->
             <div class="video-players video-player-active">
-                <span>нет видео</span>
-                <div id="kinoplayertop" height="100%" data-player-active="tabus" data-title="" data-shearch="false"
-                    data-bg="#131313" data-ratio="1by1 ">
+                <span>Not movie!</span>
+                <div class="kinoplayer" id="kinoplayertop" height="100%" data-shearch="false" data-bg="#131313"
+                    data-title="">
                 </div>
             </div>
-
+            <!-- 2 triller ru -->
+            <!-- <div class="video-players">
+                <span>Not movie!</span>
+                <div class="kinoplayer" id="triller_ru" data-player="trailer" data-bg="#000000" data-title=""></div>
+            </div> -->
+            <!-- 3 triller en -->
             <div class="video-players">
-                <span>нет видео</span>
-                <div class="triller-video" id="triller">
-                </div>
+                <span>Not movie!</span>
+                <div class="triller-video" id="triller"></div>
             </div>
         </div>
 
@@ -342,10 +375,10 @@
                         slidesPerView: slidesPerView_count,
                         spaceBetween: 13,
                         freeMode: true,
-                        autoplay: {
-                            delay: 4000,
-                            pauseOnMouseEnter: true,
-                        },
+                        // autoplay: {
+                        //     delay: 4000,
+                        //     pauseOnMouseEnter: true,
+                        // },
                         navigation: {
                             nextEl: '.recomendet-films-next-unique',
                             prevEl: '.recomendet-films-prev-unique',
@@ -374,7 +407,7 @@
     <footer>
         <div class="all-info">
             <a href="./../../index.html" class="logo">
-                <h1>Kino<span>Gid</span></h1>
+                <h1>Kino<span>Git</span></h1>
             </a>
             <nav class="navigation">
                 <a href="./../privacy-polic/privacy-polic.html">Правообладателям</a>
@@ -406,22 +439,34 @@
                 </svg>
 
                 <div class="logo logo-loader">
-                    <h1>Kino<span>Gid</span></h1>
+                    <h1>Kino<span>Git</span></h1>
                 </div>
             </div>
         </div>
     </footer>
 
     <script type="text/javascript" src="getMovieUrl.js"></script>
-    <script type="text/javascript" src="../../js/registationForm.js"></script>
     <script type="text/javascript" src="watchMove.js"></script>
     <!-- scripts -->
-    <script type="text/javascript" src="//kinoplayer.top/top.js"></script>
-    <script type="text/javascript" src="./user_login_check.js"></script>
-    <script type="text/javascript" src="../../js/searchAnim/searchAnim.js"></script>
-    <script type="text/javascript" src="../../js/mob_open_close/mob_open_close.js"></script>
-    <script type="text/javascript" src="./formValidation.js"></script>
-    <script type="text/javascript" src="../../js/script.js"></script>
+    <script src="//kinoplayer.top/top.js"></script>
+    <script>
+        setTimeout(() => {
+            runKinoplayertop()
+        }, 500);
+    </script>
+    <script type="text/javascript" src="get_user_info.js?v1"></script>
+    <script type="text/javascript" src="formValidation.js?v1"></script>
+    <script type="text/javascript" src="../../js/searchAnim/searchAnim.js?v1"></script>
+    <script type="text/javascript" src="../../js/mob_open_close/mob_open_close.js?v1"></script>
+    <script type="text/javascript" src="../../js/registationForm.js?v1"></script>
+    <script type="text/javascript" src="../../js/script.js?v1"></script>
+    <script type="text/javascript" src="runGames.js?v1"></script>
+    <script src="guests.js?v1"></script>
+    <!-- swipper  -->
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    <script>
+        var swiper = new Swiper(".mySwiper", {});
+    </script>
 </body>
 
 </html>

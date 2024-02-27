@@ -5,15 +5,21 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- icons -->
-    <link rel="apple-touch-icon" sizes="144x144" href="../../assets/logo-icon/apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="../../assets/logo-icon/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="../../assets/logo-icon/favicon-16x16.png">
-    <link rel="manifest" href="../../assets/logo-icon/site.webmanifest">
-    <link rel="mask-icon" href="../../assets/logo-icon/safari-pinned-tab.logo-icon" color="#5bbad5">
-    <link rel="shortcut icon" href="../../assets/logo-icon/favicon.ico">
-    <meta name="msapplication-TileColor" content="#da532c">
-    <meta name="msapplication-config" content="../../assets/logo-icon/browserconfig.xml">
-    <meta name="theme-color" content="#ffffff">
+    <link rel="apple-touch-icon" sizes="144x144" href="../../apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="../../favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="../../favicon-16x16.png">
+    <link rel="manifest" href="../../site.webmanifest">
+    <link rel="mask-icon" href="../../safari-pinned-tab.svg" color="#d28421">
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <meta name="apple-mobile-web-app-title" content="KinoGit">
+    <meta name="application-name" content="KinoGit">
+    <meta name="msapplication-TileColor" content="#000000">
+    <meta name="msapplication-config" content="../../browserconfig.xml">
+    <meta name="theme-color" content="#000000">
+    <!-- off Cache-Control -->
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
     <!-- loader -->
     <link rel="stylesheet" href="../../css/loader/loader.css">
     <!-- helper -->
@@ -22,14 +28,17 @@
     <link rel="stylesheet" href="./../../assets/fonts/TsukimiRounded/stylesheet.css">
     <!-- main -->
     <link rel="stylesheet" href="./privacy-polic.css">
-    <title>KinoGid</title>
+    <title>KinoGit</title>
 </head>
 
 <body>
     <header>
+        <script>
+            fetch('backend/clear_catch.php')
+        </script>
         <!-- head swiper container-->
         <div class="head-top-cont">
-            <a href="./../../index.html" class="logo">Kino<span>Gid</span></a>
+            <a href="./../../index.html" class="logo">Kino<span>Git</span></a>
 
             <div class="links-cont">
                 <a href="./../../index.html" class="links">домой</a>
@@ -48,7 +57,7 @@
         <!-- Правообладателям -->
         <div class="Privacy-Polic-cont">
             <p>
-                Сайт <span>KinoGid</span> представляет собой информационнно-рекомендательный некоммерческий сервис.
+                Сайт <span>KinoGit.ru</span> представляет собой информационнно-рекомендательный некоммерческий сервис.
             </p>
             <p>
                 Настоящим уведомляем, что на внутренних ресурсах сайта не хранится контент, содержащий объекты авторских
@@ -64,7 +73,7 @@
                 на сайт ссылками.
             </p>
             <p>
-                Cайт <span>KinoGid</span> всегда открыт для сотрудничества с правообладателями.
+                Cайт <span>KinoGit.ru</span> всегда открыт для сотрудничества с правообладателями.
             </p>
             <p>
                 Если Ваши исключительные права на объекты авторской собственности нарушаются каким-либо образом с
@@ -102,7 +111,7 @@
                 соответствующие ссылки на видеоматериалы, либо по вашей же просьбе заменим их на другие.
             </p>
 
-            <p> наша почта - <span>kinogid@gmail.com</span></p>
+            <p> наша почта - <span>kinogitofficiall@gmail.com</span></p>
 
             <p>
                 С уважением, администрация сайта
@@ -132,7 +141,7 @@
                 </svg>
 
                 <div class="logo logo-loader">
-                    <h1>Kino<span>Gid</span></h1>
+                    <h1>Kino<span>Git</span></h1>
                 </div>
             </div>
         </div>

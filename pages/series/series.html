@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html lang="ru" foxified>
+
+<head>
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!-- seo -->
+    <meta name="description" content="кино фильмы и сериалы онлайн бесплатно без регистрации">
+    <meta name="keywords" content="" id="meta_keywords"><!-- add in js -->
+    <meta name="author" content="KinoGit">
+    <!-- icons -->
+    <link rel="apple-touch-icon" sizes="144x144" href="../../apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="../../favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="../../favicon-16x16.png">
+    <link rel="manifest" href="../../site.webmanifest">
+    <link rel="mask-icon" href="../../safari-pinned-tab.svg" color="#d28421">
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <meta name="apple-mobile-web-app-title" content="KinoGit">
+    <meta name="application-name" content="KinoGit">
+    <meta name="msapplication-TileColor" content="#000000">
+    <meta name="msapplication-config" content="browserconfig.xml">
+    <meta name="theme-color" content="#000000">
+    <!-- off Cache-Control -->
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+    <!-- meta google -->
+    <meta name="google-site-verification" content="8sh17N1rHElbBYMNhaPmH5qZgJDzrtwwe5cO4Cs9TTg" />
+    <!-- loader -->
+    <link rel="stylesheet" href="../../css/loader/loader.css?v1">
+    <!-- helper -->
+    <link rel="stylesheet" href="../../css/helper/helper.css?v1">
+    <!-- fonts -->
+    <link rel="stylesheet" href="../../assets/fonts/TsukimiRounded/stylesheet.css?v1">
+    <link rel="stylesheet" href="../../assets/fonts/Inter/inter.css?v1">
+    <!-- swiper -->
+    <link rel="stylesheet" href="../../css/swiper/swiper-bundle.min.css?v1">
+    <link rel="stylesheet" href="../../css/swiper/swiperStyles.css?v1">
+    <!-- main -->
+    <link rel="stylesheet" href="../../pages/index/index.css?v1">
+    <!-- async scripts -->
+    <script async type="text/javascript" src="../../js/swiper/swiper-bundle.min.js?v1"></script>
+
+    <title>KinoGit</title>
+</head>
+
+<body>
+    <div class="app">
+
+        <div class="showMassag">
+            <div class="showMassag_wrap"></div>
+        </div>
+
+        <header>
+            <div class="header-wrapper">
+                <div class="reg_popup">
+                    <div class="reg_popup_wrap">
+                        <div class="reg_popup_wrap_menu">
+                            <div class="sign_up_btn" id="sign_up_btn">логин</div>
+                            <div class="registration_btn reg_popup_wrap_menu-active" id="registration_btn">Регистрация
+                            </div>
+                            <div class="reg_popup_close">X</div>
+                        </div>
+                        <!-- login -->
+                        <form action="../../backend/login.php" method="post" class="login" id="login__">
+                            <div>
+                                <div>
+                                    <div class="clumn_conts">
+                                        <label>электронная почта <span id="loginEmail_chack"></span></label>
+                                        <input type="email" name="loginMail" id="loginEmail" required>
+                                    </div>
+                                </div>
+                                <div>
+                                    <div class="clumn_conts">
+                                        <label>пароль <span id="loginPassword_chack"></span></label>
+                                        <input type="password" name="loginPassword" id="loginPassword" required>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="keep-me clumn_conts">
+                                <label class="checkBox__block" for="check_box">
+                                    <input class="checkbox" id="check_box" type="checkbox" name="keepMe" value="3">
+                                    <span class="checkBox_el"></span>
+                                </label>
+                                <p>Не выходить из системы</p>
+                            </div>
+
+                            <input class="submit" name="signup" value="войти" type="submit" id="login_submit">
+
+                            <a class="forgetBtn" href="../resetPass/resetPass.html">Забыли пароль?</a>
+                        </form>
+
+                        <!-- registr -->
+                        <form action="../../backend/register.php" method="post" class="registr active-block"
+                            id="registr__">
+                            <div class="helper_text">я вам помогу зарегистрироваться</div>
+                            <div class="flexBox">
+                                <div>
+                                    <div class="clumn_conts">
+                                        <label>имя <span id="regName_chack"></span></label>
+                                        <input type="text" id="regName" name="regName" required>
+                                    </div>
+                                    <div class="clumn_conts">
+                                        <label>фамилия <span id="regLname_chack"></span></label>
+                                        <input type="text" id="regLname" name="regLname" required>
+                                    </div>
+                                    <div class="clumn_conts">
+                                        <label>возраст <span id="date_chack"></span></label>
+                                        <input class="inputDate" maxlength="10" type="text" id="regAge" name="regAge"
+                                            placeholder="01/01/2001">
+                                    </div>
+                                </div>
+                                <div>
+                                    <div class="clumn_conts">
+                                        <label>электронная почта <span id="regEmail_chack"></span></label>
+                                        <input type="email" name="regEmail" id="regEmail" required>
+                                    </div>
+                                    <div class="clumn_conts">
+                                        <label>пароль <span id="regPassword_chack"></span></label>
+                                        <input type="password" id="regPassword" name="regPassword" required>
+                                    </div>
+                                    <div class="clumn_conts">
+                                        <label>Подтвердите пароль <span id="regConfirm_chack"></span></label>
+                                        <input type="password" id="regConfirm" name="regConfirm" required>
+                                    </div>
+                                    <div class="clumn_conts">
+                                        <label>пол <span id="gender_chack"></span></label>
+                                        <div>
+                                            <label class="gender_man gender_radio">мужчина
+                                                <input type="radio" name="gender" value="man">
+                                            </label>
+
+                                            <label class="gender_women gender_radio">женщина
+                                                <input type="radio" name="gender" value="women">
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <input class="submit" value="регистрация" type="submit" name="submit_btn">
+
+                        </form>
+                    </div>
+                </div>
+
+                <div class="reg_popup_account" id="reg_popup_account">
+                    <div class="reg_popup_account_wrap">
+                        <div>вы не зарегистрированы! но это легко исправить</div>
+                        <div class="registration_btn" id="reg_popup_account_registration">регистрация</div>
+                        <div class="reg_popup_close" id="reg_popup_account_close">X</div>
+                    </div>
+                </div>
+                <!-- head swiper container-->
+                <div class="head-top-cont">
+                    <div class="logo">
+
+                        <a class="logo_text" href="series.html">
+                            <h1>Kino<span>Git</span></h1>
+                        </a>
+                    </div>
+
+                    <nav class="head-top-nav">
+
+                        <a href="javascript:void(0)" class="head-top-nav-items" id="top_movies">топ
+                            <span id="FullYear">2010</span>
+                        </a>
+
+                        <a href="javascript:void(0)" class="head-top-nav-items" id="comedy">комедии</a>
+                        <a href="javascript:void(0)" class="head-top-nav-items" id="animation">мультики</a>
+                        <a href="javascript:void(0)" class="head-top-nav-items" id="action">Премьеры</a>
+                        <a href="javascript:void(0)" class="head-top-nav-items" id="family">Семейные</a>
+                        <span class="head-top-slesh">|</span>
+                        <a href="javascript:void(0)" class="head-top-nav-items login__openPopup" id="login">Войти</a>
+                        <a href="../../pages/profile/profile.html" class="head-top-nav-items head-top-nav-items-login">
+                            <div class="user-icon"></div>
+                            <p class="user-nameShow"></p>
+                        </a>
+
+                        <div class="select__logo__genres">
+                            <div class="search_cont" id="search_cont">
+                                <div class="search" id="search">
+                                    <input class="search-inp" id="search_inp" type="text">
+                                    <span class="search-close" id="search-close"></span>
+                                    <img src="../../assets/svg/search-icon.svg" class="search-btn" id="search_btn">
+                                </div>
+                            </div>
+                            <a class="select__movie" href="../../index.html" class="head-top-nav-items" id="series">
+                                <img src="../../assets/svg/movie.svg" alt="movie">
+                                <span>фильмы</span>
+                            </a>
+                            <a class="select__series" href="series.html" class="head-top-nav-items" id="series">
+                                <img src="../../assets/svg/series.svg" alt="series">
+                                <span>сериалы</span>
+                            </a>
+                        </div>
+                    </nav>
+
+                    <div class="mob_open_close" id="mob_open_close">
+                        <img src="../../assets/svg/burger-menu-right-svgrepo-com.svg" alt="">
+                    </div>
+                </div>
+
+                <div class="head-info-And-triller-cont">
+                    <div class="move_info_cont"></div>
+                </div>
+
+                <div class="swiper-container head-swiper-container">
+                    <div class="swiper-wrapper head-swiper-wrapper" id="head-swiper-wrapper"></div>
+                    <!-- buttons -->
+                    <div class="swiper-button-prev-unique"></div>
+                    <div class="swiper-button-next-unique"></div>
+                    <!-- Add Pagination -->
+                    <div class="swiper-pagination head-swiper-pagination"></div>
+                    <!--swiper configs -->
+                    <script>
+                        let chack_ = true,
+                            changeSlide = true;
+
+                        function headSwiper() {
+
+                            let move_info_cont_data_change = () => {
+                                if (chack_) {
+                                    setTimeout(() => {
+                                        Sinit()
+                                    }, 300);
+                                    chack_ = false
+                                }
+                                setTimeout(() => {
+
+                                    document.querySelector('.header-wrapper').style.backgroundImage = `url(${document.querySelector('.swiper-slide-active>.head_swiper_info>.head_swiper_info_imgSrc').textContent}`
+                                    // get 
+                                    let move_info_cont_original_title = document.querySelector('.swiper-slide-active>.head_swiper_info>.head_swiper_info_original_title').textContent
+                                    let move_info_cont_title = document.querySelector('.swiper-slide-active>.head_swiper_info>.head_swiper_info_title').textContent.replace(':', '<br>')
+                                    let head_swiper_info_data = document.querySelector('.swiper-slide-active>.head_swiper_info>.head_swiper_info_data').textContent
+                                    let reyting = document.querySelector('.swiper-slide-active>.head_swiper_info>.head_swiper_info_reyting').textContent
+                                    let head_swiper_info_id = document.querySelector('.swiper-slide-active>.head_swiper_info>.head_swiper_info_id').textContent
+                                    // set
+                                    document.querySelector('.move_info_cont').innerHTML = `<h2 class="move_info_cont_title">${move_info_cont_title}</h2>
+                                        <p class="move_info_cont_date">дата выхода - ${head_swiper_info_data.replace(/-/g, " / ")}</p>
+                                        <p class="move_info_cont_reyting">рейтинг 
+                                            <img src="../../assets/svg/TMDB-icon.svg" alt="TMDB-icon">
+                                            <span class='reyting_stars_cont' id='reyting_stars_cont'>
+                                                <span class='reyting_stars_bg_width' id='reyting_stars_bg_width'></span>
+                                            </span>
+                                        </p>
+
+                                        <div class="move_info_cont_row">
+                                            <a href="../watchMovie/watchMovie.html?${head_swiper_info_id}|${move_info_cont_original_title.replaceAll("'", '')}|${move_info_cont_title}|${head_swiper_info_data.split('-')[0]}|tv" class="move_info_cont_play" id='${head_swiper_info_id}' move_data="${move_info_cont_title} ,${move_info_cont_original_title}, ${head_swiper_info_data.split('-')[0]}">
+                                                <img src="../../assets/svg/icons-play.svg" alt="play">смотреть
+                                            </a>
+                                        </div>`;
+
+                                    setTimeout((e) => {
+                                        document.querySelector('.move_info_cont_title').classList.add('move_info_cont_date_anim')
+                                        document.querySelector('.move_info_cont_date').classList.add('move_info_cont_date_anim')
+                                        document.querySelector('.move_info_cont_reyting').classList.add('move_info_cont_date_anim')
+                                        document.querySelector('.move_info_cont_row').classList.add('move_info_cont_date_anim')
+                                    }, 500);
+
+                                    let reytingStars = () => {
+                                        let reyting_stars_bg_width = document.getElementById('reyting_stars_bg_width')
+                                        if (reyting != 0) {
+                                            reyting_stars_bg_width.style.width = reyting.length == 1 ? reyting + '0%' : reyting.replace('.', '0.') + '%'
+                                        } else {
+                                            document.querySelector('.move_info_cont_reyting').style.display = 'none'
+                                        }
+                                    }
+
+                                    // watch thrillerr stop and run
+                                    setTimeout(() => {
+                                        changeSlide = true
+                                    }, 0);
+
+                                    reytingStars()
+                                }, 500)
+                            }
+                            function Sinit() {
+                                let swiper = new Swiper('.head-swiper-container', {
+                                    effect: 'coverflow',
+                                    speed: 200,
+                                    centeredSlides: true,
+                                    slidesPerView: 'auto',
+                                    // loop: true,
+                                    coverflowEffect: {
+                                        depth: 40,
+                                        modifier: 5,
+                                        rotate: 0,
+                                        // scale:1.04,
+                                        slideShadows: true,
+                                        stretch: -5,
+                                    },
+                                    navigation: {
+                                        nextEl: '.swiper-button-next-unique',
+                                        prevEl: '.swiper-button-prev-unique',
+                                    },
+                                    pagination: {
+                                        el: '.swiper-pagination',
+                                        clickable: true,
+                                    },
+                                    autoplay: {
+                                        delay: (window.innerWidth > 500) ? 99000 : 4000,
+                                        pauseOnMouseEnter: true,
+                                    },
+                                    keyboard: {
+                                        enabled: true,
+                                        onlyInViewport: false,
+                                    },
+                                    on: {
+                                        // -------- touch & move--------
+                                        sliderMove: function () {
+                                            if (changeSlide) {
+                                                changeSlide = false
+                                                move_info_cont_data_change()
+                                            }
+                                        },
+
+                                        // -------- if buttones activete run this || autoplay--------
+                                        slideChange: function () {
+                                            if (changeSlide) {
+                                                changeSlide = false
+                                                move_info_cont_data_change()
+                                            }
+
+                                            const move_info_cont = document.querySelector('.move_info_cont')
+                                            move_info_cont.addEventListener('mouseenter', () => { swiper.autoplay.stop() })
+                                            move_info_cont.addEventListener('mouseleave', () => { swiper.autoplay.start() })
+
+                                            const head_swiper_wrapper = document.getElementById('head-swiper-wrapper')
+                                            head_swiper_wrapper.addEventListener('mouseenter', () => { swiper.autoplay.stop() })
+                                            head_swiper_wrapper.addEventListener('mouseleave', () => { swiper.autoplay.start() })
+                                        },
+                                    }
+                                })
+                            }
+
+                            move_info_cont_data_change()
+                        }
+
+                    </script>
+                </div>
+            </div>
+        </header>
+
+        <main id="main">
+            <div class="main_films_categories_cont">
+                <section class="main__section" id="main__section">
+                    <div class="main__section__films" id="main__section__films"></div>
+                </section>
+
+                <nav class="right-nav">
+                    <h3 class="categories-title">
+                        <span class="text_1">категории</span>
+                        <span class="text_2">фильтры по фильмам</span>
+                    </h3>
+                    <div class="categories" id="categories">
+
+                        <div class="categories__grup">
+                            <div class="select select__genres">
+                                <div class="select__text">
+                                    <p>Жанры</p>
+                                    <span class="select__arrow">></span>
+                                </div>
+                                <!-- popup genres-->
+                                <div class="genres__popup select__genres__popup">
+                                    <div class="genres__and__img" id="genres__and__img"></div>
+                                    <!-- <h6 class="genres__title">выберите 3 жанра</h6> -->
+                                    <div class="open__cont genres__text" id="genres__text"></div>
+                                </div>
+                            </div>
+
+                            <div class="select select__years">
+                                <div class="select__text">
+                                    <p>Годы</p><span class="select__arrow">></span>
+                                </div>
+                                <!--  popup years-->
+                                <div class="genres__popup">
+                                    <!-- <h6 class="years__title">год</h6> -->
+                                    <div class="open__cont select__years__popup"></div>
+                                </div>
+                            </div>
+
+                            <div class="select select__countries">
+                                <div class="select__text">
+                                    <p>Страны</p><span class="select__arrow">></span>
+                                </div>
+                                <!-- countries popup -->
+                                <div class="genres__popup">
+                                    <!-- <h6 class="countries__title">страна</h6> -->
+                                    <div class="open__cont select__countries__popup"></div>
+                                </div>
+                            </div>
+
+                            <div class="select select__rating">
+                                <div class="select__text">
+                                    <p>Рейтинг</p><span class="select__arrow">></span>
+                                </div>
+                                <!-- rating popup -->
+                                <div class=" genres__popup">
+                                    <!-- <h6 class="rating__title">оценка</h6> -->
+                                    <div class="open__cont select__rating__popup"></div>
+                                </div>
+                            </div>
+
+                            <div class="btn__reset__default">
+                                <div class="select__text reset__default">
+                                    <p>очистить</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </nav>
+            </div>
+
+            <div class="arrow-to-top" id="arrow_to_top">
+                <div>
+                    <div></div>
+                </div>
+            </div>
+        </main>
+
+        <footer>
+            <div class="pagination">
+                <div class="page-prev" id="prev">
+                    <img src="../../assets/svg/next-svgrepo-com.svg" alt="prev btn">
+                </div>
+
+                <div class="current" id="current">
+                    <div class="total_pages" id="total_pages"></div>
+                </div>
+
+                <div class="page-next" id="next">
+                    <img src="../../assets/svg/next-svgrepo-com.svg" alt="next btn">
+                </div>
+            </div>
+
+            <div class="all-info">
+                <a href="series.html" class="logo">
+                    <h1>Kino<span>Git</span></h1>
+                </a>
+                <nav class="navigation">
+                    <a href="../../pages/privacy-polic/privacy-polic.html">Правообладателям</a>
+                    <a href="../../pages/app/app.html">Приложение</a>
+                    <a href="../../pages/contact/contact.html">Контакты</a>
+                    <a href="../../pages/faq/fac.html">фэк</a>
+                </nav>
+            </div>
+
+            <div class="loader">
+                <div class="loader-wrapper">
+                    <svg class="pl" viewBox="0 0 176 160" width="176px" height="160px"
+                        xmlns="http://www.w3.org/2000/svg">
+                        <defs>
+                            <linearGradient id="pl-grad" x1="0" y1="0" x2="0" y2="1">
+                                <stop offset="0%" stop-color="hsl(33,90%,55%)" />
+                                <stop offset="30%" stop-color="hsl(33,90%,55%)" />
+                                <stop offset="100%" stop-color="hsl(3,90%,55%)" />
+                            </linearGradient>
+                        </defs>
+                        <g fill="none" stroke-width="16" stroke-linecap="round">
+                            <circle class="pl__ring" r="56" cx="88" cy="96" stroke="hsla(0,10%,10%,0.1)" />
+                            <path class="pl__worm1" d="M144,96A56,56,0,0,1,32,96" stroke="url(#pl-grad)"
+                                stroke-dasharray="43.98 307.87" />
+                            <path class="pl__worm2" d="M32,136V96s-.275-25.725,14-40" stroke="hsl(33,90%,55%)"
+                                stroke-dasharray="0 40 0 44" stroke-dashoffset="0.001" visibility="hidden" />
+                            <path class="pl__worm3" d="M144,136V96s.275-25.725-14-40" stroke="hsl(33,90%,55%)"
+                                stroke-dasharray="0 40 0 44" stroke-dashoffset="0.001" visibility="hidden" />
+                        </g>
+                    </svg>
+
+                    <div class="logo logo-loader">
+                        <h1>Kino<span>Git</span></h1>
+                    </div>
+                </div>
+            </div>
+
+        </footer>
+    </div>
+
+    <script type="text/javascript" src="../../js/searchAnim/searchAnim.js?v1"></script>
+    <script type="text/javascript" src="../../js/mob_open_close/mob_open_close.js?v1"></script>
+    <script type="text/javascript" src="series.js?v1"></script>
+    <script type="text/javascript" src="get_user_info.js?v1"></script>
+    <script type="text/javascript" src="formValidation.js?v1"></script>
+    <script type="text/javascript" src="../../js/registationForm.js?v1"></script>
+    <script type="text/javascript" src="../../js/script.js?v1"></script>
+    <script type="text/javascript" src="runGames.js?v1"></script>
+    <script src="guests.js?v1"></script>
+</body>
+
+</html>

@@ -1,7 +1,20 @@
+// loader off
+function loaderOFF() {
+    document.querySelector('.loader').style.opacity = '0'
+    window.scrollTo(0, 0)
+    // get_favorite()
+
+    setTimeout(() => {
+        document.querySelector('.loader').style.display = 'none'
+    }, 700)
+}
+
 const D = new Date();
 const thisMonth = D.toLocaleString('en', { month: 'long' }); // june
 const thisYear = D.getFullYear() // 2023
 
+// SEO meta attributes add
+document.getElementById('meta_keywords').setAttribute('content', 'смотреть фильмы, фильмы онлайн, смотреть ТВ, ТВ онлайн, сериалы онлайн, смотреть сериалы, транслировать фильмы, транслировать сериалы, стриминг онлайн, смотреть онлайн, фильмы, смотреть фильмы Армения, смотреть ТВ онлайн, без загрузки, полнометражные фильмы,' + thisYear)
 document.getElementById('FullYear').innerText = thisYear
 
 const
@@ -22,6 +35,7 @@ let currentPage = 1,
     prevPage = 3,
     lastUrl = '',
     totalPages = 100,
+    movie_tv = 'movie',
     selectedGenre = [];
 
 //TMDB themoviedb
@@ -31,15 +45,17 @@ const options = {
         accept: 'application/json',
         Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI3ZjQwYjY2MjVhZWEwNDcyZTU4ZGE2ZDdkZGMxMmZhZCIsInN1YiI6IjY0N2RlZWFjOTM4MjhlMDBhNzY1OGUyZiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.MBEPwwpXitFgjAFw1v_yLu3YhmG39HgHebNjYk1xVb4'
     }
-};
+}
 
-let language = 'ru-RU'
+let language = 'language=ru-RU?language=en-EN'
 
 const API_KEY = 'api_key=1cf50e6248dc270629e802686245c2c8',
     BASE_URL = 'https://api.themoviedb.org/3',
-    API_URL = `${BASE_URL}/discover/movie?language=${language}?language=en-EN?sort_by=popularity.desc&${API_KEY}`,
+    API_URL = `${BASE_URL}/discover/movie?${language}?sort_by=popularity.desc&${API_KEY}`,
     IMG_URL = 'https://image.tmdb.org/t/p/w500',
     searchURL = `${BASE_URL}/search/movie?${API_KEY}`;
+// fetch(`${BASE_URL}/search/multi?include_adult=false&${language}&page=1`, options)
+
 
 const
     genres = [
@@ -263,13 +279,13 @@ const
 
 // top slider movies
 let get_top_movies = () => {
-    fetch(`${BASE_URL}/discover/movie?language=${language}?language=en-EN?sort_by=popularity.desc&${API_KEY}`, options)
+    fetch(`${BASE_URL}/discover/movie?${language}?&primary_release_year=${thisYear}&year=${thisYear}&sort_by=popularity.desc&` + API_KEY + '&with_genres=' + encodeURI(selectedGenre) + '&without_genres=16', options)
         // slider top 20
         .then(r => r.json())
         .then(r => {
             const swiper_wrapper = document.getElementById('head-swiper-wrapper')
             r.results.forEach(el => {
-                let AllData = String(el.id + '|' + el.title + '|' + el.original_title + '|' + el.release_date.split('-')[0]).replaceAll("'", '')
+                let AllData = String(el.id + '/' + el.title + '/' + el.original_title + '/' + el.release_date.split('-')[0]).replaceAll("'", '') + '/movie'
 
                 const div = document.createElement('div')
                 div.className = 'swiper-slide head-swiper-slide'
@@ -279,7 +295,7 @@ let get_top_movies = () => {
                         <img class='movie_favorite' src="assets/svg/favorite.svg">
                     </div>
 
-					<a href="pages/watchMovie/watchMovie.html?${AllData}" class="allMovie movie head-swiper-wrapper-play-img-cont" id="${el.id}" move_data="${String(el.title + ' ' + el.original_title + ' ' + el.release_date.split('-')[0]).replaceAll("'", '')}"}>
+					<a href="pages/watchMovie/watchMovie.html?${AllData}" class="allMovie movie head-swiper-wrapper-play-img-cont" id="${el.id}_movie" move_data="${String(el.title + ' ' + el.original_title + ' ' + el.release_date.split('-')[0]).replaceAll("'", '')}"}>
 						<img src="assets/svg/play-icon.svg" alt="play-button">
 					</a>
 
@@ -299,9 +315,6 @@ let get_top_movies = () => {
             }, 300);
             getTop_move_andPlay()
             get_top_Bookmark_InServer()
-
-            if (localStorage.getItem('page'))
-                pageCall()
         })
 }
 get_top_movies()
@@ -315,33 +328,18 @@ function setGenre() {
     genres.forEach((genre, i) => {
         const t = document.createElement('div');
         t.className = 'genres__text__items';
+        t.id = genre.id;
+        t.innerText = genre.name;
+        t.addEventListener('click', () => {
+            selectedGenre = []
+            selectedGenre = genre.id
 
-        if (i <= 18) {
-            t.id = genre.id;
-            t.innerText = genre.name;
-            t.addEventListener('click', () => {
-                if (selectedGenre.length == 0) {
-                    selectedGenre.push(genre.id)
-                } else {
-                    if (selectedGenre.includes(genre.id)) {
-                        selectedGenre.forEach((id, i) => {
-                            if (id == genre.id) {
-                                selectedGenre.splice(i, 1)
-                            }
-                        })
-                    } else {
-                        selectedGenre.push(genre.id)
-                    }
-                }
-                getMovies(BASE_URL + `/discover/movie?language=${language}?language=en-EN?&primary_release_year=${year ? year : thisYear}&page=${localStorage.getItem('page')}&year=${year ? year : thisYear}&sort_by=popularity.desc&` + API_KEY + '&with_genres=' + encodeURI(selectedGenre.join(',')))
-            })
-        } else {
-            t.id = genre.id;
-            t.innerText = genre.name;
-            t.addEventListener('click', () => {
-                getMovies(`${searchURL}&query=${genre.id}&language=${language}`)
-            })
-        }
+            if (selectedGenre !== 16) {
+                getMovies(BASE_URL + `/discover/movie?${language}?&primary_release_year=${year ? year : thisYear}&sort_by=popularity.desc&` + API_KEY + '&with_genres=' + encodeURI(selectedGenre) + '&without_genres=16')
+            } else {
+                getMovies(BASE_URL + `/discover/movie?${language}?&primary_release_year=${year ? year : thisYear}&sort_by=popularity.desc&` + API_KEY + '&with_genres=' + encodeURI(selectedGenre))
+            }
+        })
         categories_cont.append(t);
     })
 
@@ -369,7 +367,11 @@ function setGenre() {
                 let getYears = select__years__items[index].id.replaceAll(' ', '').split('-')
                 year = (String(getYears) !== 'до,1980') ? getYears : getYears[1]
 
-                getMovies(BASE_URL + `/discover/movie?language=${language}?language=en-EN?&page=1&primary_release_date.gte=${year ? year[0] + '-01-01' : thisYear}&primary_release_date.lte=${year ? year[1] + '-12-31' : thisYear}&` + API_KEY + '&with_genres=' + encodeURI(selectedGenre.join(',')))
+                if (selectedGenre !== 16) {
+                    getMovies(BASE_URL + `/discover/movie?${language}?&page=1&primary_release_date.gte=${year ? year[0] + '-01-01' : thisYear}&primary_release_date.lte=${year ? year[1] + '-12-31' : thisYear}&` + API_KEY + '&with_genres=' + encodeURI(selectedGenre) + '&without_genres=16')
+                } else {
+                    getMovies(BASE_URL + `/discover/movie?${language}?&page=1&primary_release_date.gte=${year ? year[0] + '-01-01' : thisYear}&primary_release_date.lte=${year ? year[1] + '-12-31' : thisYear}&` + API_KEY + '&with_genres=' + encodeURI(selectedGenre))
+                }
             })
         })
     }
@@ -393,7 +395,12 @@ function setGenre() {
                 // get id 
                 let setCountries = select__countries__items[index].id
 
-                getMovies(BASE_URL + `/discover/movie?language=${language}?language=en-EN?&primary_release_year=${year ? year[0] : thisYear}&page=1&year=${year ? year : thisYear}&with_original_language=${setCountries}&sort_by=popularity.desc&` + API_KEY + '&with_genres=' + encodeURI(selectedGenre.join(',')))
+
+                if (selectedGenre !== 16) {
+                    getMovies(BASE_URL + `/discover/movie?${language}?&primary_release_year=${year ? year[0] : thisYear}&page=1&year=${year ? year : thisYear}&with_original_language=${setCountries}&sort_by=popularity.desc&` + API_KEY + '&with_genres=' + encodeURI(selectedGenre) + '&without_genres=16')
+                } else {
+                    getMovies(BASE_URL + `/discover/movie?${language}?&primary_release_year=${year ? year[0] : thisYear}&page=1&year=${year ? year : thisYear}&with_original_language=${setCountries}&sort_by=popularity.desc&` + API_KEY + '&with_genres=' + encodeURI(selectedGenre))
+                }
 
                 getcountries.push(setCountries)
             })
@@ -418,7 +425,12 @@ function setGenre() {
                 // get id
                 let getrating = select__rating__items[index].id
 
-                getMovies(BASE_URL + `/discover/movie?language=${language}?language=en-EN?&primary_release_year=${year ? year[0] : thisYear}&page=1&year=${year ? year : thisYear}&with_original_language=${getcountries}&vote_average.gte=${getrating}&sort_by=popularity.desc&` + API_KEY + '&with_genres=' + encodeURI(selectedGenre.join(',')))
+
+                if (selectedGenre !== 16) {
+                    getMovies(BASE_URL + `/discover/movie?${language}?&primary_release_year=${year ? year[0] : thisYear}&page=1&year=${year ? year : thisYear}&with_original_language=${getcountries}&vote_average.gte=${getrating}&sort_by=popularity.desc&` + API_KEY + '&with_genres=' + encodeURI(selectedGenre) + '&without_genres=16')
+                } else {
+                    getMovies(BASE_URL + `/discover/movie?${language}?&primary_release_year=${year ? year[0] : thisYear}&page=1&year=${year ? year : thisYear}&with_original_language=${getcountries}&vote_average.gte=${getrating}&sort_by=popularity.desc&` + API_KEY + '&with_genres=' + encodeURI(selectedGenre))
+                }
             })
         })
 
@@ -446,8 +458,7 @@ select.forEach((el, i) => {
     })
 })
 
-// множественный выбор жанор 
-
+// множественный выбор жанор
 const highlightSelection = () => {
     const clear = document.querySelector('.reset__default')
     // очистить кнопкой
@@ -456,22 +467,22 @@ const highlightSelection = () => {
     clear.addEventListener('click', () => {
         selectedGenre = [];
         getMovies(API_URL);
-        localStorage.removeItem('page')
         // delete active
     })
 }
 highlightSelection()
 
-
 // получить фильмы
+getMovies(API_URL)
 function getMovies(url) {
     return new Promise(resolve => {
         lastUrl = url;
-        fetch(url, options).then(res => res.json())
+        fetch(lastUrl, options).then(res => res.json())
             .then(data => {
                 if (data.results.length !== 0) {
-                    showMovies(data.results);
-                    get_main_Bookmark_InServer()
+                    showMovies(data.results, movie_tv);
+
+                    // get_main_Bookmark_InServer()
                     currentPage = data.page;
                     nextPage = currentPage + 1;
                     prevPage = currentPage - 1;
@@ -497,7 +508,8 @@ function getMovies(url) {
             })
     })
 }
-getMovies(API_URL)
+
+
 // нумерация страниц
 function pagination(currentPage, totalPages) {
     current.innerHTML = `
@@ -524,38 +536,38 @@ function pagination(currentPage, totalPages) {
 }
 
 // показать фильмы
-function showMovies(data) {
+function showMovies(data, movie_tv) {
     main__section__films.innerHTML = '';
 
     data.forEach(el => {
         const movieEl = document.createElement('div');
         movieEl.className = 'movie'
         // есле у фильма отсутствует название не показывать фильм
-        let AllData = String(el.id + '|' + el.title + '|' + el.original_title + '|' + el.release_date.split('-')[0]).replaceAll("'", '')
-
+        let AllData = String(el.id + '/' + el.title + '/' + el.original_title + '/' + el.release_date.split('-')[0]).replaceAll("'", '') + '/movie'
         if (Boolean(el.title) && el.poster_path) {
             movieEl.innerHTML = `
-            <div class='movie_estimate main_movie_estimate'>
-                <img class='movie_favorite' src="assets/svg/favorite.svg">
-            </div>
-
-            <img class='poster-img' src="${IMG_URL + el.poster_path}" alt="${el.title}">
-            <a href="pages/watchMovie/watchMovie.html?${AllData}" class="watch__now allMovie" id="${el.id}" move_data="${String(el.title + ' ' + el.original_title + ' ' + el.release_date.split('-')[0]).replaceAll("'", '')}">
-                <img src="assets/svg/play-icon.svg" alt="play-button">
-            </a>
-            <div class="movie-info">
-                <h3 class="movie-info-title movie-title">${el.title}</h3>
-                <div class='movie-info-subtitle-cont'>
-                    <p class="movie-info-paragraph">${parseInt(el.release_date.split('-')[0])}</p>
-                    <span>${(el.adult == true) ? "Для взрослых 18+" : ""}</span>
-                    <span class="movie-info-reyting ${getColor(el.vote_average)}">${String(el.vote_average).slice(0, 3)}</span>
+                <div class='movie_estimate main_movie_estimate'>
+                    <img class='movie_favorite' src="assets/svg/favorite.svg">
                 </div>
-            </div>`
+    
+                <img class='poster-img' src="${IMG_URL + el.poster_path}" alt="${el.title}">
+                <a href="pages/watchMovie/watchMovie.html?${AllData}" class="watch__now allMovie" id="${el.id}_movie" move_data="${String(el.title + ' ' + el.original_title + ' ' + el.release_date.split('-')[0]).replaceAll("'", '')}">
+                    <img src="assets/svg/play-icon.svg" alt="play-button">
+                </a>
+                <div class="movie-info">
+                    <h3 class="movie-info-title movie-title">${el.title}</h3>
+                    <div class='movie-info-subtitle-cont'>
+                        <p class="movie-info-paragraph">${parseInt(el.release_date.split('-')[0])}</p>
+                        <span>${(el.adult == true) ? "Для взрослых 18+" : ""}</span>
+                        <span class="movie-info-reyting ${getColor(el.vote_average)}">${String(el.vote_average).slice(0, 3)}</span>
+                    </div>
+                </div>`
             main__section__films.appendChild(movieEl)
         }
     })
+
     setGenre();
-    getTMain_move_andPlay()
+    // getTMain_move_andPlay()
 }
 
 // получить цвет
@@ -571,18 +583,19 @@ function getColor(vote) {
 
 // serch logic
 let serchLogic = () => {
-    selectedGenre = [];
-    getMovies(searchURL + '&query=' + search_inp.value + `&language=${language}`)
-}
+    const filterText = ['sexs', 'porn', 'porno', 'порно', 'порн', 'секс'];
 
-
-// search_btn (click)
-search_btn.addEventListener('click', () => {
-    if (search_inp.value) {
-        serchLogic()
-        document.getElementById('main__section__films').scrollIntoView({ behavior: 'smooth' })
+    for (const t of filterText) {
+        if (t === search_inp.value) {
+            alert('так нельзя!!');
+            search_inp.value = ''
+            return; // Этот return прерывает выполнение кода после alert
+        }
     }
-})
+
+    selectedGenre = [];
+    getMovies(searchURL + '&query=' + search_inp.value + `&${language}`);
+}
 
 // search_inp (key)
 search_inp.addEventListener('keyup', (e) => {
@@ -590,19 +603,23 @@ search_inp.addEventListener('keyup', (e) => {
         serchLogic()
 })
 
+search_btn.addEventListener('click', () => {
+    if (search_inp.value) {
+        serchLogic()
+    }
+})
+
 // нумерация страниц назад 
 prev.addEventListener('click', () => {
     if (prevPage > 0) {
-        localStorage.setItem('page', prevPage)
-        pageCall();
+        pageCall(prevPage);
     }
 })
 
 // нумерация страниц вперед 
 next.addEventListener('click', () => {
     if (nextPage <= totalPages) {
-        localStorage.setItem('page', nextPage)
-        pageCall();
+        pageCall(nextPage);
     }
 })
 
@@ -610,30 +627,15 @@ next.addEventListener('click', () => {
 function pagination_click() {
     document.querySelectorAll('#pages').forEach(p => {
         p.addEventListener('click', () => {
-            localStorage.setItem('page', p.textContent)
-            pageCall()
+            pageCall(p.innerText)
         })
     })
 }
 
 // страница созвать
-function pageCall() {
-    let page = localStorage.getItem('page')
-
-    let urlSplit = lastUrl.split('?');
-    let queryParams = urlSplit[1].split('&');
-    let key = queryParams[queryParams.length - 1].split('=');
-    if (key[0] != 'page') {
-        let url = lastUrl + '&page=' + page
-        getMovies(url);
-    } else {
-        key[1] = page.toString();
-        let a = key.join('=');
-        queryParams[queryParams.length - 1] = a;
-        let b = queryParams.join('&');
-        let url = urlSplit[0] + '?' + b
-        getMovies(url);
-    }
+function pageCall(page) {
+    url = `${BASE_URL}/discover/${movie_tv}?${language}&page=${page}?sort_by=popularity.desc&${API_KEY}`
+    getMovies(url);
     document.getElementById('main').scrollIntoView({ behavior: 'smooth' })
 }
 
@@ -677,27 +679,27 @@ function getTMain_move_andPlay() {
 
 // ------------------
 document.getElementById('top_movies').addEventListener('click', () => {
-    getMovies(`https://api.themoviedb.org/3/discover/movie?${API_KEY}&language=${language}?language=en-US&page=1&sort_by=popularity.desc&primary_release_date.gte=${thisYear}-01-01`)
+    getMovies(`https://api.themoviedb.org/3/discover/movie?${API_KEY}&${language}&page=1&sort_by=popularity.desc&primary_release_date.gte=${thisYear}-01-01`)
     document.getElementById('main__section__films').scrollIntoView({ behavior: 'smooth' })
 })
 
 document.getElementById('animation').addEventListener('click', () => {
-    getMovies(BASE_URL + `/discover/movie?language=${language}?language=en-EN?sort_by=popularity.desc&${API_KEY}&with_genres=16`)
+    getMovies(BASE_URL + `/discover/movie?${language}?sort_by=popularity.desc&${API_KEY}&with_genres=16`)
     document.getElementById('main__section__films').scrollIntoView({ behavior: 'smooth' })
 })
 
 document.getElementById('action').addEventListener('click', () => {
-    getMovies(BASE_URL + `/discover/movie?language=${language}?language=en-EN?sort_by=popularity.desc&${API_KEY}&with_genres=28`)
+    getMovies(BASE_URL + `/discover/movie?${language}?sort_by=popularity.desc&${API_KEY}&with_genres=28` + '&without_genres=16')
     document.getElementById('main__section__films').scrollIntoView({ behavior: 'smooth' })
 })
 
 document.getElementById('comedy').addEventListener('click', () => {
-    getMovies(BASE_URL + `/discover/movie?language=${language}?language=en-EN?sort_by=popularity.desc&${API_KEY}&with_genres=35`)
+    getMovies(BASE_URL + `/discover/movie?${language}?sort_by=popularity.desc&${API_KEY}&with_genres=35` + '&without_genres=16')
     document.getElementById('main__section__films').scrollIntoView({ behavior: 'smooth' })
 })
 
 document.getElementById('family').addEventListener('click', () => {
-    getMovies(BASE_URL + `/discover/movie?language=${language}?language=en-EN?sort_by=popularity.desc&${API_KEY}&with_genres=10751`)
+    getMovies(BASE_URL + `/discover/movie?${language}?sort_by=popularity.desc&${API_KEY}&with_genres=10751` + '&without_genres=16')
     document.getElementById('main__section__films').scrollIntoView({ behavior: 'smooth' })
 })
 
@@ -732,76 +734,62 @@ function get_top_Bookmark_InServer() {
     });
 }
 
-function get_main_Bookmark_InServer() {
+// function get_main_Bookmark_InServer() {
+//     document.querySelectorAll('.main_movie_estimate').forEach(el => {
+//         el.addEventListener('click', () => {
+//             fetch('../../backend/bookmark.php', {
+//                 method: 'post',
+//                 headers: { 'Content-Type': 'application/json', },
+//                 body: JSON.stringify(el.parentElement.querySelector('.allMovie').id)
+//             })
+//                 .then(r => r.json())
+//                 .then(arr => {
+//                     // console.log('ok -> ', arr);
+//                     if (arr.registered) {
+//                         el.classList.toggle('movie_estimate--active')
 
-    document.querySelectorAll('.main_movie_estimate').forEach(el => {
-        el.addEventListener('click', () => {
-            fetch('../../backend/bookmark.php', {
-                method: 'post',
-                headers: { 'Content-Type': 'application/json', },
-                body: JSON.stringify(el.parentElement.querySelector('.allMovie').id)
-            })
-                .then(r => r.json())
-                .then(arr => {
-                    // console.log('ok -> ', arr);
-                    if (arr.registered) {
-                        el.classList.toggle('movie_estimate--active')
+//                         document.querySelectorAll('.head-swiper-slide>.allMovie').forEach(el2 => {
+//                             if (el2.id == el.parentElement.querySelector('.allMovie').id) {
+//                                 el2.parentElement.querySelector('.movie_estimate').classList.toggle('movie_estimate--active')
+//                             }
+//                         })
+//                     } else {
+//                         document.querySelector('.reg_popup').style.display = 'flex'
+//                     }
+//                 })
+//                 .catch(err => {
+//                     console.error('error -> ', err);
+//                 });
+//         })
+//     });
+//     // get_favorite()
+// }
 
-                        document.querySelectorAll('.head-swiper-slide>.allMovie').forEach(el2 => {
-                            if (el2.id == el.parentElement.querySelector('.allMovie').id) {
-                                el2.parentElement.querySelector('.movie_estimate').classList.toggle('movie_estimate--active')
-                            }
-                        })
-                    } else {
-                        document.querySelector('.reg_popup').style.display = 'flex'
-                    }
-                })
-                .catch(err => {
-                    console.error('error -> ', err);
-                });
-        })
-    });
-}
-
-const get_favorite = () => {
-    fetch('../../backend/get_bookmark.php', {
-        method: 'get',
-        headers: { 'Content-Type': 'application/json', }
-    })
-        .then(r => r.json())
-        .then(res => {
-            if (res.length) {
-                res.forEach(el => {
-                    document.querySelectorAll('.allMovie').forEach(movID => {
-                        if (movID.id == el[1]) {
-                            movID.parentElement.querySelector('.movie_estimate').classList.add('movie_estimate--active')
-                        }
-                    });
-                });
-            }
-        })
-        .catch(err => console.error('error -> ', err))
-}
+// function get_favorite() {
+//     fetch('../../backend/get_bookmark.php', {
+//         method: 'get',
+//         headers: { 'Content-Type': 'application/json', }
+//     })
+//         .then(r => r.json())
+//         .then(res => {
+//             if (res.length) {
+//                 res.forEach(el => {
+//                     document.querySelectorAll('.allMovie').forEach(movID => {
+//                         if (movID.id == el[1]) {
+//                             movID.parentElement.querySelector('.movie_estimate').classList.add('movie_estimate--active')
+//                         }
+//                     });
+//                 });
+//             }
+//         })
+//         .catch(err => console.error('error -> ', err))
+// }
 
 // reg_popup_account
-const reg_popup_account_close = () => {
-    document.getElementById('reg_popup_account_close').addEventListener('click', () => {
-        document.getElementById('reg_popup_account').style.cssText = 'display:none'
-    })
+document.getElementById('reg_popup_account_close').addEventListener('click', () => {
+    document.getElementById('reg_popup_account').style.cssText = 'display:none'
+})
 
-    document.getElementById('reg_popup_account_registration').addEventListener('click', () => {
-        document.querySelector('.reg_popup').style.cssText = 'display:flex'
-    })
-}
-
-// ________________________________________________________________________________________________
-// loader off
-function loaderOFF() {
-    document.querySelector('.loader').style.opacity = '0'
-    window.scrollTo(0, 0)
-
-    setTimeout(() => {
-        document.querySelector('.loader').style.display = 'none'
-        get_favorite()
-    }, 700)
-}
+document.getElementById('reg_popup_account_registration').addEventListener('click', () => {
+    document.querySelector('.reg_popup').style.cssText = 'display:flex'
+})

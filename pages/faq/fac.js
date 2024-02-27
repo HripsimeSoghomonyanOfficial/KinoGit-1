@@ -8,6 +8,14 @@ window.addEventListener('scroll', () => {
     }
 })
 
+document.querySelector('.btn_clear_catch').addEventListener('click', () => {
+    function clearCache() {
+        location.reload(true);
+    }
+
+    clearCache();
+})
+
 // loader off
 setTimeout(() => {
     document.querySelector('.loader').style.opacity = '0'

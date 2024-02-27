@@ -27,7 +27,6 @@ $colororange: #FFB700;
 // -----------------------------------------
 * {
     box-sizing: border-box;
-    user-select: none;
     margin: 0;
     padding: 0;
     word-break: break-word;
@@ -41,6 +40,100 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
+}
+
+.showMassag {
+    position: fixed;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 1500;
+    padding: 15px;
+    background-color: #000000c7;
+
+    .showMassag_wrap {
+        background-color: #232323b5;
+        padding: 30px;
+        border-radius: 8px;
+    }
+}
+
+.showMassag_cookie_popup {
+    position: fixed;
+    display: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 1500;
+    padding: 15px;
+    background-color: #000000c7;
+    font-family: sans-serif;
+    line-height: 1.5;
+
+    .showMassag_cookie_popup_wrap {
+        display: flex;
+        flex-wrap: wrap;
+        flex-direction: row-reverse;
+        justify-content: flex-end;
+
+        width: 70%;
+        min-width: 280px;
+
+        div:nth-child(1) {
+            font-size: 11px;
+            text-align: left;
+        }
+
+        .showMassag_cookie_buttons_cont {
+            display: flex;
+            flex-wrap: wrap;
+            flex-direction: row-reverse;
+            justify-content: flex-end;
+        }
+
+        button {
+            display: flex;
+            flex-wrap: nowrap;
+            align-items: center;
+            justify-content: space-between;
+            padding: 10px 12px;
+            font-weight: 600;
+            border-radius: 6px;
+            transition: 150ms;
+            background-color: #FFB700;
+            color: black;
+            margin-top: 10px;
+            margin-right: 10px;
+            font-size: 12px;
+            cursor: pointer;
+
+            &:hover {
+                background-color: #ffd000;
+            }
+        }
+
+        button:nth-child(2) {
+            background-color: #c4c4c4;
+
+            &:hover {
+                background-color: #d4d3d3;
+            }
+        }
+    }
 }
 
 .app {
@@ -198,6 +291,11 @@ body {
                 background-color: rgb(0, 255, 0);
             }
         }
+
+        #loginPassword,
+        #loginEmail {
+            text-transform: initial;
+        }
     }
 
     .registr {
@@ -246,6 +344,7 @@ body {
         padding: 4px 8px;
         border-radius: 4px;
         background-color: $color1;
+        color: $colorWhite;
         transition: 250ms;
         cursor: pointer;
 
@@ -255,6 +354,7 @@ body {
 
         &:hover {
             background-color: orange;
+            color: $colorBlack;
         }
     }
 
@@ -381,13 +481,14 @@ body {
 // ------------------------
 header {
     background-color: black;
+    user-select: none;
 }
 
 .header-wrapper {
     position: relative;
     display: flex;
     width: 100%;
-    max-width: 1600px;
+    max-width: 1920px;
     margin: 0 auto;
     height: 80vh;
     max-height: 700px;
@@ -425,6 +526,52 @@ header {
     padding: 0 25px;
     z-index: 50;
     transition: 300ms;
+
+    .select__logo__genres {
+        display: flex;
+        position: absolute;
+        text-transform: capitalize;
+        top: 28px;
+        right: 0;
+        z-index: 1;
+        font-size: 16px;
+        color: white;
+
+        .select__series,
+        .select__movie {
+            display: flex;
+            flex-wrap: nowrap;
+            align-items: center;
+            word-break: keep-all;
+            height: 32px;
+            transition: 250ms;
+            background-color: $color1;
+            padding: 0px 7px;
+            margin: 0 2px;
+            border-radius: 4px;
+
+            img {
+                position: relative;
+                width: 20px;
+                margin-right: 5px;
+                transition: 250ms;
+            }
+
+            &:hover {
+                background-color: $colororange;
+
+                >img {
+                    transform: scale(1.2);
+                }
+            }
+        }
+
+        .select__movie {
+            img {
+                width: 25px;
+            }
+        }
+    }
 }
 
 .logo {
@@ -511,39 +658,53 @@ header {
 }
 
 // search animate
-.search {
-    position: relative;
-    border-radius: 25px;
-    border: 2px solid $colororange;
-    background-color: $colorBlack;
-    bottom: 2px;
-    width: 22px;
-    height: 22px;
-    transition: 400ms;
-    transform: scale(0.9);
+.search_cont {
+    background-color: $color1;
+    padding: 5px 8px 8px 5px;
+    border-radius: 4px;
+    transition: 250ms;
+    margin-right: 2px;
+    cursor: pointer;
 
     &:hover {
-        transform: scale(0.8)
+        background-color: $colororange;
     }
+}
+
+.search_cont_animate {
+    &:hover {
+        background-color: $color1;
+    }
+}
+
+.search {
+    border-radius: 25px;
+    border: 2px solid $colorWhite;
+    width: 19px;
+    height: 19px;
+    transition: 400ms;
+    transform: scale(1.02);
+    cursor: pointer;
 }
 
 .search-close {
     position: absolute;
     right: 0;
-    width: 25px;
+    top: 3px;
+    width: 100%;
     height: 100%;
     cursor: pointer;
 
     &::before {
         content: "";
         position: absolute;
-        bottom: -7px;
-        right: -3px;
-        width: 0;
-        height: 10px;
-        border: 1px solid $colororange;
+        bottom: -2px;
+        right: -2px;
+        width: 0px;
+        height: 6px;
+        border: 1px solid #ffffff;
         transform: rotate(-45deg);
-        transition: 400ms;
+        transition: 300ms;
         cursor: pointer;
     }
 
@@ -554,9 +715,9 @@ header {
         right: 0px;
         width: 0;
         height: 16px;
-        border: 1px solid $colororange;
+        border: 1px solid $colorWhite;
         transform: rotate(45deg);
-        transition: 350ms;
+        transition: 300ms;
         opacity: 0;
         cursor: pointer;
     }
@@ -564,14 +725,8 @@ header {
 
 .search-anime-inp {
     width: 250px;
-    height: 28px;
     border-radius: 8px;
-    padding-left: 5px;
-    padding-right: 45px;
-
-    &:hover {
-        transform: scale(0.9);
-    }
+    border: 2px solid transparent;
 }
 
 .search-anime-close {
@@ -579,66 +734,66 @@ header {
     height: 100%;
 
     &::before {
-        bottom: 4px;
+        bottom: 0px;
         right: 12px;
         height: 16px;
         border-color: $colorWhite;
-        transition: 250ms;
     }
 
     &::after {
         opacity: 1;
-        bottom: 4px;
-        right: 11px;
+        bottom: 0px;
+        right: 12px;
         border-color: $colorWhite;
-        transition: 250ms;
     }
 
     &:hover {
         &::before {
-            bottom: 4px;
-            right: 12px;
-            height: 16px;
-            border-color: $colororange;
+            border-color: #d71515;
         }
 
         &::after {
-            opacity: 1;
-            bottom: 4px;
-            right: 11px;
-            border-color: $colororange;
+            border-color: #d71515;
         }
     }
 }
 
 .search-btn {
     position: absolute;
-    right: 20px;
-    top: 1px;
-    width: 24px;
-    transition: 400ms;
+    right: 25px;
+    top: -1px;
+    width: 22px;
     transform: scale(0);
+    transition: 100ms;
     opacity: 0;
     cursor: pointer;
+
+    &:hover {
+        transform: scale(1) rotate(-10deg);
+    }
 }
 
 .search-btn-active {
     opacity: 1;
     transform: scale(1);
-    filter: grayscale(1);
-    transition: 250ms;
-
-    &:hover {
-        filter: grayscale(0);
-    }
 }
 
 .search-inp {
-    width: 100%;
+    position: relative;
     border: none;
     outline: none;
     background: transparent;
+    width: 0;
+    top: -1px;
     color: $colorWhite;
+    font-size: 15px;
+}
+
+.search_input-active {
+    width: 100%;
+    padding: 0;
+    padding-left: 4px;
+    padding-right: 50px;
 }
 
 // -------------------------
@@ -662,9 +817,9 @@ main {
     top: 0;
     left: 0;
     width: 40%;
-    min-width: 340px;
+    min-width: 290px;
     height: fit-content;
-    margin-top: 120px;
+    margin-top: 170px;
     margin-left: 3%;
     color: white;
     z-index: 15;
@@ -703,13 +858,12 @@ main {
         position: relative;
         display: inherit;
         margin-left: 8px;
-        height: 13px;
-        width: 65px;
-
-        img {
-            width: 100%;
-            height: 100%;
-        }
+        height: 12px;
+        width: 67px;
+        overflow: hidden;
+        background-image: url(../../assets/svg/yellowStar.png);
+        background-size: contain;
+        background-repeat: no-repeat;
 
         .reyting_stars_bg_width {
             position: absolute;
@@ -990,40 +1144,6 @@ main {
     }
 }
 
-.search__cont {
-    display: flex;
-    align-items: stretch;
-    width: fit-content;
-    border: 1px solid #bfbfbf;
-    border-radius: 4px;
-    margin-bottom: 10px;
-
-    .searchInp {
-        border: none;
-        outline: none;
-        background: transparent;
-        padding: 6px 0px 6px 8px;
-        color: $textColor;
-    }
-
-    .search__img {
-        cursor: pointer;
-        padding: 3px 6px;
-        width: 30px;
-        transition: 150ms;
-        display: block;
-        image-rendering: pixelated;
-
-        &:hover {
-            transform: rotate(-10deg);
-        }
-
-        &:active {
-            transform: rotate(-10deg) scale(0.9);
-        }
-    }
-}
-
 .head__bottom__slider {
     background-color: $color1;
 
@@ -1062,6 +1182,7 @@ main {
 
 .right-nav {
     width: 90%;
+    user-select: none;
 }
 
 .categories {
@@ -1150,7 +1271,7 @@ main {
     }
 
     .select__genres__popup {
-        width: 340px;
+        width: 320px;
     }
 
     .open__cont>div {
@@ -1246,6 +1367,7 @@ main {
     z-index: 30;
     transition: 150ms;
     filter: drop-shadow(0 0 3px $colorBlack) grayscale(1);
+    cursor: pointer;
 
     &:hover {
         transform: scale(1.1);
@@ -1289,7 +1411,6 @@ main {
         align-items: center;
         justify-content: center;
         transition: 350ms;
-        cursor: pointer;
 
         img {
             width: 100%;
@@ -1315,6 +1436,10 @@ main {
             }
         }
 
+        .watch__now {
+            cursor: pointer;
+        }
+
         .movie-info-reyting {
             display: flex;
             align-items: center;
@@ -1324,6 +1449,7 @@ main {
             font-size: 13px;
             font-weight: 400;
             border: 1px solid;
+            user-select: none;
         }
 
         .movie-info {
@@ -1340,6 +1466,7 @@ main {
             color: $colororange;
             word-break: break-word;
             margin-bottom: 4px;
+            margin-top: 8px;
         }
 
         .movie-info-subtitle-cont {
@@ -1359,7 +1486,7 @@ main {
             opacity: 1;
 
             img {
-                transform: scale(1.5);
+                transform: scale(1.4);
             }
         }
 
@@ -1372,6 +1499,7 @@ main {
 footer {
     padding: 40px 0;
     background-color: $colorBlack;
+    user-select: none;
 
     .pagination {
         display: flex;
@@ -1502,21 +1630,25 @@ footer {
     }
 }
 
-@media screen and (max-width: 810px) {
+@media screen and (max-width: 730px) {
     .move_info_cont .reyting_stars_cont {
-        height: 12px;
-        width: 61px;
+        width: 70px;
     }
 
     .head-top-slesh {
         display: none;
     }
 
+    .head-top-cont .select__logo__genres {
+        top: 4px;
+        right: 26px;
+    }
+
     .header-wrapper {
         background-size: contain;
         background-position: 0 200px;
         height: 65vh;
-        min-height: 410px;
+        min-height: 470px;
         margin-bottom: 140px;
 
         &::before {
@@ -1606,13 +1738,20 @@ footer {
         position: absolute;
         flex-direction: column-reverse;
         align-items: flex-end;
-        top: 99%;
-        right: -101%;
+        top: -360px;
+        right: 0;
         background-color: #0c0c0cf0;
         width: 100%;
         min-width: 295px;
-        padding-top: 55px;
+        padding-top: 90px;
         padding-bottom: 40px;
+        z-index: 5;
+    }
+
+    .search_cont {
+        position: absolute;
+        top: 40px;
+        right: 0;
     }
 
     .all-info {
@@ -1620,7 +1759,7 @@ footer {
     }
 
     .head-top-nav-active {
-        right: 0px;
+        top: 60px;
     }
 
     .navigation {
@@ -1628,19 +1767,6 @@ footer {
         flex-direction: column;
         align-items: flex-end;
         font-size: 13px;
-    }
-
-    .search {
-        position: absolute;
-        top: 21px;
-        right: 35px;
-        z-index: 100;
-        background-color: #0C0C0C;
-        max-width: 210px !important;
-    }
-
-    .search-anime-inp {
-        right: 25px !important;
     }
 
     .head-swiper-slide {
@@ -1717,11 +1843,16 @@ footer {
 
             >div {
                 font-size: 11px;
+                padding: 5px 10px;
             }
         }
 
         .genres__popup {
-            min-width: 91px;
+            width: 90px;
+        }
+
+        .select__genres__popup {
+            width: 280px;
         }
     }
 }
@@ -1786,5 +1917,19 @@ footer {
     .move_info_cont {
         min-width: 310px;
         margin-left: 5px;
+    }
+
+    .reg_popup_wrap {
+        .registr {
+            padding: 10px;
+        }
+
+        .helper_text {
+            margin-bottom: 10px;
+        }
+
+        .clumn_conts {
+            min-height: 55px;
+        }
     }
 }

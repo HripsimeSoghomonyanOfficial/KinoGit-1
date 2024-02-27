@@ -1,7 +1,20 @@
+// loader off
+function loaderOFF() {
+    document.querySelector('.loader').style.opacity = '0'
+    document.getElementById('about_film').scrollIntoView()
+
+    setTimeout(() => {
+        document.querySelector('.loader').style.display = 'none'
+        // get_favorite()
+    }, 700)
+}
+
 const D = new Date();
 const thisMonth = D.toLocaleString('en', { month: 'long' }); // june
 const thisYear = D.getFullYear() // 2023
 
+// meta attributes add
+document.getElementById('meta_keywords').setAttribute('content', 'смотреть фильмы, фильмы онлайн, смотреть ТВ, ТВ онлайн, сериалы онлайн, смотреть сериалы, транслировать фильмы, транслировать сериалы, стриминг онлайн, смотреть онлайн, фильмы, смотреть фильмы Армения, смотреть ТВ онлайн, без загрузки, полнометражные фильмы,' + thisYear)
 document.getElementById('FullYear').innerText = thisYear
 
 const search__films__cont = document.getElementById('search__films__cont');
@@ -21,13 +34,17 @@ let totalPages = 100;
 
 // TMDB themoviedb
 
-let language = 'ru-RU'
+let language = 'language=ru-RU?language=en-EN',
+    movie = 'movie'
+if (decodeURI(window.location.href).split('/')[4].split(' ').join('') == 'tv')
+    movie = 'tv'
 
 const API_KEY = 'api_key=1cf50e6248dc270629e802686245c2c8',
     BASE_URL = 'https://api.themoviedb.org/3',
-    API_URL = `${BASE_URL}/discover/multi?language=${language}?language=en-EN?sort_by=popularity.desc&${API_KEY}`,
+    API_URL = `${BASE_URL}/discover/multi?${language}?sort_by=popularity.desc&${API_KEY}`,
     IMG_URL = 'https://image.tmdb.org/t/p/w500',
-    searchURL = `${BASE_URL}/search/multi?${API_KEY}`;
+    searchURL = `${BASE_URL}/search/${movie}?${API_KEY}`;
+
 
 const genres = [
     {
@@ -108,17 +125,27 @@ const genres = [
     },
 ]
 // -----------------
-get_top_movies()
+setTimeout(() => {
+    get_top_movies()
+}, 1000);
 function get_top_movies() {
-    fetch(BASE_URL + `/discover/movie?language=${language}?language=en-EN?sort_by=popularity.desc&` + API_KEY)
+    fetch(BASE_URL + `/discover/${movie}?${language}?sort_by=popularity.desc&` + API_KEY)
         // slider top 20
         .then(r => r.json())
         .then(r => {
-            let films = r.results
             const swiper_wrapper = document.getElementById('head-swiper-wrapper')
+            r.results.forEach(el => {
+                let
+                    title = el.title,
+                    original_title = el.original_title,
+                    release_date = el.release_date
+                if (movie == 'tv') {
+                    title = el.name
+                    original_title = el.original_name
+                    release_date = el.first_air_date
+                }
 
-            films.forEach(el => {
-                let AllData = String(el.id + '|' + el.title + '|' + el.original_title + '|' + el.release_date.split('-')[0]).replaceAll("'", '')
+                let AllData = String(el.id + '/' + title + '/' + original_title + '/' + release_date.split('-')[0]).replaceAll("'", '') + `/${movie}`
 
                 const div = document.createElement('div')
                 div.className = 'movie swiper-slide head-swiper-slide'
@@ -128,58 +155,64 @@ function get_top_movies() {
                         <img class='movie_favorite' src='../../assets/svg/favorite.svg'>
                     </div>
             
-                    <a href="watchMovie.html?${AllData}" class="head-swiper-wrapper-play-img-cont allMovie" id="${el.id}" move_data="${el.title} , ${el.original_title} , ${parseInt(el.release_date.split('-')[0])}">
+                    <a href="watchMovie.html?${AllData}" class="head-swiper-wrapper-play-img-cont allMovie" id="${el.id + '_' + movie}" move_data="${title} , ${original_title} , ${parseInt(release_date.split('-')[0])}">
 						<img src="../../assets/svg/play-icon.svg" alt="play-button">
 					</a>
 
 					<div class="head_swiper_info" style="display:none">
                     <span class="head_swiper_info_imgSrc">${((window.innerWidth > 650) ? 'https://image.tmdb.org/t/p/original' : 'http://image.tmdb.org/t/p/w500')}${el.backdrop_path}</span>
-                        <h2 class="head_swiper_info_original_title">${el.original_title}</h2>
-						<h2 class="head_swiper_info_title">${el.title}</h2>
+                        <h2 class="head_swiper_info_original_title">${original_title}</h2>
+						<h2 class="head_swiper_info_title">${title}</h2>
                         <span class="head_swiper_info_reyting">${String(el.vote_average).slice(0, 3)}</span>
-                        <span class="head_swiper_info_data">${el.release_date}</span>
+                        <span class="head_swiper_info_data">${release_date}</span>
                         <span class="head_swiper_info_id">${el.id}</span>
 					</div>`
                 swiper_wrapper.appendChild(div)
-
             })
 
             showPoster_andData()
             headSwiper()
-            getTop_move_andPlay()
+            // getTop_move_andPlay()
 
             setTimeout(() => {
-                get_top_Bookmark_InServer()
+                // get_top_Bookmark_InServer()
                 loaderOFF()
             }, 700);
         })
         .catch(err => console.error(err));
 }
 
+// serch logic
+let serchLogic = () => {
+    const filterText = ['sexs', 'porn', 'porno', 'порно', 'порн', 'секс'];
+
+    for (const t of filterText) {
+        if (t === search_inp.value) {
+            alert('так нельзя!!');
+            search_inp.value = ''
+            search__films__cont.innerHTML = ''
+            return; // Этот return прерывает выполнение кода после alert
+        }
+    }
+
+    selectedGenre = [];
+    getMovies(searchURL + '&query=' + search_inp.value + `&${language}`);
+}
+
 search_btn.addEventListener('click', () => {
-
-    const searchTerm = search_inp.value;
-    if (searchTerm) {
-        getMovies(searchURL + '&query=' + searchTerm + `&language=${language}`)
-    } else {
-        getMovies(API_URL);
-    }
+    serchLogic()
 })
 
-search_inp.addEventListener('keydown', () => {
-    const searchTerm = search_inp.value;
-    if (searchTerm) {
-        getMovies(searchURL + '&query=' + searchTerm + `&language=${language}?language=en-EN`)
-    } else {
-        getMovies(API_URL);
-    }
+search_inp.addEventListener('keyup', () => {
+    serchLogic()
 })
+
 
 function getMovies(url) {
     lastUrl = url;
 
     fetch(url).then(res => res.json()).then(data => {
-
+        console.log(data);
         if (data.results.length !== 0) {
             showMovies(data.results);
         } else {
@@ -192,41 +225,73 @@ function showMovies(data) {
     search__films__cont.innerHTML = '';
 
     data.forEach(el => {
-        let AllData = String(el.id + '|' + el.title + '|' + el.original_title + '|' + el.release_date.split('-')[0]).replaceAll("'", '')
+        let
+            title = el.title,
+            original_title = el.original_title,
+            release_date = el.release_date
+
+        if (movie == 'tv') {
+            title = el.name
+            original_title = el.original_name
+            release_date = el.first_air_date
+        }
+
+        let AllData = String(el.id + '/' + title + '/' + original_title + '/' + release_date.split('-')[0]).replaceAll("'", '') + `/${movie}`
 
         const a = document.createElement('a');
         a.href = `watchMovie.html?${AllData}`
         a.className = 'movie'
         a.id = el.id
-        a.setAttribute('move_data', `${String(el.title + ' ' + el.original_title + ' ' + el.release_date.split('-')[0]).replaceAll("'", '')}`)
+        a.setAttribute('move_data', `${String(title + ' ' + original_title + ' ' + release_date.split('-')[0]).replaceAll("'", '')}`)
         // есле у фильма отсутствует название не показывать фильм ???
-        if (Boolean(el.title) && el.poster_path) {
+        if (Boolean(title) && el.poster_path) {
             a.innerHTML = `
             <div class="watch__now">
-                <img src="${IMG_URL + el.poster_path}" alt="${el.title}">
+                <img src="${IMG_URL + el.poster_path}" alt="${title}">
             </div>
 
             <div class="movie-info">
-                <h3 class="movie-info-title movie-title">${el.title}</h3>
-                <p class="movie-info-paragraph">${parseInt(el.release_date.split('-')[0])}</p>
+                <h3 class="movie-info-title movie-title">${title}</h3>
+                <p class="movie-info-paragraph">${parseInt(release_date.split('-')[0])}</p>
             </div>
             `
             search__films__cont.appendChild(a);
         }
-
     })
 }
 
 function showPoster_andData() {
     let movieUrl = decodeURI(window.location.search)
-    let get_move_data = movieUrl.slice(1, movieUrl.length).split('|')
-
+    let get_move_data = movieUrl.slice(1, movieUrl.length).split('/')
     let move_id = get_move_data[0]
     // let move_data = get_move_data[1].concat(' ,', get_move_data[2], ' ,', get_move_data[3])
-
-    fetch(`https://api.themoviedb.org/3/movie/${move_id}?language=RU-ru&api_key=1cf50e6248dc270629e802686245c2c8`)
+    fetch(`${BASE_URL}/${movie}/${move_id}?${API_KEY}&${language}`)
         .then(response => response.json())
         .then(R => {
+            if (R.status_message) {
+                // document.querySelector('.showMassag').classList.add('showMassag-active')
+                // document.querySelector('.showMassag_wrap').textContent = 'изевените за неудобство, мы работаем над этим попробуйте позже'
+                console.log('status -> ', 'undefined movie');
+
+                document.querySelector('.recomendet-films-cont').style.display = 'none'
+            } else {
+                console.log('status -> ', 'ok');
+            }
+            let
+                title = '',
+                original_title = '',
+                release_date = '';
+
+            if (movie == 'tv') {
+                title = R.name
+                original_title = R.original_name
+                release_date = R.first_air_date
+            } else {
+                title = R.title
+                original_title = R.original_title
+                release_date = R.release_date
+            }
+
             function reytingStars() {
                 for (let i = 0; i < 10; i++) {
                     let span = document.createElement('span')
@@ -240,17 +305,18 @@ function showPoster_andData() {
             }
             let about_film = document.getElementById('about_film')
             about_film.style.cssText = `background-image: url(${'https://image.tmdb.org/t/p/original/' + R.backdrop_path})`
+
             about_film.innerHTML = `
-            <h2 class="about_film_info_title">${R.title.replace(':', '<br>')}</h2>
-            <div class="about_film_cont">
+                <h2 class="about_film_info_title">${title.replace(':', '<br>')}</h2>
+                <div class="about_film_cont">
                     <div class="about_film_poster">
-                        <img id="about_film_poster_img" src="${IMG_URL + R.poster_path}" alt="${R.title}">
+                        <img id="about_film_poster_img" src="${IMG_URL + R.poster_path}" alt="${title}">
                     </div>
 
                     <div class="about_film_info">
                         <p class="about_film_info_release_date">
                             <span>год выпуска - </span>
-                            <span>${R.release_date.replace(/-/g, " / ")}</span>
+                            <span>${release_date.replace(/-/g, " / ")}</span>
                         </p>
 
                         <p class="about_film_info_genres">
@@ -270,7 +336,11 @@ function showPoster_andData() {
 
                         <p class="about_film_info_overview">${R.overview}</p>
                     </div>
-            </div>`
+                </div>`
+            setTimeout(() => {
+                if (!R.runtime) document.querySelector('.about_film_info_runtime').style.display = 'none'
+            }, 0);
+
             reytingStars()
             show_recomendet_films(R)
             watch_thriller(move_id, R)
@@ -282,7 +352,8 @@ function showPoster_andData() {
 function watch_thriller(id, R) {
     let arr = ['no resalt']
 
-    fetch(`${BASE_URL}/movie/${id}/videos?${API_KEY}`).then(res => res.json())
+    fetch(`${BASE_URL}/${movie}/${id}/videos?${API_KEY}`)
+        .then(res => res.json())
         .then(videoData => {
             const el = videoData.results
 
@@ -296,66 +367,66 @@ function watch_thriller(id, R) {
         .catch(e => console.log(e))
 }
 
-function getTop_move_andPlay() {
-    document.querySelectorAll('.head-swiper-slide>.allMovie').forEach(el => {
-        el.addEventListener('click', () => {
-            fetch('../../backend/historyWatch.php', {
-                method: 'post',
-                headers: { 'Content-Type': 'application/json', },
-                body: JSON.stringify(el.id)
-            })
-                .then(r => r.json())
-                .then(arr => {
-                    // console.log('ok -> ', arr);
-                })
-                .catch(err => {
-                    console.error('error -> ', err);
-                });
-        })
-    })
-}
+// function getTop_move_andPlay() {
+//     document.querySelectorAll('.head-swiper-slide>.allMovie').forEach(el => {
+//         el.addEventListener('click', () => {
+//             fetch('../../backend/historyWatch.php', {
+//                 method: 'post',
+//                 headers: { 'Content-Type': 'application/json', },
+//                 body: JSON.stringify(el.id)
+//             })
+//                 .then(r => r.json())
+//                 .then(arr => {
+//                     // console.log('ok -> ', arr);
+//                 })
+//                 .catch(err => {
+//                     console.error('error -> ', err);
+//                 });
+//         })
+//     })
+// }
 
-function getTMain_move_andPlay() {
-    document.querySelectorAll('.recomendet-films-items>.allMovie').forEach(el => {
-        el.addEventListener('click', () => {
-            fetch('../../backend/historyWatch.php', {
-                method: 'post',
-                headers: { 'Content-Type': 'application/json', },
-                body: JSON.stringify(el.id)
-            })
-                .then(r => r.json())
-                .then(arr => {
-                    // console.log('ok -> ', arr);
-                })
-                .catch(err => {
-                    console.error('error -> ', err);
-                });
-        })
-    })
-}
+// function getTMain_move_andPlay() {
+//     document.querySelectorAll('.recomendet-films-items>.allMovie').forEach(el => {
+//         el.addEventListener('click', () => {
+//             fetch('../../backend/historyWatch.php', {
+//                 method: 'post',
+//                 headers: { 'Content-Type': 'application/json', },
+//                 body: JSON.stringify(el.id)
+//             })
+//                 .then(r => r.json())
+//                 .then(arr => {
+//                     // console.log('ok -> ', arr);
+//                 })
+//                 .catch(err => {
+//                     console.error('error -> ', err);
+//                 });
+//         })
+//     })
+// }
 
 document.getElementById('top_movies').addEventListener('click', (e) => {
-    getMovies(`https://api.themoviedb.org/3/discover/movie?${API_KEY}&language=${language}?language=en-US&page=1&sort_by=popularity.desc&primary_release_date.gte=${thisYear}-01-01`)
+    getMovies(`https://api.themoviedb.org/3/discover/${movie}?${API_KEY}&${language}&page=1&sort_by=popularity.desc&primary_release_date.gte=${thisYear}-01-01` + '&without_genres=16')
     click_js()
 })
 
 document.getElementById('animation').addEventListener('click', (e) => {
-    getMovies(BASE_URL + `/discover/movie?language=${language}?language=en-EN?sort_by=popularity.desc&${API_KEY}&with_genres=16`)
+    getMovies(BASE_URL + `/discover/${movie}?${language}?sort_by=popularity.desc&${API_KEY}&with_genres=16`)
     click_js()
 })
 
 document.getElementById('action').addEventListener('click', (e) => {
-    getMovies(BASE_URL + `/discover/movie?language=${language}?language=en-EN?sort_by=popularity.desc&${API_KEY}&with_genres=28`)
+    getMovies(BASE_URL + `/discover/${movie}?${language}?sort_by=popularity.desc&${API_KEY}&with_genres=28` + '&without_genres=16')
     click_js()
 })
 
 document.getElementById('comedy').addEventListener('click', (e) => {
-    getMovies(BASE_URL + `/discover/movie?language=${language}?language=en-EN?sort_by=popularity.desc&${API_KEY}&with_genres=35`)
+    getMovies(BASE_URL + `/discover/${movie}?${language}?sort_by=popularity.desc&${API_KEY}&with_genres=35` + '&without_genres=16')
     click_js()
 })
 
 document.getElementById('Family').addEventListener('click', (e) => {
-    getMovies(BASE_URL + `/discover/movie?language=${language}?language=en-EN?sort_by=popularity.desc&${API_KEY}&with_genres=10751`)
+    getMovies(BASE_URL + `/discover/${movie}?${language}?sort_by=popularity.desc&${API_KEY}&with_genres=10751` + '&without_genres=16')
     click_js()
 })
 
@@ -384,7 +455,7 @@ function show_recomendet_films(R) {
         })
     })
     // selectedGenre
-    recomendet_movies(BASE_URL + `/discover/movie?language=${language}?language=en-EN?sort_by=popularity.desc&` + API_KEY + '&with_genres=' + encodeURI(selectedGenre.join(',')))
+    recomendet_movies(BASE_URL + `/discover/${movie}?${language}?sort_by=popularity.desc&` + API_KEY + '&with_genres=' + encodeURI(selectedGenre.join(',')))
 }
 
 function recomendet_movies(url) {
@@ -393,24 +464,35 @@ function recomendet_movies(url) {
         if (data.results.length != 0) {
             data.results.forEach(el => {
 
-                let AllData = String(el.id + '|' + el.title + '|' + el.original_title + '|' + el.release_date.split('-')[0]).replaceAll("'", '')
+                let
+                    title = el.title,
+                    original_title = el.original_title,
+                    release_date = el.release_date
+
+                if (movie == 'tv') {
+                    title = el.name
+                    original_title = el.original_name
+                    release_date = el.first_air_date
+                }
+
+                let AllData = String(el.id + '/' + title + '/' + original_title + '/' + release_date.split('-')[0]).replaceAll("'", '') + `/${movie}`
 
                 let div = document.createElement('div');
                 div.className = 'movie swiper-slide recomendet-films-items'
                 // есле у фильма отсутствует название не показывать фильм ???
-                if (Boolean(el.title) && el.poster_path) {
+                if (Boolean(title) && el.poster_path) {
                     div.innerHTML = `
                         <div class='movie_estimate recomendet_films_movie_estimate'>
                             <img class='movie_favorite' src='../../assets/svg/favorite.svg'>
                         </div>
 
-                        <a href="watchMovie.html?${AllData}" class="watch__now allMovie" id="${el.id}" move_data="${String(el.title + ' ' + el.original_title + ' ' + el.release_date.split('-')[0]).replaceAll("'", '')}">
-                            <img src="${IMG_URL + el.poster_path}" alt="${el.title}">
+                        <a href="watchMovie.html?${AllData}" class="watch__now allMovie" id="${el.id + '_' + movie}" move_data="${String(title + ' ' + original_title + ' ' + release_date.split('-')[0]).replaceAll("'", '')}">
+                            <img src="${IMG_URL + el.poster_path}" alt="${title}">
                         </a>
 
                         <div class="movie-info">
-                            <h3 class="movie-info-title movie-title">${el.title.replace(':', '<br>')}</h3>
-                            <p class="movie-info-paragraph">${parseInt(el.release_date.split('-')[0])}</p>
+                            <h3 class="movie-info-title movie-title">${title.replace(':', '<br>')}</h3>
+                            <p class="movie-info-paragraph">${parseInt(release_date.split('-')[0])}</p>
                         </div>`
                     document.getElementById('recomendet_films').appendChild(div);
                 }
@@ -422,8 +504,8 @@ function recomendet_movies(url) {
             recomendet_films_Swiper()
         }, 1000);
 
-        get_recomendet_films_Bookmark_InServer()
-        getTMain_move_andPlay()
+        // get_recomendet_films_Bookmark_InServer()
+        // getTMain_move_andPlay()
     })
 }
 
@@ -443,129 +525,116 @@ document.getElementById('arrow_to_top').addEventListener('click', () => {
 })
 
 // --------- send one id 015131 ------------
-function get_top_Bookmark_InServer() {
-    // ------------ get all favorite -----------
-    fetch('../../backend/get_bookmark.php', {
-        method: 'get',
-        headers: { 'Content-Type': 'application/json', }
-    })
-        .then(r => r.json())
-        .then(res => {
-            if (res.registered) {
-                res.forEach(el => {
-                    document.querySelectorAll('.allMovie').forEach(movID => {
-                        if (movID.id == el[1]) {
-                            movID.parentElement.querySelector('.movie_estimate').classList.add('movie_estimate--active')
-                        }
-                    });
-                });
-            }
-        })
-        .catch(err => console.error('error -> ', err))
-    // -----------------------------------------
+// function get_top_Bookmark_InServer() {
+//     // ------------ get all favorite -----------
+//     fetch('../../backend/get_bookmark.php', {
+//         method: 'get',
+//         headers: { 'Content-Type': 'application/json', }
+//     })
+//         .then(r => r.json())
+//         .then(res => {
+//             if (res.registered) {
+//                 res.forEach(el => {
+//                     document.querySelectorAll('.allMovie').forEach(movID => {
+//                         if (movID.id == el[1]) {
+//                             movID.parentElement.querySelector('.movie_estimate').classList.add('movie_estimate--active')
+//                         }
+//                     });
+//                 });
+//             }
+//         })
+//         .catch(err => console.error('error -> ', err))
+//     // -----------------------------------------
 
-    document.querySelectorAll('.top_movie_estimate').forEach(el => {
-        el.addEventListener('click', () => {
+//     document.querySelectorAll('.top_movie_estimate').forEach(el => {
+//         el.addEventListener('click', () => {
+//             fetch('../../backend/bookmark.php', {
+//                 method: 'post',
+//                 headers: { 'Content-Type': 'application/json', },
+//                 body: JSON.stringify(el.parentElement.querySelector('.allMovie').id)
+//             })
+//                 .then(r => r.json())
+//                 .then(res => {
+//                     // console.log('ok -> ', res);
+//                     if (res.registered) {
+//                         el.classList.toggle('movie_estimate--active')
 
-            fetch('../../backend/bookmark.php', {
-                method: 'post',
-                headers: { 'Content-Type': 'application/json', },
-                body: JSON.stringify(el.parentElement.querySelector('.allMovie').id)
-            })
-                .then(r => r.json())
-                .then(res => {
-                    // console.log('ok -> ', res);
-                    if (res.registered) {
-                        el.classList.toggle('movie_estimate--active')
+//                         document.querySelectorAll('.recomendet-films>.movie>.allMovie').forEach(el2 => {
+//                             if (el2.id == el.parentElement.querySelector('.allMovie').id) {
+//                                 el2.parentElement.querySelector('.movie_estimate').classList.toggle('movie_estimate--active')
+//                             }
+//                         })
+//                     } else {
+//                         document.querySelector('.reg_popup').style.display = 'flex'
+//                     }
+//                 })
+//                 .catch(err => {
+//                     console.error('error -> ', err);
+//                 })
+//         })
+//     })
+// }
 
-                        document.querySelectorAll('.recomendet-films>.movie>.allMovie').forEach(el2 => {
-                            if (el2.id == el.parentElement.querySelector('.allMovie').id) {
-                                el2.parentElement.querySelector('.movie_estimate').classList.toggle('movie_estimate--active')
-                            }
-                        })
-                    } else {
-                        document.querySelector('.reg_popup').style.display = 'flex'
-                    }
-                })
-                .catch(err => {
-                    console.error('error -> ', err);
-                })
-        })
-    })
-}
+// function get_recomendet_films_Bookmark_InServer() {
 
-function get_recomendet_films_Bookmark_InServer() {
+//     document.querySelectorAll('.recomendet_films_movie_estimate').forEach(el => {
+//         el.addEventListener('click', () => {
+//             let movieUrl = decodeURI(window.location.search.split('/')[4])
 
-    document.querySelectorAll('.recomendet_films_movie_estimate').forEach(el => {
-        el.addEventListener('click', () => {
+//             fetch('../../backend/bookmark.php', {
+//                 method: 'post',
+//                 headers: { 'Content-Type': 'application/json', },
+//                 body: JSON.stringify(el.parentElement.querySelector('.allMovie').id)
+//             })
+//                 .then(r => r.json())
+//                 .then(res => {
+//                     // console.log('ok -> ', res);
+//                     if (res.registered) {
+//                         el.classList.toggle('movie_estimate--active')
 
-            fetch('../../backend/bookmark.php', {
-                method: 'post',
-                headers: { 'Content-Type': 'application/json', },
-                body: JSON.stringify(el.parentElement.querySelector('.allMovie').id)
-            })
-                .then(r => r.json())
-                .then(res => {
-                    // console.log('ok -> ', res);
-                    if (res.registered) {
-                        el.classList.toggle('movie_estimate--active')
+//                         document.querySelectorAll('.head-swiper-wrapper>.movie>.allMovie').forEach(el2 => {
+//                             if (el2.id == el.parentElement.querySelector('.allMovie').id) {
+//                                 el2.parentElement.querySelector('.movie_estimate').classList.toggle('movie_estimate--active')
+//                             }
+//                         })
+//                     } else {
+//                         document.querySelector('.reg_popup').style.display = 'flex'
+//                     }
+//                 })
+//                 .catch(err => {
+//                     console.error('error -> ', err);
+//                 });
+//         })
+//     });
+// }
 
-                        document.querySelectorAll('.head-swiper-wrapper>.movie>.allMovie').forEach(el2 => {
-                            if (el2.id == el.parentElement.querySelector('.allMovie').id) {
-                                el2.parentElement.querySelector('.movie_estimate').classList.toggle('movie_estimate--active')
-                            }
-                        })
-                    } else {
-                        document.querySelector('.reg_popup').style.display = 'flex'
-                    }
-                })
-                .catch(err => {
-                    console.error('error -> ', err);
-                });
-        })
-    });
-}
-
-const get_favorite = () => {
-    fetch('../../backend/get_bookmark.php', {
-        method: 'get',
-        headers: { 'Content-Type': 'application/json', }
-    })
-        .then(r => r.json())
-        .then(res => {
-            if (res.length) {
-                res.forEach(el => {
-                    document.querySelectorAll('.allMovie').forEach(movID => {
-                        if (movID.id == el[1]) {
-                            movID.parentElement.querySelector('.movie_estimate').classList.add('movie_estimate--active')
-                        }
-                    });
-                });
-            }
-        })
-        .catch(err => console.error('error -> ', err))
-}
+// const get_favorite = () => {
+//     fetch('../../backend/get_bookmark.php', {
+//         method: 'get',
+//         headers: { 'Content-Type': 'application/json', }
+//     })
+//         .then(r => r.json())
+//         .then(res => {
+//             if (res.length) {
+//                 res.forEach(el => {
+//                     document.querySelectorAll('.allMovie').forEach(movID => {
+//                         if (movID.id == el[1]) {
+//                             movID.parentElement.querySelector('.movie_estimate').classList.add('movie_estimate--active')
+//                         }
+//                     });
+//                 });
+//             }
+//         })
+//         .catch(err => console.error('error -> ', err))
+// }
 
 // reg_popup_account
 
-const reg_popup_account_close = () => {
-    document.getElementById('reg_popup_account_close').addEventListener('click', () => {
-        document.getElementById('reg_popup_account').style.cssText = 'display:none'
-    })
 
-    document.getElementById('reg_popup_account_registration').addEventListener('click', () => {
-        document.querySelector('.reg_popup').style.cssText = 'display:flex'
-    })
-}
-reg_popup_account_close()
-// loader off
+document.getElementById('reg_popup_account_close').addEventListener('click', () => {
+    document.getElementById('reg_popup_account').style.cssText = 'display:none'
+})
 
-function loaderOFF() {
-    document.querySelector('.loader').style.opacity = '0'
-    window.scrollTo(0, 0)
-
-    setTimeout(() => {
-        document.querySelector('.loader').style.display = 'none'
-        get_favorite()
-    }, 700)
-}
+document.getElementById('reg_popup_account_registration').addEventListener('click', () => {
+    document.querySelector('.reg_popup').style.cssText = 'display:flex'
+})

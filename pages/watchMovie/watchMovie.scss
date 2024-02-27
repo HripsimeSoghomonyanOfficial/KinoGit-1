@@ -63,6 +63,76 @@ body {
     background-color: $bgColor;
     font-family: 'Inter';
 }
+.showMassag_cookie_popup {
+    position: fixed;
+    display: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 1500;
+    padding: 15px;
+    background-color: #000000c7;
+    font-family: sans-serif;
+    line-height: 1.5;
+
+    .showMassag_cookie_popup_wrap {
+        display: flex;
+        flex-wrap: wrap;
+        flex-direction: row-reverse;
+        justify-content: flex-end;
+
+        width: 70%;
+        min-width: 280px;
+
+        div:nth-child(1) {
+            font-size: 11px;
+            text-align: left;
+        }
+
+        .showMassag_cookie_buttons_cont {
+            display: flex;
+            flex-wrap: wrap;
+            flex-direction: row-reverse;
+            justify-content: flex-end;
+        }
+
+        button {
+            display: flex;
+            flex-wrap: nowrap;
+            align-items: center;
+            justify-content: space-between;
+            padding: 10px 12px;
+            font-weight: 600;
+            border-radius: 6px;
+            transition: 150ms;
+            background-color: #FFB700;
+            color: black;
+            margin-top: 10px;
+            margin-right: 10px;
+            font-size: 12px;
+            cursor: pointer;
+
+            &:hover {
+                background-color: #ffd000;
+            }
+        }
+
+        button:nth-child(2) {
+            background-color: #c4c4c4;
+
+            &:hover {
+                background-color: #d4d3d3;
+            }
+        }
+    }
+}
 
 // registration popup styles
 .reg_popup {
@@ -214,6 +284,12 @@ body {
                 background-color: rgb(0, 255, 0);
             }
         }
+
+        #loginPassword,
+        #loginEmail {
+            text-transform: initial;
+        }
+
     }
 
     .registr {
@@ -262,6 +338,7 @@ body {
         padding: 4px 8px;
         border-radius: 4px;
         background-color: $color1;
+        color: $colorWhite;
         transition: 250ms;
         cursor: pointer;
 
@@ -271,6 +348,7 @@ body {
 
         &:hover {
             background-color: orange;
+            color: $colorBlack;
         }
     }
 
@@ -395,12 +473,6 @@ body {
 }
 
 // ------------------------
-
-img {
-    user-select: none;
-}
-
-// ------------------------
 header {
     background-color: black;
 }
@@ -409,7 +481,7 @@ header {
     position: relative;
     display: flex;
     width: 100%;
-    max-width: 1600px;
+    max-width: 1920px;
     margin: 0 auto;
     height: 80vh;
     max-height: 700px;
@@ -444,7 +516,7 @@ header {
     background-color: #0c0c0c;
     box-shadow: 0 0 25px 0 $colorBlack;
     padding: 0 25px;
-    z-index: 99999;
+    z-index: 50;
     transition: 300ms;
 }
 
@@ -628,6 +700,43 @@ header {
     }
 }
 
+.showMassag {
+    display: none;
+    align-items: center;
+    justify-content: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 100%;
+    height: 100vh;
+    background-color: black;
+    z-index: 10000;
+    text-align: center;
+
+    .showMassag_wrap {
+        color: white;
+        font-size: 17px;
+        text-align: center;
+    }
+
+    .showMassag-btn {
+        padding: 5px 12px;
+        background-color: $colororange;
+        color: white;
+        border-radius: 8px;
+        margin-top: 20px;
+        text-align: center;
+        display: inline-block;
+        cursor: pointer;
+    }
+}
+
+.showMassag-active {
+    display: flex;
+}
+
 .search-inp {
     width: 100%;
     border: none;
@@ -763,13 +872,12 @@ header {
         position: relative;
         display: inherit;
         margin-left: 8px;
-        height: 13px;
-        width: 65px;
-
-        img {
-            width: 100%;
-            height: 100%;
-        }
+        height: 12px;
+        width: 67px;
+        overflow: hidden;
+        background-image: url(../../assets/svg/yellowStar.png);
+        background-size: contain;
+        background-repeat: no-repeat;
 
         .reyting_stars_bg_width {
             position: absolute;
@@ -1166,12 +1274,12 @@ main {
     font-size: 30px;
     color: $colorWhite;
     text-shadow: 0 0 15px $colorBlack;
-    user-select: auto;
 }
 
 .reclam_player {
     width: 65%;
     height: 350px;
+    max-width: 710px;
     background-color: $bgColor;
     margin: 80px auto;
     color: $colorWhite;
@@ -1183,6 +1291,19 @@ main {
     .reclam_player_baner {
         text-align: center;
         line-height: 30px;
+    }
+
+    .reclam_player_items {
+        width: 100%;
+        overflow: hidden;
+
+        a {
+            img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+            }
+        }
     }
 }
 
@@ -1214,33 +1335,34 @@ main {
 }
 
 .players-cont {
+    position: relative;
     width: 65%;
     min-height: 350px;
     margin: 0 auto;
     margin-bottom: 100px;
-    user-select: none;
 }
 
 .slect-player {
     display: flex;
     position: relative;
-    z-index: 1;
+    padding: 0 0 0 8px;
+    z-index: 4;
 }
 
 .slect-player-btn {
     font-size: 13px;
-    background-color: rgb(192, 136, 33);
-    color: $colorBlack;
-    padding: 1px 22px;
-    margin-right: -20px;
+    background-color: $color1;
+    color: $colorWhite;
     font-size: 14px;
-    font-weight: bold;
-    clip-path: polygon(25% 0%, 100% 0%, 75% 100%, 4% 100%);
     transition: 350ms;
+    clip-path: polygon(7% 0, 100% 0, 94% 90%, 0% 100%);
+    text-align: center;
+    margin-left: -6px;
+    width: 100px;
+    padding: 6px 0px;
     cursor: pointer;
 
     &:nth-child(1) {
-        clip-path: polygon(0 0, 100% 0%, 75% 100%, 0% 100%);
         padding-left: 7px;
     }
 }
@@ -1250,16 +1372,31 @@ main {
 }
 
 .video-players {
-    display: none;
-    position: relative;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    z-index: 0;
+    position: absolute;
+    display: flex;
     align-items: center;
     justify-content: center;
     box-shadow: 0 0 20px 0 $colorBlack;
 
     >span {
-        position: absolute;
-        color: $colorWhite;
         z-index: -1;
+        font-size: 10px;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        padding: 0.75rem 1.25rem;
+        margin-bottom: 1rem;
+        font-family: inherit;
+        border: 1px solid transparent;
+        border-radius: 0.25rem;
+        color: #721c24;
+        background-color: #f8d7da;
+        border-color: #f5c6cb;
     }
 
     >div {
@@ -1269,12 +1406,14 @@ main {
         >iframe {
             width: 100% !important;
             height: 100% !important;
+            border: none !important;
         }
     }
 }
 
 .video-player-active {
-    display: flex;
+    opacity: 1;
+    z-index: 2;
 }
 
 .top-left_2-xxL {
@@ -1427,7 +1566,6 @@ main {
         background-size: cover;
         background-position: center;
     }
-
 }
 
 @media screen and (max-width:900px) {
@@ -1438,8 +1576,7 @@ main {
 
 @media screen and (max-width: 800px) {
     .move_info_cont .reyting_stars_cont {
-        height: 12px;
-        width: 61px;
+        width: 70px;
     }
 
     .head-top-slesh {
@@ -1626,6 +1763,11 @@ main {
         height: 250px;
     }
 
+    .reclams {
+        width: 100%;
+        height: 100%;
+    }
+
     // player 1
     #yohoho {
         width: 100% !important;
@@ -1703,7 +1845,7 @@ main {
     }
 
     .players-cont {
-        margin-bottom: 40px;
+        margin-bottom: 80px;
     }
 
     .recomendet-films-cont {
@@ -1714,6 +1856,13 @@ main {
         h1 {
             font-size: 22px;
         }
+    }
+
+    .slect-player-btn {
+        font-size: 12px;
+        width: 81px;
+        padding: 8px 0px;
+        transform: scale(0.97);
     }
 }
 
@@ -1727,5 +1876,19 @@ main {
     .move_info_cont {
         min-width: 310px;
         margin-left: 5px;
+    }
+
+    .reg_popup_wrap {
+        .registr {
+            padding: 10px;
+        }
+
+        .helper_text {
+            margin-bottom: 10px;
+        }
+
+        .clumn_conts {
+            min-height: 55px;
+        }
     }
 }

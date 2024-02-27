@@ -1,5 +1,5 @@
-register2()
-function register2() {
+register1()
+function register1() {
 
     const form = document.getElementById("registr__");
     // Добавляем слушатель события отправки формы
@@ -191,7 +191,7 @@ function login_from_admin() {
             window.location.href = 'https://kinogit.ru/pages/admin/admin.html'
             // window.location.href = '/pages/admin/admin.html'
         } else {
-            form.submit()
+            form.submit();
         }
     })
 }

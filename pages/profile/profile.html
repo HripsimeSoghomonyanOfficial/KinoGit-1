@@ -2,18 +2,27 @@
 <html lang="ru">
 
 <head>
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- icons -->
-    <link rel="apple-touch-icon" sizes="144x144" href="../../assets/logo-icon/apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="../../assets/logo-icon/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="../../assets/logo-icon/favicon-16x16.png">
-    <link rel="manifest" href="../../assets/logo-icon/site.webmanifest">
-    <link rel="mask-icon" href="../../assets/logo-icon/safari-pinned-tab.logo-icon" color="#5bbad5">
-    <link rel="shortcut icon" href="../../assets/logo-icon/favicon.ico">
-    <meta name="msapplication-TileColor" content="#da532c">
-    <meta name="msapplication-config" content="../../assets/logo-icon/browserconfig.xml">
-    <meta name="theme-color" content="#ffffff">
+    <link rel="apple-touch-icon" sizes="144x144" href="../../apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="../../favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="../../favicon-16x16.png">
+    <link rel="manifest" href="../../site.webmanifest">
+    <link rel="mask-icon" href="../../safari-pinned-tab.svg" color="#d28421">
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <meta name="apple-mobile-web-app-title" content="KinoGit">
+    <meta name="application-name" content="KinoGit">
+    <meta name="msapplication-TileColor" content="#000000">
+    <meta name="msapplication-config" content="../../browserconfig.xml">
+    <meta name="theme-color" content="#000000">
+    <!-- off Cache-Control -->
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
     <!-- loader -->
     <link rel="stylesheet" href="../../css/loader/loader.css">
     <!-- helper -->
@@ -27,12 +36,11 @@
     <!-- main -->
     <link rel="stylesheet" href="profile.css">
 
-    <title>KinoGid</title>
+    <title>KinoGit</title>
 </head>
 
 <body>
     <div class="loader">
-        <!-- loader  -->
         <div class="loader-wrapper">
             <svg class="pl" viewBox="0 0 176 160" width="176px" height="160px" xmlns="http://www.w3.org/2000/svg">
                 <defs>
@@ -54,17 +62,16 @@
             </svg>
 
             <div class="logo logo-loader">
-                <h1>Kino<span>Gid</span></h1>
+                <h1>Kino<span>Git</span></h1>
             </div>
         </div>
-        <!------------->
     </div>
 
     <div class="app">
         <header>
             <div class="head-top-cont">
                 <a href="../../index.html" class="logo">
-                    <h1>Kino<span>Gid</span></h1>
+                    <h1>Kino<span>Git</span></h1>
                 </a>
                 <form action="../../backend/logout.php" method="post">
                     <div class="log-aut">
@@ -81,7 +88,7 @@
                             <!-- <img src="../../assets/img/Sample_User_Icon.png" alt="person"> -->
                             <span class="user_first_letter"></span>
                             <div>
-                                <h3><b class="nameSurname"></b><span id="_nameSurname"></span></h3>
+                                <h3 class="title_nume"><b class="nameSurname"></b><span id="_nameSurname"></span></h3>
                                 <p><b class="mail">почта : </b><span id="_mail"></span></p>
                                 <p><b class="birthday">возраст : </b><span id="_birthday"></span></p>
                             </div>
@@ -89,13 +96,13 @@
                     </div>
                 </div>
 
-                <div class="main_sliderCont">
+                <div class="main_sliderCont main_sliderCont_history">
                     <div class="main_items">
                         <div class="main_items_imgCont main_items_imgCont-redact">
-                            <img src="../../assets/svg/history.svg" alt="history">
+                            <img class="main_items_img_history" src="../../assets/svg/history.svg" alt="history">
                         </div>
                         <div class="main_items_textCont main_items_textCont_history">
-                            <h4>история просмотра</h4>
+                            <h4>история</h4>
                         </div>
                         <div class="clearAll clearAll_history" id="btn_clearAll_history">очистить</div>
                     </div>
@@ -114,13 +121,13 @@
                         <div class="swiper-pagination swiper-pagination-1"></div>
                     </div>
                 </div>
-                <div class="main_sliderCont">
+                <div class="main_sliderCont main_sliderCont_favorite">
                     <div class="main_items">
                         <div class="main_items_imgCont">
-                            <img src="../../assets/svg/favorite.svg" alt="favorite">
+                            <img class="main_items_img_favorite" src="../../assets/svg/favorite.svg" alt="favorite">
                         </div>
                         <div class="main_items_textCont main_items_textCont_favorite">
-                            <h4>Избранные видео</h4>
+                            <h4>Избранные</h4>
                         </div>
                         <div class="clearAll clearAll_boockmark" id="btn_clearAll_boockmark">очистить</div>
                     </div>
@@ -139,16 +146,17 @@
                         <div class="swiper-pagination swiper-pagination-2"></div>
                     </div>
                 </div>
-                <div class="main_sliderCont ads">
+                <div class="main_sliderCont main_sliderCont_ads">
                     <div class="main_items row">
                         <div class="main_items_imgCont">
-                            <img src="../../assets/svg/ads.svg" alt="ads">
+                            <img class="main_items_img_ads" src="../../assets/svg/ads.svg" alt="ads">
                         </div>
-                        <div class="main_items_textCont">
+                        <div class="main_items_textCont main_items_textCont_advertising">
                             <h4>реклама в нашем сайте</h4>
+                            <p>в будущем вы можете самостоятельно добавить вашу рекламу на нашем сайте</p>
                         </div>
-                        <div class="main_items_imgCont">
-                            <img class="main_items_imgCont_adsImgRot" src="../../assets/svg/ads.svg" alt="favorite">
+                        <div class="main_items_imgCont main_items_imgCont_Rot">
+                            <img class=" main_items_img_ads" src="../../assets/svg/ads.svg" alt="favorite">
                         </div>
                     </div>
                 </div>
@@ -161,13 +169,14 @@
         <footer>
             <div class="footer-wrapper">
                 <a href="../../index.html" class="logo">
-                    <h1>Kino<span>Gid</span></h1>
+                    <h1>Kino<span>Git</span></h1>
                 </a>
             </div>
         </footer>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-element-bundle.min.js"></script>
     <script type="text/javascript" src="profile.js"></script>
+    <script src="guests.js"></script>
 
 </body>
 

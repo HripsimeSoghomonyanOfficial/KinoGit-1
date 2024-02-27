@@ -23,7 +23,7 @@ let get_user_info = () => {
 get_user_info()
 
 // history
-let history = async () => {
+let history = () => {
     // get
     fetch('../../backend/get_historywatch.php', {
         method: 'post', headers: { 'Content-Type': 'application/json', },
@@ -49,18 +49,34 @@ let history = async () => {
     // set
     function history_drow(move_id) {
         move_id[0].forEach((M_id, i) => {
-            fetch(`https://api.themoviedb.org/3/movie/${M_id}?language=ru-RU&api_key=1cf50e6248dc270629e802686245c2c8`)
+            M_id = M_id.split('_')
+
+            let
+                new_id = M_id[0],
+                movie_or_tv = M_id[1]
+
+            fetch(`https://api.themoviedb.org/3/${movie_or_tv}/${new_id}?language=ru-RU&api_key=1cf50e6248dc270629e802686245c2c8`)
                 .then(r => r.json())
                 .then(res => {
-                    // console.log(res);
+                    let
+                        title = res.title,
+                        original_title = res.original_title,
+                        release_date = res.release_date
+
+                    if (movie_or_tv == 'tv') {
+                        title = res.name
+                        original_title = res.original_name
+                        release_date = res.first_air_date
+                    }
+
                     let swiperSlide = document.createElement('div')
                     swiperSlide.className = 'swiper-slide'
-                    swiperSlide.id = M_id
+                    swiperSlide.id = new_id + '_' + movie_or_tv
                     swiperSlide.innerHTML = `
                         <span class='deleteMovie deleteMovie_History'>X</span>
-                        <a href ='../watchMovie/watchMovie.html?${M_id}&${res.original_title}&${res.title}&${String(res.release_date).slice(0, 4)}'>
+                        <a href ='../watchMovie/watchMovie.html?${new_id}/${title}/${original_title}/${String(release_date).slice(0, 4)}'>
                             <img src="https://image.tmdb.org/t/p/w500${res.poster_path}">
-                            <p>${res.title.slice(0, res.title.indexOf(':'))}</p>
+                            <p>${title.slice(0, title.indexOf(':'))}</p>
                         </a>`
                     document.getElementById('swiper_wrapper_history').appendChild(swiperSlide)
 
@@ -80,20 +96,20 @@ let history = async () => {
 history()
 
 // favorite
-let favorite = async () => {
+let favorite = () => {
     // get
     fetch('../../backend/get_bookmark.php', {
         method: 'post', headers: { 'Content-Type': 'application/json', },
     })
         .then(r => r.json()).then(res => {
-            // off 
+            // off
             if (res.length) {
                 let ID = [res.map(el => el[1])]
                 favorite_drow(ID)
 
                 document.querySelector('.favorite_text').classList.add('off')
             }
-            //on
+            // on
             else {
                 let nuttons = document.querySelectorAll('.favorite-buttons')
                 nuttons[0].classList.add('off')
@@ -101,23 +117,43 @@ let favorite = async () => {
                 allLoaded()
             }
         })
-        .catch(err => console.error('error -> ', err))
+        .catch(err => console.log('error -> ', null))
 
     // set
     function favorite_drow(move_id) {
         move_id[0].forEach((M_id, i) => {
-            fetch(`https://api.themoviedb.org/3/movie/${M_id}?language=ru-RU&api_key=1cf50e6248dc270629e802686245c2c8`)
+            M_id = M_id.split('_')
+
+            let
+                movie_or_tv = '',
+                new_id = '';
+
+            new_id = M_id[0]
+            movie_or_tv = M_id[1]
+
+            fetch(`https://api.themoviedb.org/3/${movie_or_tv}/${new_id}?language=ru-RU&api_key=1cf50e6248dc270629e802686245c2c8`)//?????
                 .then(r => r.json())
                 .then(res => {
+                    let
+                        title = res.title,
+                        original_title = res.original_title,
+                        release_date = res.release_date
+
+                    if (movie_or_tv == 'tv') {
+                        title = res.name
+                        original_title = res.original_name
+                        release_date = res.first_air_date
+                    }
+
                     let swiperSlide = document.createElement('div')
                     swiperSlide.className = 'swiper-slide'
-                    swiperSlide.id = M_id
+                    swiperSlide.id = new_id + '_' + movie_or_tv
                     swiperSlide.innerHTML = `
-                        <span class='deleteMovie deleteMovie_favorite'>X</span>
-                        <a href ='../watchMovie/watchMovie.html?${M_id}&${res.original_title}&${res.title}&${String(res.release_date).slice(0, 4)}'>
-                            <img src="https://image.tmdb.org/t/p/w500${res.poster_path}">
-                            <p>${res.title.slice(0, res.title.indexOf(':'))}</p>
-                        </a>`
+                                <span class='deleteMovie deleteMovie_favorite'>X</span>
+                                <a href ='../watchMovie/watchMovie.html?${new_id}/${title}/${original_title}/${String(release_date).slice(0, 4)}'>
+                                    <img src="https://image.tmdb.org/t/p/w500${res.poster_path}">
+                                    <p>${title.slice(0, title.indexOf(':'))}</p>
+                                </a>`
                     document.getElementById('swiper_wrapper_favorite').appendChild(swiperSlide)
                     if (i >= move_id[0].length - 1) {
                         allLoaded()
@@ -152,10 +188,10 @@ const swipperInti = () => {
             340: {
                 slidesPerView: 2,
             },
-            480: {
+            500: {
                 slidesPerView: 3,
             },
-            700: {
+            600: {
                 slidesPerView: 4,
             },
             800: {
@@ -190,14 +226,14 @@ function delete_history() {
         el.addEventListener('click', () => {
             const id = el.parentNode.id
             const delete_M = el.parentNode
-
+            console.log(id);
             fetch('../../backend/remove_history.php', {
                 method: 'post',
                 headers: { 'Content-Type': 'application/json', },
                 body: JSON.stringify(id),
             })
                 .then(r => r.json()).then(response => {
-                    // console.log('ok -> History', response);
+                    console.log('ok -> History', response);
                     delete_M.remove()
                 })
                 .catch(err => {
@@ -245,7 +281,7 @@ function delete_favorite() {
                 })
                 .catch(err => {
                     console.error('error -> ', err);
-                });
+                })
         })
     })
 

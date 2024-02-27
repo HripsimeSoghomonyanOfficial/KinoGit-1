@@ -85,6 +85,22 @@ main {
 .instruction p {
   margin: 5px 20px;
 }
+.instruction .btn_clear_catch {
+  border: none;
+  outline: none;
+  color: white;
+  display: inline-block;
+  background-color: rgba(255, 255, 255, 0.1411764706);
+  transition: 250ms;
+  padding: 8px 12px;
+  border-radius: 5px;
+  margin: 5px 0 5px 30px;
+  text-transform: capitalize;
+  cursor: pointer;
+}
+.instruction .btn_clear_catch:hover {
+  background-color: #e89700;
+}
 
 footer {
   padding: 40px 0;
@@ -140,4 +156,4 @@ footer p span {
   .links-cont-active {
     right: 0;
   }
-}/*# sourceMappingURL=fac.css.map */
+}
