@@ -1,5 +1,5 @@
 <?php
-$connection = mysqli_connect("kinogit", "root", "", "karapetyan");
+$connection = mysqli_connect("localhost", "edgar0j2_db", "Karapetyan7695", "edgar0j2_db");
 if (mysqli_connect_errno()) {
     echo "Failed to connect to MySQL: " . mysqli_connect_error() . ". Try to connect again";
     exit();
@@ -14,7 +14,7 @@ if (isset($_COOKIE['user_id'])) {
         exit();
     }
     $get_id = json_decode(file_get_contents('php://input'), true);
-    $connection = mysqli_connect("kinogit", "root", "", "karapetyan");
+    $connection = mysqli_connect("localhost", "edgar0j2_db", "Karapetyan7695", "edgar0j2_db");
     if (mysqli_connect_errno()) {
         echo "Failed to connect to MySQL: " . mysqli_connect_error() . ". Try to connect again";
         exit();

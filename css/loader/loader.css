@@ -22,7 +22,14 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    flex-direction: column;
     transition: 1s;
+}
+
+.errText_runVPN {
+    display: none;
+    text-align: center;
+    padding: 10px 20px;
 }
 
 .loader-wrapper {
@@ -30,6 +37,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    margin-bottom: 20px;
 }
 
 .logo-loader {

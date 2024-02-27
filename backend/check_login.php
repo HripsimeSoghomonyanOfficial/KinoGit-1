@@ -1,6 +1,6 @@
 <?php
 function check_login(){
-    $connection = mysqli_connect("kinogit", "root", "", "karapetyan");
+    $connection = mysqli_connect("localhost", "edgar0j2_db", "Karapetyan7695", "edgar0j2_db");
 if (mysqli_connect_errno()) {
     echo "Failed to connect to MySQL: " . mysqli_connect_error() . ". Try to connect again";
     exit();
